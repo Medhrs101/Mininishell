@@ -95,6 +95,8 @@ void    print_tab2d(char **tab);
 // void    search_file();
 void    get_file(int i, t_file *file);
 void    search_files(t_node *node);
+void    inverse(char *tab);
+void    inverse_args(char **tab);
 void    print_lst_files(t_node *node);
 // void    get_file(int i);
 

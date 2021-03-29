@@ -1,5 +1,18 @@
 #include "minishell.h"
 
+void    inverse(char *tab)
+{
+    int i;
+
+    i = 0;
+    while (tab[i])
+    {
+        if (tab[i] < 0)
+            tab[i] *= -1;
+        i++;
+    }
+}
+
 void    get_file(int i, t_file *file)
 {
     t_var   *var;
@@ -24,6 +37,7 @@ void    get_file(int i, t_file *file)
     {
         save_end_i = i;
         file->name_file = ft_substr(var->str, save_i, save_end_i - save_i);
+        inverse(file->name_file);
         var->tmp1 = ft_substr(var->str, 0, save);
         var->tmp2 = &var->str[save_end_i];
         var->str = ft_strjoin(var->tmp1, var->tmp2);

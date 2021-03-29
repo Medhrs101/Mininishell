@@ -7,12 +7,13 @@ void    print_tab2d(char **tab)
     while(tab[i])
     {
         j = 0;
+        ft_putchar_fd('{', 1);
         while(tab[i][j])
         {
             ft_putchar_fd(tab[i][j], 1);
             j++;
         }
-        ft_putchar_fd('\n', 1);
+        ft_putstr_fd("}\n", 1);
         i++;
     }
 }
@@ -24,21 +25,21 @@ int    print_error(int errno)
     v = get_struct_var(NULL);
     v->errno = errno;
     if (v->errno == NEWLINE)
-        ft_putstr_fd ("minishell: syntax error near unexpected token `newline'", 2);
+        ft_putstr_fd ("minishell: syntax error near unexpected token `newline'\n", 2);
     else if (v->errno == UN_PIPE)
-        ft_putstr_fd("minishell: syntax error near unexpected token `|'", 2);
+        ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
     else if (v->errno == UN_LR)
-        ft_putstr_fd("minishell: syntax error near unexpected token `<'", 2);
+        ft_putstr_fd("minishell: syntax error near unexpected token `<'\n", 2);
     else if (v->errno == UN_RR)
-        ft_putstr_fd("minishell: syntax error near unexpected token `>'", 2);
+        ft_putstr_fd("minishell: syntax error near unexpected token `>'\n", 2);
     else if (v->errno == UN_DR)
-        ft_putstr_fd("minishell: syntax error near unexpected token `>>'", 2);
+        ft_putstr_fd("minishell: syntax error near unexpected token `>>'\n", 2);
     else if (v->errno == UN_SC)
-        ft_putstr_fd("minishell: syntax error near unexpected token `;'", 2);
+        ft_putstr_fd("minishell: syntax error near unexpected token `;'\n", 2);
     else if (v->errno == UN_DSC)
-        ft_putstr_fd("minishell: syntax error near unexpected token `;;'", 2);
+        ft_putstr_fd("minishell: syntax error near unexpected token `;;'\n", 2);
     else if (v->errno == UN_DPIPE)
-        ft_putstr_fd("minishell: syntax error near unexpected token `||'", 2);
+        ft_putstr_fd("minishell: syntax error near unexpected token `||'\n", 2);
     return (v->errno);
 }
 
@@ -134,7 +135,7 @@ void    b_slash(i)
     t_var *v;
 
     v = get_struct_var(NULL);
-    puts("3iw ");
+    // puts("3iw ");
     if(v->flg_s_q)
     { 
         v->input[i] *= -1;

@@ -31,6 +31,42 @@ void    print_lst()
         }
 }
 
+void    inverse_args(char **tab)
+{
+    int     i;
+    int     j;
+
+    i = 0;
+    j = 0;
+    while(tab[i])
+    {
+        j = 0;
+        while(tab[i][j])
+        {
+            if (tab[i][j] < 0)
+                tab[i][j] *= -1;
+            j++;
+        }
+        i++;
+    }
+    // puts("segfault\n");
+}
+
+// void    inverse(t_node *node)
+// {
+//     int     i;
+
+//     i = 0;
+//     while(node->cmd[i])
+//     {
+//         if (node->cmd[i] < 0)
+//             node->cmd[i] *= -1;
+//         i++;
+//     }
+//     // puts("segfault\n");
+// }
+
+
 void    stock_cmd(char *str)
 {
     t_var   *var;
@@ -50,7 +86,9 @@ void    stock_cmd(char *str)
         var->str = tab[i];
         search_files(node);
         node->args = ft_split(var->str, ' ');
+        inverse_args(node->args);
         node->cmd = node->args[0];
+        inverse(node->cmd);
         join_cmd_list(node);
         i++;
     }
@@ -256,6 +294,7 @@ void    clear_lst_files(t_node *node)
     {
         while(current)
         {
+            // printf ("{%s}\n", current->name_file);
             free(current->name_file);
             current = current->next;
         }

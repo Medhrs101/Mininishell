@@ -52,7 +52,7 @@ void    let_start()
     {
         ft_putstr_fd("Minishell-> ", 1);
         ft_initial();
-        // var->input = ft_strdup("echo \\\\\\$HOME \"\\\\$HOME\"");
+        // var->input = ft_strdup("cd kj > \" hello ; ' \"");
         if ( (r = get_next_line(0, &var->input)) == -1 )
         {
             free(var->input);
