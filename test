@@ -1,0 +1,15 @@
+echo \\\\$HOME \\\$HOME \n "\\\\$HOME hello\n\$PWD\\$PWD\""
+echo \\\\\\\\$HOME \\\\\\$HOME \\n \"\\\\\\\\$HOME hello\\n\\$PWD\\\\$PWD\\\"\"
+echo \"\\\\\\\\$HOME hello\\n\\$PWD\\\\$PWD\\\"\"
+echo \\\\\\$HOME \"\\\\$HOME\" 
+traitment backslash
+
+echo **$HOME *\$HOME \n "**$HOME HELLO*n\$PWD*$PWD\#"
+
+traitment dolar $
+
+echo **path *\$HOME \n "**path HELLO*n\$PWD*path\#"
+
+traitement backslash
+
+echo **path *\$HOME n "**path HELLO*n$PWD*path#"
