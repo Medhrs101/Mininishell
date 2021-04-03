@@ -1,12 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
+/*   Updated: 2021/04/03 14:32:26 by moharras         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
-# define MINISHELL_H
-# include <stdio.h>
+#define MINISHELL_H
+#include <stdio.h>
 #include <unistd.h>
+#include <limits.h>
+#include <dirent.h>
+#include <sys/stat.h>
 #include <string.h>
-#include <fcntl.h>
-# include "./libft/libft.h"
-
-
+#include "./libft/libft.h"
+#define ENVI 5544
+#define EXPRT 5545
 # define NEWLINE -101
 # define UN_PIPE -102
 # define UN_LR -103
@@ -15,6 +29,7 @@
 # define UN_SC -106
 # define UN_DSC -107
 # define UN_DPIPE -108
+
 
 typedef struct s_env
 {
@@ -25,6 +40,16 @@ typedef struct s_env
 	struct s_env *prev;
 	struct s_env *next;
 } t_env;
+
+typedef struct s_global
+{
+	t_env *envar;
+	char *home;
+	int	pid;
+	int exit_stat;
+	int stdi;
+	int stdo;
+}	t_global;
 
 typedef struct s_file
 {
@@ -43,7 +68,8 @@ typedef struct s_node
 
 typedef struct s_var
 {
-    t_env   *envar;
+    // t_env   *envar;
+    t_global *m_gl;
 	char    *home;
     int     flag;
     int     flg_s_q;
@@ -64,9 +90,49 @@ typedef struct s_var
     char    *tmp3;
     int     flagi;
     char    **sc_sp;
+    char    **p_sp;
+    int     status;
     t_node  *node;
 }               t_var;
 
+// void execute(t_global *m_gl, char *line);
+void execute(t_global *m_gl, t_node *node);
+void init(t_global *m_gl);
+void modify_path(t_env *env_l);
+void env_copy(t_global *m_gl, char **env_t);
+// int check_built(t_global *m_gl, char **cmd);
+int check_built(t_global *m_gl, t_node *node);
+int ft_strcmp(const char *s1, const char *s2);
+void	exec_main(t_global *m_gl, char	*line);
+void echo_main(t_global *m_gl, char **tab);
+void cd_main(t_global *m_gl, char **tab);
+int check_opt_echo(char **tab);
+int ls(void);
+void pwd_main(t_global *m_gl, char **tab);
+
+void ft_lstadd_back_m(t_env **alst, t_env *new);
+int ft_lstsize_m(t_env *lst);
+// t_env *ft_lstnew_m(void *content, int type);
+t_env *ft_lstnew_m(void *ident, void *value, char equal);
+t_env *ft_lstlast_m(t_env *lst);
+void ft_lstdelone_m(t_env *lst);
+
+void export_main(t_global *m_gl, char **tab);
+
+void env_main(t_global *m_gl, char **tab);
+int count_tab(char **tab);
+
+void ft_deletenode(t_env **head_ref, t_env *del);
+int unset(t_global *m_gl, char **tab);
+
+void free_tab(char **tab);
+int ident_val(char *str);
+
+void	print_err(char	*str, char *arg);
+
+int		c_split(char const *str, char c);
+
+// ---------------------------------- PARSE PART ------------------------------------------
 
 void    ft_initial();
 void    caracter(char c, int i);
@@ -100,10 +166,10 @@ void    inverse_args(char **tab);
 void    print_lst_files(t_node *node);
 // void    get_file(int i);
 
-void ft_lstadd_back_m(t_env **alst, t_env *new);
-int ft_lstsize_m(t_env *lst);
-t_env *ft_lstnew_m(void *ident, void *value, char equal);
-t_env *ft_lstlast_m(t_env *lst);
-void ft_lstdelone_m(t_env *lst);
-void	free_tab(char **tab);
+// void ft_lstadd_back_m(t_env **alst, t_env *new);
+// int ft_lstsize_m(t_env *lst);
+// t_env *ft_lstnew_m(void *ident, void *value, char equal);
+// t_env *ft_lstlast_m(t_env *lst);
+// void ft_lstdelone_m(t_env *lst);
+// void	free_tab(char **tab);
 #endif

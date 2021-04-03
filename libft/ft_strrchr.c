@@ -3,32 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/18 23:59:45 by moharras          #+#    #+#             */
-/*   Updated: 2019/10/20 22:47:21 by moharras         ###   ########.fr       */
+/*   Created: 2019/10/19 17:08:28 by ymarji            #+#    #+#             */
+/*   Updated: 2019/10/23 16:51:37 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
-	unsigned char	p_c;
-	char			*p_s;
-	int				i;
-	int				count;
+	char	myc;
+	char	*str;
+	int		len;
 
-	i = 0;
-	p_s = (char*)s;
-	p_c = (char)c;
-	while (p_s[i])
-		i++;
-	count = i;
-	while (i-- > 0)
-		if (p_s[i] == p_c)
-			return (p_s + i);
-	if (p_s[count] == '\0' && c == '\0')
-		return (p_s + count);
+	str = (char *)s;
+	myc = (char)c;
+	len = (int)ft_strlen(str);
+	while (len >= 0)
+	{
+		if (str[len] == myc)
+			return (str + len);
+		--len;
+	}
 	return (NULL);
 }

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/28 12:00:38 by moharras          #+#    #+#             */
-/*   Updated: 2019/11/10 14:18:09 by moharras         ###   ########.fr       */
+/*   Created: 2019/11/03 14:26:21 by ymarji            #+#    #+#             */
+/*   Updated: 2019/11/07 09:51:21 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (lst && del)
+	if (lst)
 	{
 		(*del)(lst->content);
 		free(lst);

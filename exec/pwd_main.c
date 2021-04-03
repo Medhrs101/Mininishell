@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   pwd_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/03 14:26:13 by ymarji            #+#    #+#             */
-/*   Updated: 2019/11/07 09:51:02 by ymarji           ###   ########.fr       */
+/*   Created: 2021/02/24 15:32:02 by ymarji            #+#    #+#             */
+/*   Updated: 2021/04/01 10:17:13 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+void pwd_main(t_global *m_gl, char **tab)
 {
-	if (new == NULL)
-	{
-		return ;
-	}
-	new->next = *alst;
-	*alst = new;
+	char path[PATH_MAX];
+
+	getcwd(path, sizeof(path));
+	printf("%s\n", path);
 }

@@ -6,11 +6,11 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:25:56 by ymarji            #+#    #+#             */
-/*   Updated: 2021/03/17 12:33:39 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/01 10:17:13 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 t_env *ft_lstlast_m(t_env *lst)
 {

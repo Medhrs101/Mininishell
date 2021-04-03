@@ -3,33 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/08 15:55:59 by moharras          #+#    #+#             */
-/*   Updated: 2019/11/10 14:23:10 by moharras         ###   ########.fr       */
+/*   Created: 2019/11/03 14:26:49 by ymarji            #+#    #+#             */
+/*   Updated: 2019/11/06 10:56:52 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list		*new_lst;
-	t_list		*lst_rt;
+	t_list	*head;
+	t_list	*tmp;
 
-	lst_rt = NULL;
+	head = NULL;
 	if (lst)
 	{
-		while (lst != NULL)
+		if (!(head = ft_lstnew((*f)(lst->content))))
+			return (NULL);
+		tmp = head;
+		lst = lst->next;
+		while (lst)
 		{
-			if (!(new_lst = ft_lstnew(((*f)(lst->content)))))
+			if (!(tmp->next = ft_lstnew((*f)(lst->content))))
 			{
-				ft_lstclear(&lst_rt, del);
+				ft_lstclear(&head, del);
 				return (NULL);
 			}
-			ft_lstadd_back(&lst_rt, new_lst);
+			tmp = tmp->next;
 			lst = lst->next;
 		}
 	}
-	return (lst_rt);
+	return (head);
 }

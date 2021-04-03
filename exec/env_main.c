@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   env_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/03 14:26:13 by ymarji            #+#    #+#             */
-/*   Updated: 2019/11/07 09:51:02 by ymarji           ###   ########.fr       */
+/*   Created: 2021/03/04 16:07:16 by ymarji            #+#    #+#             */
+/*   Updated: 2021/04/01 10:17:13 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+void env_main(t_global *m_gl, char **tab)
 {
-	if (new == NULL)
+	t_env *tmp;
+
+	tmp = m_gl->envar;
+	while (tmp)
 	{
-		return ;
+		printf("%s%c%s\n", tmp->ident, tmp->equal, tmp->value);
+		tmp = tmp->next;
 	}
-	new->next = *alst;
-	*alst = new;
 }

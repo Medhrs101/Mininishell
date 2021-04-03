@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 void    print_tab2d(char **tab)
 {
@@ -24,6 +24,7 @@ int    print_error(int errno)
 
     v = get_struct_var(NULL);
     v->errno = errno;
+    v->status = 258;
     if (v->errno == NEWLINE)
         ft_putstr_fd ("minishell: syntax error near unexpected token `newline'\n", 2);
     else if (v->errno == UN_PIPE)

@@ -1,8 +1,19 @@
 NAME = minishell
 LIB = minishell.a
 MAIN = minishell.c
-SRC = minishell_utils.c mns_utils_1.c divid_input.c \
-	search_files.c ls_maker.c 
+SRC =./exec/echo_main.c \
+	./exec/unset.c \
+	./exec/start.c \
+	./exec/env_main.c \
+	./exec/exec_cmd.c \
+	./exec/export_main.c \
+	./exec/ls_maker.c  \
+	./exec/pwd_main.c \
+	./exec/cd_main.c \
+	./parss/divid_input.c \
+	./parss/minishell_utils.c \
+	./parss/mns_utils_1.c \
+	./parss/search_files.c
 
 # MAIN = test.c
 # SRC = minishell_utils.c
@@ -11,7 +22,7 @@ LIBFT = ./libft/libft.a
 
 OBJ = $(SRC:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror
+# FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
@@ -19,6 +30,7 @@ $(NAME) : $(OBJ)
 	ar rcs $(LIB) $(OBJ)
 	cd ./libft && make
 	gcc $(FLAGS) $(MAIN) $(LIB) $(LIBFT) -o $(NAME)
+	./minishell
 
 %.o: %.c
 	gcc $(FLAGS) -o $@ -c $<

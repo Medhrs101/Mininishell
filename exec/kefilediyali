@@ -1,0 +1,42 @@
+# NAME = minishell
+# LIB = minishell.a
+# MAIN = minishell.c
+# CC		= gcc
+# # CFLAGS = -Wall -Wextra -Werror
+
+# SRC = ./exec/minishell_main.c \
+# 	./exec/echo_main.c \
+# 	./exec/unset.c \
+# 	./exec/env_main.c \
+# 	./exec/exec_cmd.c \
+# 	./exec/export_main.c \
+# 	./exec/ls_maker.c  \
+# 	./exec/pwd_main.c \
+# 	./exec/cd_main.c \
+# 	./get_next_line/get_next_line.c \
+# 	./get_next_line/get_next_line_utils.c \
+# 	./parss/divid_input.c \
+# 	./parss/libft.a \
+# 	./parss/ls_maker.c \
+# 	./parss/main.c \
+# 	./parss/minishell.c \
+# 	./parss/minishell.h \
+# 	./parss/minishell_utils.c \
+# 	./parss/mns_utils_1.c \
+# 	./parss/search_files.c
+
+# OBJ = ${SRC:.c=.o}
+
+# all:$(NAME)
+
+# $(NAME): $(OBJ)
+# 	gcc $(CFLAGS) $(OBJ) -L./libft -lft -o out
+
+# clean:
+# 	rm -f $(OBJ)
+
+# fclean: clean
+# 	rm -f $(NAME)
+# 	rm -f out
+
+# re: fclean all

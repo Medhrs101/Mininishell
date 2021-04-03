@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ymarji <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/20 15:57:29 by moharras          #+#    #+#             */
-/*   Updated: 2019/11/09 18:48:07 by moharras         ###   ########.fr       */
+/*   Created: 2019/10/20 13:35:12 by ymarji            #+#    #+#             */
+/*   Updated: 2019/10/21 18:52:32 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *hay, const char *needle, size_t len)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	char			*p_hay;
-	char			*p_needle;
-	size_t			i;
-	size_t			j;
+	int		i;
+	int		j;
+	char	*str;
 
+	str = (char *)haystack;
 	j = 0;
 	i = 0;
-	p_hay = (char*)hay;
-	p_needle = (char*)needle;
-	if (!*p_needle || (len == 0 && !hay))
-		return (p_hay);
-	while (p_hay[i] && i < len)
+	if (ft_strlen(needle) == 0)
+		return (str);
+	while (str[i] && i < (int)len)
 	{
-		j = 0;
-		while (p_needle[j] != '\0' &&
-				p_needle[j] == p_hay[i + j] && i + j < len)
-			j++;
-		if (p_needle[j] == '\0')
-			return (p_hay + i);
+		if (str[i] == needle[0])
+		{
+			j = 1;
+			while (str[i + j] == needle[j] && i + j < (int)len && needle[j])
+				j++;
+			if (needle[j] == '\0')
+				return (str + i);
+		}
 		i++;
 	}
 	return (0);
