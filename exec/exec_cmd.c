@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/01 10:17:13 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/03 16:34:44 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ char *get_path(t_global *m_gl, char *cmd)
 	return (check_pathh(tab, cmd));
 }
 
-void exec_main(t_global *m_gl, char *line)
+void exec_main(t_global *m_gl, t_node *node)
 {
 	char *path;
 	char **args;
 	char **envp;
 
-	args = ft_split(line, ' ');
+	args = node->args;
 	path = get_path(m_gl, args[0]);
 	envp = env_tab(m_gl);
 	m_gl->pid = fork();

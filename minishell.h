@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/03 14:32:26 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/03 16:35:31 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void env_copy(t_global *m_gl, char **env_t);
 // int check_built(t_global *m_gl, char **cmd);
 int check_built(t_global *m_gl, t_node *node);
 int ft_strcmp(const char *s1, const char *s2);
-void	exec_main(t_global *m_gl, char	*line);
+void	exec_main(t_global *m_gl, t_node *node);
 void echo_main(t_global *m_gl, char **tab);
 void cd_main(t_global *m_gl, char **tab);
 int check_opt_echo(char **tab);

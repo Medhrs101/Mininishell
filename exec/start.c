@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:22:30 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/02 17:27:43 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/03 16:35:51 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ int check_built(t_global *m_gl, t_node *node)
 {
 	char	**cmd = node->args;
 
-	if (node->cmd && !strcmp(node->cmd, "echo"))
+	if (node->cmd && !ft_strcmp(node->cmd, "echo"))
 		echo_main(m_gl, node->args);
-	else if (node->cmd && !strcmp(node->cmd, "cd"))
+	else if (node->cmd && !ft_strcmp(node->cmd, "cd"))
 		cd_main(m_gl, cmd);
-	else if (node->cmd && !strcmp(node->cmd, "pwd"))
+	else if (node->cmd && !ft_strcmp(node->cmd, "pwd"))
 		pwd_main(m_gl, cmd);
-	else if (node->cmd && !strcmp(node->cmd, "env"))
+	else if (node->cmd && !ft_strcmp(node->cmd, "env"))
 		env_main(m_gl, cmd);
-	else if (node->cmd && !strcmp(node->cmd, "export"))
+	else if (node->cmd && !ft_strcmp(node->cmd, "export"))
 		export_main(m_gl, cmd);
-	else if (node->cmd && !strcmp(node->cmd, "unset"))
+	else if (node->cmd && !ft_strcmp(node->cmd, "unset"))
 		unset(m_gl, cmd);
-	else if (node->cmd && !strcmp(node->cmd, "exit"))
+	else if (node->cmd && !ft_strcmp(node->cmd, "exit"))
 		exit(0);
 	else
 		return (0);
@@ -51,9 +51,9 @@ void execute(t_global *m_gl, t_node *node)
 
 	// tab = ft_split(line, ' ');
 	if (tab[0] && !(i = check_built(m_gl, node)))
-		// exec_main(m_gl, line);
+		exec_main(m_gl, node);
 	// else if (tab[0] && !i)
-		print_err("bash: %s: command not found\n", tab[0]);
+		// print_err("bash: %s: command not found\n", tab[0]);
 	// free_tab(tab);
 }
 

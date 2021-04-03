@@ -6,11 +6,29 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:04:40 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/02 17:32:51 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/03 15:43:20 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	check_opt(char	*str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!i && str[i] != '-')
+			return (0);
+		else if (i && str[i] != 'n')
+		{
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
 
 int check_opt_echo(char **tab)
 {
@@ -18,7 +36,7 @@ int check_opt_echo(char **tab)
 
 	flag = 1;
 	while (tab[flag])
-		if (tab[flag] && !ft_strncmp(tab[flag], "-n", ft_strlen(tab[flag])))
+		if (tab[flag] && check_opt(tab[flag]))
 			flag++;
 		else
 			break;

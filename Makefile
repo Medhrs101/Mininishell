@@ -30,7 +30,7 @@ $(NAME) : $(OBJ)
 	ar rcs $(LIB) $(OBJ)
 	cd ./libft && make
 	gcc $(FLAGS) $(MAIN) $(LIB) $(LIBFT) -o $(NAME)
-	./minishell
+	# ./minishell
 
 %.o: %.c
 	gcc $(FLAGS) -o $@ -c $<
