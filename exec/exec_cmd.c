@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/03 16:34:44 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/05 10:47:02 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,26 @@ char *check_pathh(char **path, char *cmd)
 	struct stat buffer;
 
 	i = 0;
-	tmp = ft_strjoin("/", cmd);
-	if (path)
-		while (path[i])
-		{
-			str = ft_strjoin(path[i], tmp);
-			if (!stat(str, &buffer))
+	if (stat(cmd, &buffer))
+	{
+		tmp = ft_strjoin("/", cmd);
+		if (path)
+			while (path[i])
 			{
-				free(tmp);
-				free_tab(path);
-				return (str);
+				str = ft_strjoin(path[i], tmp);
+				if (!stat(str, &buffer))
+				{
+					free(tmp);
+					free_tab(path);
+					return (str);
+				}
+				else
+					free(str);
+				i++;
 			}
-			else
-				free(str);
-			i++;
-		}
+	}
+	else
+		return (cmd);
 	print_err("bash: %s: command not found\n", cmd);
 	free(tmp);
 	free_tab(path);

@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:22:30 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/03 16:35:51 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/05 10:01:55 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,17 @@ int check_built(t_global *m_gl, t_node *node)
 
 void execute(t_global *m_gl, t_node *node)
 {
+	t_node *tmp;
 	char **tab;
 	int i;
 
+	tmp = node;
 	// tab = ft_split(line, ' ');
-	if (tab[0] && !(i = check_built(m_gl, node)))
-		exec_main(m_gl, node);
-	// else if (tab[0] && !i)
-		// print_err("bash: %s: command not found\n", tab[0]);
+		if (tab[0] && !(i = check_built(m_gl, tmp)))
+			exec_main(m_gl, tmp);
+			tmp = tmp->link;
 	// free_tab(tab);
 }
-
-// void free_tab(char **tab)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (tab[i])
-// 	{
-// 		free(tab[i]);
-// 		i++;
-// 	}
-// 	free(tab);
-// }
 
 void modify_path(t_env *env_l)
 {
