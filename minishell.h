@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/03 16:35:31 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/05 13:53:07 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@
 # define UN_DSC -107
 # define UN_DPIPE -108
 
+typedef struct  s_const
+{
+	int     exit_stat;
+    int     pid;
+}               t_const;
 
 typedef struct s_env
 {
@@ -172,4 +177,6 @@ void    print_lst_files(t_node *node);
 // t_env *ft_lstlast_m(t_env *lst);
 // void ft_lstdelone_m(t_env *lst);
 // void	free_tab(char **tab);
+t_const con;
+
 #endif

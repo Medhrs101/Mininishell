@@ -3,37 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 16:10:26 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/03 14:30:28 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/05 11:32:13 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int ls(void)
-{
-	struct dirent *de; // Pointer for directory entry
-
-	// opendir() returns a pointer of DIR type.
-	DIR *dr = opendir(".");
-
-	if (dr == NULL) // opendir returns NULL if couldn't open directory
-	{
-		printf("Could not open current directory");
-		return 0;
-	}
-
-	while ((de = readdir(dr)) != NULL)
-	{
-		if (de->d_name[0] != '.')
-			printf("%s\n", de->d_name);
-	}
-
-	closedir(dr);
-	return 0;
-}
 
 void check_path(t_global *m_gl, char **path)
 {

@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:22:30 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/05 10:01:55 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/05 11:32:35 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ void execute(t_global *m_gl, t_node *node)
 	int i;
 
 	tmp = node;
-	// tab = ft_split(line, ' ');
-		if (tab[0] && !(i = check_built(m_gl, tmp)))
-			exec_main(m_gl, tmp);
-			tmp = tmp->link;
+	if (tab[0] && !(i = check_built(m_gl, tmp)))
+		exec_main(m_gl, tmp);
+		tmp = tmp->link;
 	// free_tab(tab);
 }
 
