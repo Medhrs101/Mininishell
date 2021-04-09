@@ -4,7 +4,7 @@ void    ft_initial()
 {
     t_var *v;
     v = get_struct_var(NULL);
-    v->errno = 0;
+    v->erno = 0;
     v->flg_s_q = 0;
     v->flg_d_q = 0;
     v->flg_r_r = 0;

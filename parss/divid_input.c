@@ -386,13 +386,19 @@ void    divid_input()
     v = get_struct_var(NULL);
     v->sc_sp = ft_split(v->input, ';');
     // free(v->input);
+        v->stdo = dup(1);
     while(v->sc_sp[i])
     {
         hundle_input(i);
         v->node = NULL;
         stock_cmd(v->sc_sp[i]);
         // free(v->sc_sp[i]);
+        //---------------------
+        // out_red(v);
         execute(v->m_gl,v->node);
+        dup2(v->stdo, 1);
+        close(v->stdo);
+        //---------------------
         clear_lst_cmd_args();
         i++;
     }

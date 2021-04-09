@@ -2,69 +2,71 @@
 
 int check_line()
 {
-    int i;
-    t_var *var;
+	int i;
+	t_var *var;
 
-    var = get_struct_var(NULL);
-    i = 0;
-    var->input = ft_strtrim(var->input, " ");
-    while (var->input[i] && !var->errno)
-    {
-        off_bs(i);
-        if (var->input[i] == '\'')
-            simple_quote(i);
-        else if (var->input[i] == '"')
-            double_quote(i);
-        else if (var->input[i] == ';')
-        {
-            if (behind_s_c(i))
-                semi_colone();
-        }
-        else if (var->input[i] == '|')
-            var->errno = pip(i);
-        else if (var->input[i] == '>' && var->input[i + 1] == '>')
-            var->errno = double_redr(&i);
-        else if (var->input[i] == '>')
-            var->errno = right_red(i);
-        else if (var->input[i] == '<')
-            var->errno = left_red(i);
-        else if (var->input[i] == '\\')
-            b_slash(i);
-        else
-            caracter(var->input[i], i);
-        i++;
-    }
-    if (var->errno && !(var->errno = 0))
-        return (0);
-    hundle_end();
-    return (0);
+	var = get_struct_var(NULL);
+	i = 0;
+	var->input = ft_strtrim(var->input, " ");
+	while (var->input[i] && !var->erno)
+	{
+		off_bs(i);
+		if (var->input[i] == '\'')
+			simple_quote(i);
+		else if (var->input[i] == '"')
+			double_quote(i);
+		else if (var->input[i] == ';')
+		{
+			if (behind_s_c(i))
+				semi_colone();
+		}
+		else if (var->input[i] == '|')
+			var->erno = pip(i);
+		else if (var->input[i] == '>' && var->input[i + 1] == '>')
+			var->erno = double_redr(&i);
+		else if (var->input[i] == '>')
+			var->erno = right_red(i);
+		else if (var->input[i] == '<')
+			var->erno = left_red(i);
+		else if (var->input[i] == '\\')
+			b_slash(i);
+		else
+			caracter(var->input[i], i);
+		i++;
+	}
+	if (var->erno && !(var->erno = 0))
+		return (0);
+	hundle_end();
+	return (0);
 }
 
 void let_start()
 {
-    int r;
-    t_var *var;
+	int r;
+	t_var *var;
 
-    var = get_struct_var(NULL);
-    var->input = NULL;
-    r = 1;
-    var->status = 0;
-    while (r > 0)
-    {
-        ft_putstr_fd("\033[0;31mminishell~> $ : \e[39m", 1);
-        ft_initial();
-        // var->input = ft_strdup("cd kj > \" hello ; ' \"");
-        if ((r = get_next_line(0, &var->input)) == -1)
-        {
-            free(var->input);
-            ft_putstr_fd("ERROR GNL INPUT !!\n", 1);
-        }
-        if (!check_line())
-        {
-            ft_putstr_fd("------------------------------\n", 1);
-            ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);
-        }
-    }
+	var = get_struct_var(NULL);
+	var->input = NULL;
+	r = 1;
+	var->status = 0;
+	var->shlvl = ft_atoi(get_v_dolar("SHLVL")) + 1;
+	change_value("SHLVL", ft_itoa(var->shlvl));
+	while (r > 0)
+	{
+		ft_putstr_fd("\033[0;31mminishell~> $ : \e[39m", 1);
+		ft_initial();
+		// var->input = ft_strdup("cd kj > \" hello ; ' \"");
+		if ((r = get_next_line(0, &var->input)) == -1)
+		{
+			free(var->input);
+			ft_putstr_fd("ERROR GNL INPUT !!\n", 1);
+		}
+		if (!check_line())
+		{
+			ft_putstr_fd("------------------------------\n", 1);
+			ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);
+		}
+	}
 }
 
 // void env_copy(t_var *v, char **env_t)
@@ -88,34 +90,34 @@ void let_start()
 
 void free_tab(char **tab)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (tab[i])
-    {
-        free(tab[i]);
-        i++;
-    }
-    free(tab);
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }
 
 int main(int ac, char **av, char **env)
 {
-    t_var *var;
-    t_env *tmp;
+	t_var *var;
+	t_env *tmp;
 
-    (void)ac;
-    (void)av;
-    var = (t_var *)malloc(sizeof(t_var));
-    var->m_gl = (t_global *)malloc(sizeof(t_global));
-    get_struct_var(var);
-    env_copy(var->m_gl, env);
-    // tmp = var.envar;
-    // while(tmp)
-    // {
-    //     printf("|%s|%c|%s|\n", tmp->ident, tmp->equal, tmp->value);
-    //     tmp = tmp->next;
-    // }
-    let_start();
-    return (0);
+	(void)ac;
+	(void)av;
+	var = (t_var *)malloc(sizeof(t_var));
+	var->m_gl = (t_global *)malloc(sizeof(t_global));
+	get_struct_var(var);
+	env_copy(var->m_gl, env);
+	// tmp = var.envar;
+	// while(tmp)
+	// {
+	//     printf("|%s|%c|%s|\n", tmp->ident, tmp->equal, tmp->value);
+	//     tmp = tmp->next;
+	// }
+	let_start();
+	return (0);
 }

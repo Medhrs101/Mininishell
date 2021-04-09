@@ -1,14 +1,14 @@
 #include "../minishell.h"
 
-void    print_tab2d(char **tab)
+void print_tab2d(char **tab)
 {
     int i = 0;
     int j = 0;
-    while(tab[i])
+    while (tab[i])
     {
         j = 0;
         ft_putchar_fd('{', 1);
-        while(tab[i][j])
+        while (tab[i][j])
         {
             ft_putchar_fd(tab[i][j], 1);
             j++;
@@ -18,33 +18,33 @@ void    print_tab2d(char **tab)
     }
 }
 
-int    print_error(int errno)
+int print_error(int erno)
 {
     t_var *v;
 
     v = get_struct_var(NULL);
-    v->errno = errno;
+    v->erno = erno;
     v->status = 258;
-    if (v->errno == NEWLINE)
-        ft_putstr_fd ("minishell: syntax error near unexpected token `newline'\n", 2);
-    else if (v->errno == UN_PIPE)
+    if (v->erno == NEWLINE)
+        ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+    else if (v->erno == UN_PIPE)
         ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-    else if (v->errno == UN_LR)
+    else if (v->erno == UN_LR)
         ft_putstr_fd("minishell: syntax error near unexpected token `<'\n", 2);
-    else if (v->errno == UN_RR)
+    else if (v->erno == UN_RR)
         ft_putstr_fd("minishell: syntax error near unexpected token `>'\n", 2);
-    else if (v->errno == UN_DR)
+    else if (v->erno == UN_DR)
         ft_putstr_fd("minishell: syntax error near unexpected token `>>'\n", 2);
-    else if (v->errno == UN_SC)
+    else if (v->erno == UN_SC)
         ft_putstr_fd("minishell: syntax error near unexpected token `;'\n", 2);
-    else if (v->errno == UN_DSC)
+    else if (v->erno == UN_DSC)
         ft_putstr_fd("minishell: syntax error near unexpected token `;;'\n", 2);
-    else if (v->errno == UN_DPIPE)
+    else if (v->erno == UN_DPIPE)
         ft_putstr_fd("minishell: syntax error near unexpected token `||'\n", 2);
-    return (v->errno);
+    return (v->erno);
 }
 
-void    hundle_end()
+void hundle_end()
 {
     t_var *v;
 
@@ -52,7 +52,7 @@ void    hundle_end()
     if (sum_flag() || v->flg_s_q || v->flg_d_q || v->flg_b_s || v->flg_p)
     {
         print_error(NEWLINE);
-        return ;
+        return;
     }
     else if (!sum_all_flag(v))
     {
@@ -70,9 +70,9 @@ void    hundle_end()
     }
 }
 
-int     sum_all_flag()
+int sum_all_flag()
 {
-    int     sum;
+    int sum;
     t_var *v;
 
     sum = 0;
@@ -81,9 +81,9 @@ int     sum_all_flag()
     return (sum);
 }
 
-int     sum_flag()
+int sum_flag()
 {
-    int     sum;
+    int sum;
     t_var *v;
     sum = 0;
 
@@ -92,7 +92,7 @@ int     sum_flag()
     return (sum);
 }
 
-void    caracter(char c, int i)
+void caracter(char c, int i)
 {
     t_var *v;
 
@@ -103,7 +103,7 @@ void    caracter(char c, int i)
         off_flags();
 }
 
-int    right_red(int i)
+int right_red(int i)
 {
     t_var *v;
 
@@ -117,7 +117,7 @@ int    right_red(int i)
     return (0);
 }
 
-int    left_red(int i)
+int left_red(int i)
 {
     t_var *v;
 
@@ -131,28 +131,29 @@ int    left_red(int i)
     return (0);
 }
 
-void    b_slash(i)
+void b_slash(i)
 {
     t_var *v;
 
     v = get_struct_var(NULL);
     // puts("3iw ");
-    if(v->flg_s_q)
-    { 
+    if (v->flg_s_q)
+    {
         v->input[i] *= -1;
-        return ;
+        return;
     }
     v->flg_b_s = (v->flg_b_s) ? 0 : 1;
     v->input[i + 1] = (v->flg_b_s && v->input[i + 1] == '"')
-        ? -(v->input[i + 1]) : v->input[i + 1];
+                          ? -(v->input[i + 1])
+                          : v->input[i + 1];
     v->input[i + 1] = (v->flg_b_s && !v->flg_d_q && (v->input[i + 1] == '\'' || v->input[i + 1] == ';'))
-        ? -(v->input[i + 1]) : v->input[i + 1];
+                          ? -(v->input[i + 1])
+                          : v->input[i + 1];
 }
 
-int    double_redr(int *i)
+int double_redr(int *i)
 {
     t_var *v;
-
 
     v = get_struct_var(NULL);
     if (!v->flg_s_q && !v->flg_d_q && sum_flag())
@@ -164,7 +165,7 @@ int    double_redr(int *i)
     return (0);
 }
 
-int    pip(int i)
+int pip(int i)
 {
     t_var *v;
 
@@ -177,30 +178,30 @@ int    pip(int i)
         v->input[i] *= -1;
     else if (!v->flg_d_q && !v->flg_s_q)
         v->flg_p = 1;
-        return (0);
+    return (0);
 }
 
-int     behind_s_c(int i)
+int behind_s_c(int i)
 {
     t_var *v;
 
     v = get_struct_var(NULL);
-    if ((v->flg_s_q || v->flg_d_q )&& (v->input[i] *= -1))
-        return(0);
+    if ((v->flg_s_q || v->flg_d_q) && (v->input[i] *= -1))
+        return (0);
     else if (v->input[i + 1] == ';' && print_error(UN_DSC))
         return (0);
     else if (v->flg_s_c && print_error(UN_SC))
-        return(0);
+        return (0);
     else
     {
-        while(v->input[++i])
-            if(char_off(v->input[i]))
-                return(1);
+        while (v->input[++i])
+            if (char_off(v->input[i]))
+                return (1);
     }
-    return(0);
+    return (0);
 }
 
-void    semi_colone()
+void semi_colone()
 {
     t_var *v;
 
@@ -209,7 +210,7 @@ void    semi_colone()
         v->flg_s_c = 1;
 }
 
-void    double_quote(int i)
+void double_quote(int i)
 {
     t_var *v;
 
@@ -228,23 +229,22 @@ void    double_quote(int i)
     }
 }
 
-void    off_bs(int i)
+void off_bs(int i)
 {
     t_var *v;
 
     v = get_struct_var(NULL);
     if (v->flg_b_s && v->input[i] != '\\')
         v->flg_b_s = 0;
-
 }
 
-void    simple_quote(int i)
+void simple_quote(int i)
 {
     t_var *v;
 
     v = get_struct_var(NULL);
     if (v->flg_s_q)
-        v->flg_s_q  = 0;
+        v->flg_s_q = 0;
     else if (v->flg_d_q)
         v->input[i] *= -1;
     else if (!v->flg_d_q && !v->flg_s_q)

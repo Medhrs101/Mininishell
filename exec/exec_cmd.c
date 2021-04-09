@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/05 10:47:02 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/06 17:20:50 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,19 @@ char *check_pathh(char **path, char *cmd)
 			}
 	}
 	else
-		return (cmd);
-	print_err("bash: %s: command not found\n", cmd);
+	{
+		if (opendir(cmd))
+		{
+			print_err("bash: %s: is a directory\n", cmd);
+			return NULL;
+		}
+		else
+			return (cmd);
+	}
+	if (ft_strchr(cmd, '/'))
+		print_err("bash: %s: No such file or directory\n", cmd);
+	else
+		print_err("bash: %s: command not found\n", cmd);
 	free(tmp);
 	free_tab(path);
 	return (NULL);
@@ -103,14 +114,18 @@ void exec_main(t_global *m_gl, t_node *node)
 	envp = env_tab(m_gl);
 	m_gl->pid = fork();
 	if (m_gl->pid == 0)
+	{
 		execve(path, args, envp);
+		exit (0);
+	}
 	else
 	{
-		wait(&(m_gl->pid));
-		if (WIFEXITED(m_gl->pid))
+		waitpid(m_gl->pid, &(con.pid), 0);
+		// wait(&(m_gl->pid));
+		if (WIFEXITED(con.pid))
 		{
-			printf("Exit status: %d\n", WEXITSTATUS(m_gl->pid));
-			m_gl->exit_stat = WEXITSTATUS(m_gl->pid);
+			con.exit_stat = WEXITSTATUS(con.pid);
+			printf("Exit status: %d\n", con.exit_stat);
 		}
 	}
 }

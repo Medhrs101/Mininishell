@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:22:30 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/05 11:32:35 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/08 10:50:32 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,21 @@ void env_copy(t_global *m_gl, char **env_t)
 		ft_lstadd_back_m(&(m_gl->envar), tmp);
 		free_tab(tab);
 	}
+}
+
+void	change_value(char *ident, char *value)
+{
+    t_env *tmp;
+    t_var *v= get_struct_var(NULL);
+
+    tmp = v->m_gl->envar;
+    while(tmp)
+    {
+        if (!ft_strcmp(ident, tmp->ident))
+		{
+			free(tmp->value);
+			tmp->value = value;
+		}
+        tmp = tmp->next;
+    }
 }

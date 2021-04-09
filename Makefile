@@ -4,6 +4,7 @@ MAIN = minishell.c
 SRC =./exec/echo_main.c \
 	./exec/unset.c \
 	./exec/start.c \
+	./exec/redirection.c \
 	./exec/env_main.c \
 	./exec/exec_cmd.c \
 	./exec/export_main.c \
