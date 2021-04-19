@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:22:30 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/18 15:44:34 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/19 10:42:44 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ void	piping(t_var *var)
 	{
 		wait(&status);
 		con.exit_stat = WEXITSTATUS(status);
-		// printf("Exit status: %d\n", con.exit_stat);
 	}
+	printf("Exit status: %d\n", con.exit_stat);
 }
 
 void 	execute(t_global *m_gl, t_node *node)

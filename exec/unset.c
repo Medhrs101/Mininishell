@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 10:07:09 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/17 15:05:47 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/19 10:03:47 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ int unset(t_global *m_gl, char **tab)
 
 void print_err(char *str, char *arg)
 {
-	// int	fd;
+	int	fd;
 
-	// fd = dup(1);
-	// dup2(2, 1);
-	// if (arg)
-	// 	printf(str, arg);
-	// else
-	// 	printf("%s\n", str);
-	// dup2(fd, 1);
-	// close(fd);
+	fd = dup(1);
+	dup2(2, 1);
+	if (arg)
+		printf(str, arg);
+	else
+		printf("%s\n", str);
+	dup2(fd, 1);
+	close(fd);
 }
