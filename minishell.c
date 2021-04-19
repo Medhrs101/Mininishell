@@ -55,7 +55,7 @@ void let_start()
 	{
 		ft_putstr_fd("\033[0;31mminishell~> $ : \e[39m", 1);
 		ft_initial();
-		// var->input = ft_strdup("cd kj > \" hello ; ' \"");
+		// var->input = ft_strdup("ls");
 		if ((r = get_next_line(0, &var->input)) == -1)
 		{
 			free(var->input);

@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:22:30 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/08 10:50:32 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/18 15:44:34 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,97 @@ int check_built(t_global *m_gl, t_node *node)
 	return (1);
 }
 
-void execute(t_global *m_gl, t_node *node)
+int		count_p(t_node *node)
+{
+	t_node	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = node;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->link;
+	}
+	return i - 1;
+}
+
+void	pip_or_not(t_var *var)
+{
+	if (!var->node->link)
+	{
+		if (out_red(var, var->node))
+			execute(var->m_gl,	var->node);
+	}
+	else
+		piping(var);
+}
+
+void	piping(t_var *var)
+{
+	int numofpipe = count_p(var->node);
+	int status;
+	int	i;
+	int j;
+	t_node *tmp;
+	pid_t pid;
+	int		pipefd[2 * numofpipe];
+
+	i = 0;
+	j = 0;
+	tmp = var->node;
+	while (i < numofpipe)
+	{
+		pipe(pipefd + i * 2);
+		i++;
+	}
+
+	while (tmp)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			if (tmp->link)
+				dup2(pipefd[j + 1], 1);
+
+			if (j != 0)
+				dup2(pipefd[j - 2], 0);
+
+			i = -1;
+			while (++i < 2 * numofpipe)
+				close(pipefd[i]);
+
+			if (out_red(var, tmp))
+				execute(var->m_gl, tmp);
+			exit(con.exit_stat);
+		}
+		tmp	= tmp->link;
+		j += 2;
+	}
+
+	i = -1;
+	while (++i < 2 * numofpipe)
+		close(pipefd[i]);
+
+	i = -1;
+	while (++i < numofpipe + 1)
+	{
+		wait(&status);
+		con.exit_stat = WEXITSTATUS(status);
+		// printf("Exit status: %d\n", con.exit_stat);
+	}
+}
+
+void 	execute(t_global *m_gl, t_node *node)
 {
 	t_node *tmp;
-	char **tab;
 	int i;
 
 	tmp = node;
-	if (tab[0] && !(i = check_built(m_gl, tmp)))
+	if (node->args[0] && !(i = check_built(m_gl, tmp)))
+	{
 		exec_main(m_gl, tmp);
-		tmp = tmp->link;
-	// free_tab(tab);
+	}
 }
 
 void modify_path(t_env *env_l)

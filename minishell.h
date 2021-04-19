@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/10 19:28:49 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/18 14:10:41 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 #include <sys/errno.h>
 #include <string.h>
 #include "./libft/libft.h"
+#define STDIN  0
+#define STDOUT 1
+#define STDERR 2
 #define ENVI 5544
 #define EXPRT 5545
 #define NEWLINE -101
@@ -80,6 +83,9 @@ typedef struct s_var
     int shlvl;
     int stdo;
     int stdi;
+    int out_fd;
+    int in_fd;
+    int app_fd;
     int flag;
     int flg_s_q;
     int flg_d_q;
@@ -118,16 +124,17 @@ void cd_main(t_global *m_gl, char **tab);
 int check_opt_echo(char **tab);
 int ls(void);
 void pwd_main(t_global *m_gl, char **tab);
-void out_red(t_var *var);
+// int out_red(t_var *var);
+int	 out_red(t_var	*var, t_node *node);
 void ft_lstadd_back_m(t_env **alst, t_env *new);
 int ft_lstsize_m(t_env *lst);
 // t_env *ft_lstnew_m(void *content, int type);
 t_env *ft_lstnew_m(void *ident, void *value, char equal);
 t_env *ft_lstlast_m(t_env *lst);
 void ft_lstdelone_m(t_env *lst);
-
+char *get_path(t_global *m_gl, char *cmd);
 void export_main(t_global *m_gl, char **tab);
-
+char **env_tab(t_global *m_gl);
 void env_main(t_global *m_gl, char **tab);
 int count_tab(char **tab);
 
@@ -140,7 +147,9 @@ int ident_val(char *str);
 void print_err(char *str, char *arg);
 void change_value(char *ident, char *value);
 int c_split(char const *str, char c);
+void	piping(t_var *var);
 
+void	pip_or_not(t_var *var);
 // ---------------------------------- PARSE PART ------------------------------------------
 
 void ft_initial();

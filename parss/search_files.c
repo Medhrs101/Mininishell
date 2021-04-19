@@ -130,7 +130,7 @@ void    search_files(t_node *node)
             file->name_file = NULL;
             file->type = '>';
             get_file(i, file);
-             join_file_list(node, file);
+            join_file_list(node, file);
             i = -1;
         }
         else if (var->str[i] == '<')

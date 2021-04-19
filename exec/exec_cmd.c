@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/06 17:20:50 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/17 11:09:37 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void exec_main(t_global *m_gl, t_node *node)
 	if (m_gl->pid == 0)
 	{
 		execve(path, args, envp);
-		exit (0);
+		exit(0);
 	}
 	else
 	{
