@@ -25,7 +25,10 @@ int check_line()
 		else if (var->input[i] == '>' && var->input[i + 1] == '>')
 			var->erno = double_redr(&i);
 		else if (var->input[i] == '>')
+		{
+			// ft_putendl_fd("hallo", 1);
 			var->erno = right_red(i);
+		}
 		else if (var->input[i] == '<')
 			var->erno = left_red(i);
 		else if (var->input[i] == '\\')
@@ -88,54 +91,51 @@ int check_line()
 //     }
 // }
 
-void free_tab(char **tab)
+void free_tab(char **tb)
 {
 	int i;
 
 	i = 0;
-	while (tab[i])
+	while (tb[i])
 	{
-		free(tab[i]);
+		free(tb[i]);
 		i++;
 	}
-	free(tab);
+	free(tb);
 }
 
 int main(int ac, char **av, char **env)
 {
 	t_var *var;
 	t_env *tmp;
-	t_rdl rdl;
 
 	(void)ac;
 	(void)av;
-
-    rdl = (t_rdl){0};
-    // rdl = (t_rdl *)malloc(sizeof(t_rdl));
-    rdl.head = (t_hst *){0};
-    // rdl.head = NULL;
-
 	var = (t_var *)malloc(sizeof(t_var));
 	var->m_gl = (t_global *)malloc(sizeof(t_global));
+    t_rdl rdl;
+    rdl = (t_rdl){0};
+    rdl.head = (t_hst *){0};
+    init_term();
 	get_struct_var(var);
 	env_copy(var->m_gl, env);
-    init_term();
 	var->status = 0;
 	var->shlvl = ft_atoi(get_v_dolar("SHLVL")) + 1;
 	change_value("SHLVL", ft_itoa(var->shlvl));
- 	while(1)
+	while(1)
     {
-        tputs(tparm(tgetstr("AF", NULL), COLOR_GREEN), 0, &ft_put);
-        ft_putstr_fd ("minishell > ", 1);
-        tputs(tparm(tgetstr("me", NULL), COLOR_GREEN), 0, &ft_put);
-        tputs(tgetstr("cd", NULL), 0, &ft_put);
 		ft_initial();
+        print_prompt();
+        // tputs(tparm(tgetstr("AF", NULL), COLOR_GREEN), 0, &ft_put);
+        // ft_putstr_fd ("minishell > ", 0);
+        // tputs(tparm(tgetstr("me", NULL), COLOR_GREEN), 0, &ft_put);
+        // tputs(tgetstr("cd", NULL), 0, &ft_put);
         ft_readline(&rdl);
-		// if (!check_line())
-		// {
-		// 	ft_putstr_fd("------------------------------\n", 1);
-		// 	ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);
-		// }
+		if (!check_line())
+		{
+			ft_putstr_fd("------------------------------\n", 1);
+			ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);
+		}
     }
     return(0);
 	// let_start();

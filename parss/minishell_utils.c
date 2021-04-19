@@ -59,6 +59,7 @@ void hundle_end()
     v = get_struct_var(NULL);
     if (sum_flag() || v->flg_s_q || v->flg_d_q || v->flg_b_s || v->flg_p)
     {
+        // ft_putendl_fd("hanna", 2);
         print_error(NEWLINE);
         return;
     }
@@ -117,7 +118,9 @@ int right_red(int i)
 
     v = get_struct_var(NULL);
     if (!v->flg_s_q && !v->flg_d_q && sum_flag())
+    {
         return (print_error(UN_RR));
+    }
     else if (v->flg_s_q || v->flg_d_q)
         v->input[i] *= -1;
     else if (!v->flg_d_q && !v->flg_s_q)
@@ -166,7 +169,7 @@ int double_redr(int *i)
         return (print_error(UN_DR));
     else if ((v->flg_s_q || v->flg_d_q) && ((v->input[*i] *= -1) && (v->input[*i + 1] *= -1)))
         *i += 1;
-    if (!v->flg_d_q && v->flg_s_c && (*i += 1))
+    if (!v->flg_d_q && !v->flg_s_q && (*i += 1))
         v->flg_d_r = 1;
     return (0);
 }

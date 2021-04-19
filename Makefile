@@ -11,6 +11,8 @@ SRC =./exec/echo_main.c \
 	./exec/ls_maker.c  \
 	./exec/pwd_main.c \
 	./exec/cd_main.c \
+	./readline/lst_tools.c \
+	./readline/readline.c \
 	./parss/divid_input.c \
 	./parss/minishell_utils.c \
 	./parss/mns_utils_1.c \
@@ -30,7 +32,7 @@ all: $(NAME)
 $(NAME) : $(OBJ) 
 	ar rcs $(LIB) $(OBJ)
 	cd ./libft && make
-	gcc $(FLAGS) $(MAIN) $(LIB) $(LIBFT) -o $(NAME)
+	gcc -lncurses $(FLAGS) $(MAIN) $(LIB) $(LIBFT) -o $(NAME)
 	# ./minishell
 
 %.o: %.c

@@ -31,25 +31,24 @@ void    print_lst()
         }
 }
 
-void    inverse_args(char **tab)
+void    inverse_args(char **tb)
 {
     int     i;
     int     j;
 
     i = 0;
     j = 0;
-    while(tab[i])
+    while(tb[i])
     {
         j = 0;
-        while(tab[i][j])
+        while(tb[i][j])
         {
-            if (tab[i][j] < 0)
-                tab[i][j] *= -1;
+            if (tb[i][j] < 0)
+                tb[i][j] *= -1;
             j++;
         }
         i++;
     }
-    // puts("segfault\n");
 }
 
 // void    inverse(t_node *node)
@@ -71,22 +70,22 @@ void    stock_cmd(char *str)
 {
     t_var   *var;
     t_node  *node;
-    char    **tab;
+    char    **tb;
 
     int     i;
 
     i = 0;
     var = get_struct_var(NULL);
     // printf("||%s||\n", str);
-    tab = ft_split(str, '|');
-    // print_tab2d(tab);
-    while(tab[i])
+    tb = ft_split(str, '|');
+    // print_tb2d(tb);
+    while(tb[i])
     {
         node = (t_node *)malloc(sizeof(t_node));
         node->file = NULL;
         node->link = NULL;
-        var->str = tab[i];
-        // printf("-->{%s}\n", tab[i]);
+        var->str = tb[i];
+        // printf("-->{%s}\n", tb[i]);
         search_files(node);
         node->args = ft_split(var->str, ' ');
         inverse_args(node->args);
@@ -95,18 +94,18 @@ void    stock_cmd(char *str)
         join_cmd_list(node);
         i++;
     }
-    free_tab(tab);
+    free_tab(tb);
     // print_lst();
 }
 
-int     bs_work(char *tab, int s, int d, int i)
+int     bs_work(char *tb, int s, int d, int i)
 {
     t_var *v;
 
     v = get_struct_var(NULL);
     if (!d && !s)
         return (1);
-    else if (d && (tab[i + 1] == '\\' || tab[i + 1] == -34 || tab[i + 1] == '$' || tab[i + 1] == '`'))
+    else if (d && (tb[i + 1] == '\\' || tb[i + 1] == -34 || tb[i + 1] == '$' || tb[i + 1] == '`'))
     {
         // printf("\n|%c|\n", tab[i + 1]);
         return (1);
@@ -115,14 +114,14 @@ int     bs_work(char *tab, int s, int d, int i)
     return (0);
 }
 
-void    override(char *tab, int i)
+void    override(char *tb, int i)
 {
     t_var *v;
 
     v = get_struct_var(NULL);
-    while(tab[i])
+    while(tb[i])
     {
-        tab[i] = tab[i + 1];
+        tb[i] = tb[i + 1];
         i++;
     }
 }
@@ -136,14 +135,14 @@ void    hundle_s_d(char c, int *s, int *d)
 }
 
 
-int    dolar_work(char *tab, int s, int i, int *bs_erno)
+int    dolar_work(char *tb, int s, int i, int *bs_erno)
 {
     if (*bs_erno)
     {
         *bs_erno = 0;
         return(0);
     }
-    if(tab[i - 1] == '\\' || s || !tab[i + 1] || tab[i + 1] == '$')
+    if(tb[i - 1] == '\\' || s || !tb[i + 1] || tb[i + 1] == '$')
     {
         // printf("{%d}\n", s);
         // puts("\ndolar not work\n");
@@ -160,16 +159,16 @@ int		isdigit(int c)
 		return (0);
 }
 
-int     end_dolar(char *tab, int i)
+int     end_dolar(char *tb, int i)
 {
     int cpt;
 
     cpt = 0;
-    if (isdigit(tab[i]))
+    if (isdigit(tb[i]))
         return (1);
-    while(tab[i])
+    while(tb[i])
     {
-        if (tab[i] < 0 || ft_strrchr("\"|\\'. <>/", tab[i]))
+        if (tb[i] < 0 || ft_strrchr("\"|\\'. <>/", tb[i]))
             break;
         cpt++;
         i++;
@@ -212,19 +211,19 @@ char    *get_v_dolar(char *v_dolar)
     return (NULL);
 }
 
-void    bs_hundle(char *tab, int d, int *i, int *bs_erno)
+void    bs_hundle(char *tb, int d, int *i, int *bs_erno)
 {
-    if (tab[*i + 1] == '\\')
+    if (tb[*i + 1] == '\\')
     {
-        tab[*i] = -92;
-        override(tab, *i + 1);
+        tb[*i] = -92;
+        override(tb, *i + 1);
     }
     else
     {
-        if (tab[*i + 1] == '$')
+        if (tb[*i + 1] == '$')
             *bs_erno = 1;
-        tab[*i + 1] = (tab[*i + 1] != '$' && tab[*i + 1] > 0 && !d) ? -(tab[*i + 1]) : tab[*i + 1];
-        override(tab, *i);
+        tb[*i + 1] = (tb[*i + 1] != '$' && tb[*i + 1] > 0 && !d) ? -(tb[*i + 1]) : tb[*i + 1];
+        override(tb, *i);
         *i -= 1;
     }   
 }
@@ -378,7 +377,7 @@ void    clear_lst_files(t_node *node)
     {
         while(current)
         {
-            // printf ("{tp = |%c| = |%s|}\n", current->type, current->name_file);
+            printf ("{tp = |%c| = |%s|}\n", current->type, current->name_file);
             free(current->name_file);
             current = current->next;
         }
@@ -408,7 +407,7 @@ void    clear_lst_cmd_args()
             print_tab2d(current->args);
             // free_tab(current->args);
             clear_lst_files(current);
-            // puts("------------DATA----------\n");
+            puts("------------DATA----------\n");
             free(current->cmd);
             current = current->link;
         }
@@ -428,7 +427,7 @@ void    divid_input()
     while(v->sc_sp[i])
     {
         if(!hundle_input(i))
-            return;
+            break;
         v->node = NULL;
         stock_cmd(v->sc_sp[i]);
         // free(v->sc_sp[i]);

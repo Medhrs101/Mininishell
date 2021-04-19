@@ -6,7 +6,7 @@
 /*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 10:46:25 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/19 15:09:51 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,30 @@
 #include <sys/errno.h>
 #include <string.h>
 #include "./libft/libft.h"
+
+#include <termcap.h>
+// #include <term.h>
+#include <termios.h>
+#include <curses.h>
+
+# define KEY_DEL 0x7E335B1B
+
+#define KEYCODE_R 0x435b1b // Left Arrow Key
+#define KEYCODE_L 0x445b1b // Right Arrow Key
+#define KEYCODE_U 0x415b1b // Up Arrow Key
+#define KEYCODE_D 0x425b1b // Down Arrow Key
+#define KEYCODE_HOME 0x485b1b
+#define KEYCODE_END 0x465b1b
+// #define KEYCODE_DEL 0x7e335b1b
+// #define KEYCODE_DEL "\x1b\x5b\x33\x7e"
+
+// #define KEYCODE_Q 0x71 // Q Key
+
+#define CTRL_U 0x15
+#define CTRL_L 0xc
+#define CTRL_D 0x4
+#define CTRL_C 0x3
+
 #define STDIN  0
 #define STDOUT 1
 #define STDERR 2
@@ -34,6 +58,32 @@
 #define UN_DSC -107
 #define UN_DPIPE -108
 #define AMB -109
+
+typedef struct s_hst
+{
+    char *old_buff;
+    char *curr_buff;
+    int curpos;
+    int size_bf;
+    int k;
+    struct s_hst   *prev;
+    struct s_hst   *next;
+}              t_hst;
+
+typedef struct s_coord
+{
+    int x;
+    int y;
+}              t_coord;
+
+typedef struct  s_rdl
+{
+    t_hst   *head;
+    t_coord start;
+    t_coord size_win;
+    size_t  curpos;
+    
+}               t_rdl;
 
 typedef struct s_const
 {
@@ -112,6 +162,19 @@ typedef struct s_var
     t_node *node;
 } t_var;
 
+//readline
+void    init_term();
+void    initial_terminal(struct termios *oldattr);
+void    print_prompt();
+void    ft_readline(t_rdl * rdl);
+int     ft_put(int c);
+t_hst   *get_new_node();
+void    insert_at_head(t_rdl *rdl, t_hst *new_node);
+void    insert_at_tail(t_rdl *rdl, t_hst *new_node);
+void    Print_doubly_lst(t_rdl *rdl);
+void    Reverse_printf_doubly_lst(t_rdl *rdl);
+//////
+
 // void execute(t_global *m_gl, char *line);
 void execute(t_global *m_gl, t_node *node);
 void init(t_global *m_gl);
@@ -143,10 +206,10 @@ int count_tab(char **tab);
 void ft_deletenode(t_env **head_ref, t_env *del);
 int unset(t_global *m_gl, char **tab);
 
-void free_tab(char **tab);
+void free_tab(char **tb);
 int ident_val(char *str);
 
-void print_err(char *str, char *arg);
+void print_err(char *str, char *arg, int errnb);
 void change_value(char *ident, char *value);
 int c_split(char const *str, char c);
 void	piping(t_var *var);
@@ -155,6 +218,7 @@ void	pip_or_not(t_var *var);
 // ---------------------------------- PARSE PART ------------------------------------------
 
 void ft_initial();
+int check_line();
 void caracter(char c, int i);
 int right_red(int i);
 int left_red(int i);
