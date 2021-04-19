@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:32:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 09:59:02 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/19 11:48:43 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ void export_main(t_global *m_gl, char **tab)
 		arg = ft_split(tab[1], '=');
 		if (!ident_val(arg[0]))
 		{
-			print_err("bash: export: `%s': not a valid identifier\n", tab[1]);
+			print_err("bash: export: `%s': not a valid identifier\n", tab[1], 1);
 			m_gl->exit_stat = 1;
 		}
 		else if (!search_vr(m_gl, tab[1]))

@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 10:07:09 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 10:03:47 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/19 11:36:09 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int unset(t_global *m_gl, char **tab)
 	return (0);
 }
 
-void print_err(char *str, char *arg)
+void print_err(char *str, char *arg, int errnb)
 {
 	int	fd;
 
@@ -58,4 +58,5 @@ void print_err(char *str, char *arg)
 		printf("%s\n", str);
 	dup2(fd, 1);
 	close(fd);
+	con.exit_stat = errnb;
 }

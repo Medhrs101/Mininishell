@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 10:37:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 10:06:23 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/19 11:38:25 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	 out_red(t_var	*var, t_node *node)
 		{
 			if ((var->out_fd = open(tmp->name_file , O_CREAT | O_WRONLY | O_TRUNC, 0664)) < 0)
 			{
-				print_err("bash: %s: ", tmp->name_file);
-				print_err("%s\n", strerror(errno));
+				print_err("bash: %s: ", tmp->name_file, 0);
+				print_err("%s\n", strerror(errno), 1);
 				return (0);
 			}
 			dup2(var->out_fd, STDOUT);
@@ -36,8 +36,8 @@ int	 out_red(t_var	*var, t_node *node)
 		{
 			if ((var->in_fd = open(tmp->name_file , O_RDONLY)) < 0)
 			{
-				print_err("bash: %s: ", tmp->name_file);
-				print_err("%s\n", strerror(errno));
+				print_err("bash: %s: ", tmp->name_file, 0);
+				print_err("%s\n", strerror(errno), 1);
 				return (0);
 			}
 			dup2(var->in_fd, STDIN);
@@ -47,8 +47,8 @@ int	 out_red(t_var	*var, t_node *node)
 		{
 			if ((var->app_fd = open(tmp->name_file , O_CREAT | O_WRONLY | O_APPEND, 0664)) < 0)
 			{
-				print_err("bash: %s: ", tmp->name_file);
-				print_err("%s\n", strerror(errno));
+				print_err("bash: %s: ", tmp->name_file, 0);
+				print_err("%s\n", strerror(errno), 1);
 				return (0);
 			}
 			dup2(var->app_fd, STDOUT);

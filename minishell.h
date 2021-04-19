@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/18 14:10:41 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/19 11:35:30 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int unset(t_global *m_gl, char **tab);
 void free_tab(char **tab);
 int ident_val(char *str);
 
-void print_err(char *str, char *arg);
+void print_err(char *str, char *arg, int errnb);
 void change_value(char *ident, char *value);
 int c_split(char const *str, char c);
 void	piping(t_var *var);

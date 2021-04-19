@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 10:42:50 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/19 11:37:15 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,16 @@ char *check_pathh(char **path, char *cmd)
 	{
 		if (opendir(cmd))
 		{
-			print_err("bash: %s: is a directory\n", cmd);
+			print_err("bash: %s: is a directory\n", cmd, 1);
 			return NULL;
 		}
 		else
 			return (cmd);
 	}
 	if (ft_strchr(cmd, '/'))
-		print_err("bash: %s: No such file or directory\n", cmd);
+		print_err("bash: %s: No such file or directory\n", cmd, 127);
 	else
-		print_err("bash: %s: command not found\n", cmd);
+		print_err("bash: %s: command not found\n", cmd, 127);
 	free(tmp);
 	free_tab(path);
 	return (NULL);
