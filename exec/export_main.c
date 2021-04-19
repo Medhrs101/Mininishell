@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:32:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/03 14:30:28 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/19 09:55:01 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,10 @@ void export_main(t_global *m_gl, char **tab)
 	sort_array(&arg);
 	if (opt == 1)
 		while (arg[i] != NULL)
-			printf("declare -x %s\n", arg[i++]);
+		{
+			ft_putstr_fd("declare -x ",1);
+			ft_putendl_fd(arg[i++], 1);
+		}
 	else
 	{
 		free_tab(arg);
