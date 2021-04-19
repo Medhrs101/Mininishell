@@ -41,6 +41,14 @@ int print_error(int erno)
         ft_putstr_fd("minishell: syntax error near unexpected token `;;'\n", 2);
     else if (v->erno == UN_DPIPE)
         ft_putstr_fd("minishell: syntax error near unexpected token `||'\n", 2);
+    else if (v->erno == AMB)
+    {
+        ft_putstr_fd("minishell: $", 2);
+        ft_putstr_fd(v->ambiguous, 2);
+        ft_putendl_fd(": ambiguous redirect", 2);
+        free(v->ambiguous);
+        v->ambiguous = NULL;
+    }
     return (v->erno);
 }
 
@@ -131,7 +139,7 @@ int left_red(int i)
     return (0);
 }
 
-void b_slash(i)
+void b_slash(int i)
 {
     t_var *v;
 
@@ -144,11 +152,9 @@ void b_slash(i)
     }
     v->flg_b_s = (v->flg_b_s) ? 0 : 1;
     v->input[i + 1] = (v->flg_b_s && v->input[i + 1] == '"')
-                          ? -(v->input[i + 1])
-                          : v->input[i + 1];
+    ? -(v->input[i + 1]) : v->input[i + 1];
     v->input[i + 1] = (v->flg_b_s && !v->flg_d_q && (v->input[i + 1] == '\'' || v->input[i + 1] == ';'))
-                          ? -(v->input[i + 1])
-                          : v->input[i + 1];
+    ? -(v->input[i + 1]) : v->input[i + 1];
 }
 
 int double_redr(int *i)

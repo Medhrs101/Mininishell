@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 11:35:30 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/19 10:46:25 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 #define UN_SC -106
 #define UN_DSC -107
 #define UN_DPIPE -108
+#define AMB -109
 
 typedef struct s_const
 {
@@ -107,6 +108,7 @@ typedef struct s_var
     char **sc_sp;
     char **p_sp;
     int status;
+    char *ambiguous;
     t_node *node;
 } t_var;
 
@@ -144,7 +146,7 @@ int unset(t_global *m_gl, char **tab);
 void free_tab(char **tab);
 int ident_val(char *str);
 
-void print_err(char *str, char *arg, int errnb);
+void print_err(char *str, char *arg);
 void change_value(char *ident, char *value);
 int c_split(char const *str, char c);
 void	piping(t_var *var);
@@ -171,7 +173,7 @@ int sum_all_flag();
 void off_bs(int i);
 t_var *get_struct_var(t_var *var);
 char *get_v_dolar(char *v_dolar);
-
+int print_error(int erno);
 void divid_input();
 void stock_cmd(char *str);
 void print_tab2d(char **tab);

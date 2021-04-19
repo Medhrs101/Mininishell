@@ -12,6 +12,7 @@ void    ft_initial()
     v->flg_d_r = 0;
     v->flg_b_s = 0;
     v->flg_p = 0;
+    v->ambiguous = NULL;
 
 }
 

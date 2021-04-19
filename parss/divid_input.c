@@ -229,7 +229,7 @@ void    bs_hundle(char *tab, int d, int *i, int *bs_erno)
     }   
 }
 
-void    dolar_hundle(int j, int *i)
+int     dolar_hundle(int j, int *i, int *r)
 {
     t_var *v;
     char *dolar;
@@ -248,7 +248,15 @@ void    dolar_hundle(int j, int *i)
     dolar = ft_substr(v->sc_sp[j] , *i + 1, k);
     // v_dolar = get_v_dolar(dolar);
     // printf("{%c,  %d}\n", v->sc_sp[j][*i + 1],v->status);
-    v_dolar = (v->sc_sp[j][*i + 1] == '?') ? ft_itoa(v->status) : get_v_dolar(dolar);
+    if (v->sc_sp[j][*i + 1] == '?')
+    {
+        v_dolar = ft_itoa(v->status);
+    }
+    else
+    {
+       v_dolar = get_v_dolar(dolar); 
+    }
+    // v_dolar = (v->sc_sp[j][*i + 1] == '?') ? ft_itoa(v->status) : get_v_dolar(dolar);
     // printf("{%s}\n", v_dolar);
     if (v->sc_sp[j][*i + 1] == '?')
         v->status = 0;
@@ -273,6 +281,14 @@ void    dolar_hundle(int j, int *i)
     else
     {
         // puts("hallo\n");
+        if (*r == 1)
+        {
+            v->ambiguous = ft_strdup(dolar);
+            *r = 0;
+            print_error(AMB);
+            return(0);
+        }
+
         tmp1 = ft_substr(v->sc_sp[j], 0, *i);
         tmp2 = ft_strjoin(tmp1, &v->sc_sp[j][*i + ft_strlen(dolar)+ 1]);
         v->sc_sp[j] = tmp2;
@@ -283,20 +299,33 @@ void    dolar_hundle(int j, int *i)
         // printf("<---->{%s}\n", v->sc_sp[j]);
         *i -= 1;
     }
+    return(1);
 }
 
-void    hundle_input(int j)
+int     is_redirection(int c, int d, int *r)
+{
+    if (c == '>' || c == '<' || (c == '>' && d == '>'))
+    {
+        *r = 1;
+        return (1);
+    }
+    return (0);
+}
+
+int    hundle_input(int j)
 {
     t_var   *v;
     int     i;
     int     s;
     int     d;
+    int     r;
     int     bs_erno;
 
     bs_erno = 0;
     i = -1;
     s = 0;
     d = 0;
+    r = 0;
     v = get_struct_var(NULL);
     while(v->sc_sp[j][++i])
     {
@@ -306,11 +335,22 @@ void    hundle_input(int j)
             override(v->sc_sp[j], i);
             i -= 1;
         }
+        else if (!s && !d && is_redirection(v->sc_sp[j][i], v->sc_sp[j][i + 1], &r))
+        {
+            if (v->sc_sp[j][i + 1] == '>')
+                i++;
+            else
+                continue;
+        }
         else if (v->sc_sp[j][i] == '\\' && bs_work(v->sc_sp[j], s, d, i))
             bs_hundle(v->sc_sp[j], d, &i, &bs_erno);
-        else if (v->sc_sp[j][i] == '$' && dolar_work(v->sc_sp[j], s, i, &bs_erno))
-            dolar_hundle(j, &i);
+        else if (v->sc_sp[j][i] == '$' &&dolar_work(v->sc_sp[j], s, i, &bs_erno))
+        {
+            if(!dolar_hundle(j, &i, &r))
+                return(0);
+        }
     }
+    return (1);
 }
 
 void    inverse_input(int i)
@@ -363,9 +403,9 @@ void    clear_lst_cmd_args()
         while(current)
         {
             // puts("clear_cmd\n");
-            // puts("------------DATA----------\n");
-            // printf("{cmd : |%s|}\n", current->cmd);
-            // print_tab2d(current->args);
+            puts("------------DATA----------\n");
+            printf("{cmd : |%s|}\n", current->cmd);
+            print_tab2d(current->args);
             // free_tab(current->args);
             clear_lst_files(current);
             // puts("------------DATA----------\n");
@@ -385,10 +425,10 @@ void    divid_input()
     i = 0;
     v = get_struct_var(NULL);
     v->sc_sp = ft_split(v->input, ';');
-    // free(v->input);
     while(v->sc_sp[i])
     {
-        hundle_input(i);
+        if(!hundle_input(i))
+            return;
         v->node = NULL;
         stock_cmd(v->sc_sp[i]);
         // free(v->sc_sp[i]);
