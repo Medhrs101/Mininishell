@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 10:07:09 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 11:36:09 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/19 14:57:58 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int unset(t_global *m_gl, char **tab)
 	env_l = m_gl->envar;
 	if (!ident_val(tab[1]))
 	{
-		printf("bash: unset: `%s': not a valid identifier\n", tab[1]);
+		print_err("bash: unset: `%s': not a valid identifier\n", tab[1], 1);
 		m_gl->exit_stat = 1;
 	}
 	while (env_l)

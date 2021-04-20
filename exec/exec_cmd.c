@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 11:37:15 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/19 14:18:22 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,7 @@ void exec_main(t_global *m_gl, t_node *node)
 	else
 	{
 		waitpid(m_gl->pid, &(con.pid), 0);
-		// wait(&(m_gl->pid));
-		if (WIFEXITED(con.pid))
-		{
-			con.exit_stat = WEXITSTATUS(con.pid);
-			// printf("Exit status: %d\n", con.exit_stat);
-		}
+		con.exit_stat = WEXITSTATUS(con.pid);
 	}
+	free(envp);
 }
