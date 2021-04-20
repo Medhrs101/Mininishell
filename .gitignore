@@ -1,0 +1,6 @@
+*.o
+.DS_*
+*.a
+minishell
+minishell.dSYM
+.vs*
