@@ -123,7 +123,7 @@ int main(int ac, char **av, char **env)
 	var->status = 0;
 	var->shlvl = ft_atoi(get_v_dolar("SHLVL")) + 1;
 	change_value("SHLVL", ft_itoa(var->shlvl));
- 	while(1)
+	while(1)
     {
 		var->input = NULL;
         tputs(tparm(tgetstr("AF", NULL), COLOR_GREEN), 0, &ft_put);
