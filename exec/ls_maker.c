@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:25:56 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/13 10:12:20 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/20 16:07:25 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ void ft_deletenode(t_env **head_ref, t_env *del)
 		del->prev->next = del->next;
 
 	/* Finally, free the memory occupied by del*/
+	free(del->ident);
+	free(del->value);
 	free(del);
 	return;
 }

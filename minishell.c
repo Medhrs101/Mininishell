@@ -125,17 +125,18 @@ int main(int ac, char **av, char **env)
 	change_value("SHLVL", ft_itoa(var->shlvl));
  	while(1)
     {
+		var->input = NULL;
         tputs(tparm(tgetstr("AF", NULL), COLOR_GREEN), 0, &ft_put);
         ft_putstr_fd ("minishell > ", 1);
         tputs(tparm(tgetstr("me", NULL), COLOR_GREEN), 0, &ft_put);
         tputs(tgetstr("cd", NULL), 0, &ft_put);
 		ft_initial();
         ft_readline(&rdl);
-		// if (!check_line())
-		// {
-		// 	ft_putstr_fd("------------------------------\n", 1);
-		// 	ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);
-		// }
+		if (var->input && !check_line())
+		{
+			ft_putstr_fd("------------------------------\n", 1);
+			ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);
+		}
     }
     return(0);
 	// let_start();

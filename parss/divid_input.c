@@ -446,5 +446,6 @@ void    divid_input()
         clear_lst_cmd_args();
         i++;
     }
+    free(v->input);
     // free(v->sc_sp);
 }
