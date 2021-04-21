@@ -127,7 +127,8 @@ int main(int ac, char **av, char **env)
     {
 		var->input = NULL;
         tputs(tparm(tgetstr("AF", NULL), COLOR_GREEN), 0, &ft_put);
-        ft_putstr_fd ("minishell > ", 1);
+		ft_putnbr_fd(var->shlvl, 1);
+        ft_putstr_fd (" - minishell > ", 1);
         tputs(tparm(tgetstr("me", NULL), COLOR_GREEN), 0, &ft_put);
         tputs(tgetstr("cd", NULL), 0, &ft_put);
 		ft_initial();
