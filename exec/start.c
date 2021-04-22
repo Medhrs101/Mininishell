@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:22:30 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 11:52:38 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/21 15:33:09 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void init(t_global *m_gl)
 int check_built(t_global *m_gl, t_node *node)
 {
 	char	**cmd = node->args;
+	t_env	*env_l;
 
+	env_l = m_gl->envar;
 	if (node->cmd && !ft_strcmp(node->cmd, "echo"))
 		echo_main(m_gl, node->args);
 	else if (node->cmd && !ft_strcmp(node->cmd, "cd"))
@@ -38,7 +40,16 @@ int check_built(t_global *m_gl, t_node *node)
 	else if (node->cmd && !ft_strcmp(node->cmd, "unset"))
 		unset(m_gl, cmd);
 	else if (node->cmd && !ft_strcmp(node->cmd, "exit"))
-		exit(0);
+	{
+		while(env_l)
+		{
+			free(env_l->ident);
+			free(env_l->value);
+			free(env_l);
+			env_l = env_l->next;
+		}
+		exit(con.exit_stat);
+	}
 	else
 		return (0);
 	return (1);

@@ -126,7 +126,7 @@ int main(int ac, char **av, char **env)
 	var->ambiguous = get_v_dolar("SHLVL");
 	var->shlvl = ft_atoi(var->ambiguous) + 1;
 	free(var->ambiguous);
-	// change_value("SHLVL", ft_itoa(var->shlvl));
+	change_value("SHLVL", ft_itoa(var->shlvl));
  	while(1)
     {
 		var->input = NULL;

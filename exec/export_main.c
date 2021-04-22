@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:32:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 11:48:43 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/22 10:20:08 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char *chartostr(t_env *env_l)
 	str[1] = '\0';
 	return (str);
 }
+
 void put_qot(t_env *env_l, char **str)
 {
 	char *tmp;

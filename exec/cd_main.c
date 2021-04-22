@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 16:10:26 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/05 11:32:13 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/19 17:03:19 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void set_env_pwd(t_global *m_gl)
 		{
 			tmp = env_l->value;
 			env_l->value = ft_strdup(path);
+			free(tmp);
 			break;
 		}
 		env_l = env_l->next;
@@ -137,13 +138,14 @@ void cd_main(t_global *m_gl, char **tab)
 	if (path)
 	{
 		if ((c = oldpath(m_gl, &path)) == 1)
-			printf("bash: cd: OLDPWD not set\n");
+			ft_putendl_fd("bash: cd: OLDPWD not set", 2);
 		else if (!opendir(path) && c != 2)
-			printf("cd: no such file or directory: %s\n", path);
+			print_err("cd: %s: no such file or directory: \n", path, 1);
 		else
 		{
 			chdir(path);
 			set_env_pwd(m_gl);
 		}
 	}
+	free(path);
 }
