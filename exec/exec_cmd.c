@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 14:18:22 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/21 12:00:59 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,6 @@ void exec_main(t_global *m_gl, t_node *node)
 		waitpid(m_gl->pid, &(con.pid), 0);
 		con.exit_stat = WEXITSTATUS(con.pid);
 	}
-	free(envp);
+	free_tab(envp);
+	free(path);
 }
