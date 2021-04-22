@@ -78,7 +78,6 @@ void    stock_cmd(char *str)
     var = get_struct_var(NULL);
     // printf("||%s||\n", str);
     tb = ft_split(str, '|');
-    // print_tb2d(tb);
     while(tb[i])
     {
         node = (t_node *)malloc(sizeof(t_node));
@@ -144,8 +143,6 @@ int    dolar_work(char *tb, int s, int i, int *bs_erno)
     }
     if(tb[i - 1] == '\\' || s || !tb[i + 1] || tb[i + 1] == '$')
     {
-        // printf("{%d}\n", s);
-        // puts("\ndolar not work\n");
         return (0);
     }
     return (1);
@@ -205,7 +202,7 @@ char    *get_v_dolar(char *v_dolar)
     while(tmp)
     {
         if (!strcmp(v_dolar, tmp->ident))
-            return(tmp->value);
+            return(ft_strdup(tmp->value));
         tmp = tmp->next;
     }
     return (NULL);
@@ -238,65 +235,57 @@ int     dolar_hundle(int j, int *i, int *r)
     char *tmp3;
     int k;
 
-    // dolar = NULL;
-    // v_dolar = NULL;
     k = 0;
     v = get_struct_var(NULL);
-
     k = end_dolar(v->sc_sp[j], *i + 1);
     dolar = ft_substr(v->sc_sp[j] , *i + 1, k);
-    // v_dolar = get_v_dolar(dolar);
-    // printf("{%c,  %d}\n", v->sc_sp[j][*i + 1],v->status);
     if (v->sc_sp[j][*i + 1] == '?')
     {
-        v_dolar = ft_itoa(v->status);
+        v_dolar = ft_itoa(con.exit_stat);
+        if (con.exit_stat == 258)
+            con.exit_stat = 0;
     }
     else
     {
        v_dolar = get_v_dolar(dolar); 
     }
-    // v_dolar = (v->sc_sp[j][*i + 1] == '?') ? ft_itoa(v->status) : get_v_dolar(dolar);
-    // printf("{%s}\n", v_dolar);
-    if (v->sc_sp[j][*i + 1] == '?')
-        v->status = 0;
     if (v_dolar != NULL)
     {
         tmp1 = ft_substr(v->sc_sp[j], 0, *i);
         tmp2 = ft_strjoin(tmp1, v_dolar);
-        // free(v->tmp1);
         tmp3 = ft_strjoin(tmp2, &v->sc_sp[j][*i + 1 + k]);
-        // free(v->tmp2);
-        // free(tmp1);
-        // tmp1 = NULL;
-        // free(tmp2);
-        // tmp2 = NULL;
+        free(tmp2);
+        free(tmp1);
+        free(v->sc_sp[j]);
         v->sc_sp[j] = tmp3;
-        // free(tmp3);
-
-        tmp3 = NULL;
         *i = *i - 1 + ft_strlen(v_dolar);
-        // printf("<-->{%s}\n", v->sc_sp[j]);
+        free(v_dolar);
+        free(dolar);
     }
     else
     {
-        // puts("hallo\n");
-        if (*r == 1)
+        if (*r == 1 && (v->sc_sp[j][*i + ft_strlen(dolar)+ 1] == ' ' || !v->sc_sp[j][*i + ft_strlen(dolar)+ 1]))
         {
+            // printf(">%c<\n",v->sc_sp[j][*i + ft_strlen(dolar)+ 1]);
             v->ambiguous = ft_strdup(dolar);
             *r = 0;
+            free(dolar);
             print_error(AMB);
             return(0);
         }
-
         tmp1 = ft_substr(v->sc_sp[j], 0, *i);
         tmp2 = ft_strjoin(tmp1, &v->sc_sp[j][*i + ft_strlen(dolar)+ 1]);
+        free(tmp1);
+        free(v->sc_sp[j]);
         v->sc_sp[j] = tmp2;
+        *i -= 1;
+        free(dolar);
+
         // free(tmp1);
         // tmp1 = NULL;
         // free(tmp2);
         // tmp2 = NULL;
         // printf("<---->{%s}\n", v->sc_sp[j]);
-        *i -= 1;
     }
     return(1);
 }
@@ -343,7 +332,7 @@ int    hundle_input(int j)
         }
         else if (v->sc_sp[j][i] == '\\' && bs_work(v->sc_sp[j], s, d, i))
             bs_hundle(v->sc_sp[j], d, &i, &bs_erno);
-        else if (v->sc_sp[j][i] == '$' &&dolar_work(v->sc_sp[j], s, i, &bs_erno))
+        else if (v->sc_sp[j][i] == '$' && dolar_work(v->sc_sp[j], s, i, &bs_erno))
         {
             if(!dolar_hundle(j, &i, &r))
                 return(0);
@@ -383,6 +372,7 @@ void    clear_lst_files(t_node *node)
         }
         // ft_putstr_fd("\n \033[0;31m   files cleared\n \e[39m", 1);
     }
+    free(current);
 }
 
 void    clear_lst_cmd_args()
@@ -405,16 +395,43 @@ void    clear_lst_cmd_args()
             puts("------------DATA----------\n");
             printf("{cmd : |%s|}\n", current->cmd);
             print_tab2d(current->args);
-            // free_tab(current->args);
-            clear_lst_files(current);
+            free_tab(current->args);
+            // clear_lst_files(current);
             puts("------------DATA----------\n");
-            free(current->cmd);
+            // free(current->cmd);
             current = current->link;
         }
         // ft_putstr_fd("\n \033[0;31m   Data cleared \e[39m", 1);
     }
+    free(current);
 }
-
+// void    re_hundle_input(int i)
+// {
+//     t_var *v = get_struct_var(NULL);
+//     int j = 0;
+//     int flag;
+//     while(v->sc_sp[i][j])
+//     {
+//         if (v->sc_sp[i][j] == '>' && v->sc_sp[i][j + 1] == '>')
+//         {
+//             if (flag)
+//                 reuturn (0);
+//             flag = 1;
+//             j++;
+//         }
+//         else if (v->sc_sp[i][j] == '<' || v->sc_sp[i][j] == '>')
+//         {
+//             if (flag)
+//                 reuturn (0);
+//             flag = 1;
+//         }
+//         else if (char_off(v->sc_sp[i][j]))
+//         {
+//             flag = 0;
+//         }
+//         j++;
+//     }
+// }
 void    divid_input()
 {
     t_var      *v;
@@ -424,10 +441,13 @@ void    divid_input()
     i = 0;
     v = get_struct_var(NULL);
     v->sc_sp = ft_split(v->input, ';');
+    // free(v->input);
     while(v->sc_sp[i])
     {
         if(!hundle_input(i))
             break;
+        // if (!re_hundle_input(i))
+        //     break;
         v->node = NULL;
         stock_cmd(v->sc_sp[i]);
         // free(v->sc_sp[i]);
@@ -446,5 +466,7 @@ void    divid_input()
         clear_lst_cmd_args();
         i++;
     }
-    // free(v->sc_sp);
+    free(v->input);
+    free_tab(v->sc_sp);
+    // v->input = NULL;
 }

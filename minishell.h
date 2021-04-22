@@ -6,7 +6,7 @@
 /*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 15:09:51 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/21 15:59:21 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,6 @@ typedef struct s_var
     int flagi;
     char **sc_sp;
     char **p_sp;
-    int status;
     char *ambiguous;
     t_node *node;
 } t_var;

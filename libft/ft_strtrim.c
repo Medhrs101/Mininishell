@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 17:05:13 by ymarji            #+#    #+#             */
-/*   Updated: 2019/10/26 13:45:52 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/20 16:12:33 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	len = ft_strlen(str) - 1;
 	while (len > 0 && check(str[len], (char *)set))
 		len--;
-	return (ft_substr(str, 0, len + 1));
+	char *tmp = ft_substr(str, 0, len + 1);
+	free(str);
+	return (tmp);
 }

@@ -252,7 +252,8 @@ void swap_curr_old(t_hst **tmp)
 
 void    get_input(t_rdl *rdl, t_hst *tmp)
 {
-    // t_var *v = get_struct_var(NULL);
+    // FILE *fptr;
+    t_var *v = get_struct_var(NULL);
     int pressed_key = 0;
     insert_at_tail(rdl, tmp);
     while (tmp->next)
@@ -302,7 +303,12 @@ void    get_input(t_rdl *rdl, t_hst *tmp)
             free(tmp->curr_buff);
             tmp->curr_buff = ft_strdup(tmp->old_buff);
             swap_curr_old(&tmp);
+            // fptr = fopen("debug.txt", "arw");
+            // fprintf(fptr, "%p\n", &tmp->old_buff);
+            // fclose(fptr);
+            v->input = ft_strdup(tmp->curr_buff);
             ft_putchar_fd('\n', 0);
+            // Print_doubly_lst(rdl);
             break;
         }
     }
@@ -311,7 +317,7 @@ void    get_input(t_rdl *rdl, t_hst *tmp)
 
 void    ft_readline(t_rdl *rdl)
 {
-    t_var *v = get_struct_var(NULL);
+    // t_var *v = get_struct_var(NULL);
     t_hst *tmp = get_new_node();
     struct termios oldattr;
     initial_terminal(&oldattr);
@@ -319,12 +325,12 @@ void    ft_readline(t_rdl *rdl)
     get_input(rdl, tmp);
     tcsetattr(0, TCSANOW, &oldattr);
 
-    v->input = ft_strdup(tmp->curr_buff);
-    if (!check_line())
-	{
-	    ft_putstr_fd("------------------------------\n", 1);
-	    ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);
-	}
+    // v->input = ft_strdup(tmp->curr_buff);
+    // if (!check_line())
+	// {
+	//     ft_putstr_fd("------------------------------\n", 1);
+	//     ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);
+	// }
 }
 
 void    print_prompt()

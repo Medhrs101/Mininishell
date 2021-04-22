@@ -24,29 +24,33 @@ int print_error(int erno)
 
     v = get_struct_var(NULL);
     v->erno = erno;
-    v->status = 258;
+    con.exit_stat = 258;
+    free(v->input);
+    // free(v);
+    ft_putstr_fd("minishell: ", 2);
     if (v->erno == NEWLINE)
-        ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+        ft_putendl_fd("minishell: syntax error near unexpected token `newline'", 2);
     else if (v->erno == UN_PIPE)
-        ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+        ft_putendl_fd("minishell: syntax error near unexpected token `|'", 2);
     else if (v->erno == UN_LR)
-        ft_putstr_fd("minishell: syntax error near unexpected token `<'\n", 2);
+        ft_putendl_fd("minishell: syntax error near unexpected token `<'", 2);
     else if (v->erno == UN_RR)
-        ft_putstr_fd("minishell: syntax error near unexpected token `>'\n", 2);
+        ft_putendl_fd("minishell: syntax error near unexpected token `>'", 2);
     else if (v->erno == UN_DR)
-        ft_putstr_fd("minishell: syntax error near unexpected token `>>'\n", 2);
+        ft_putendl_fd("minishell: syntax error near unexpected token `>>'", 2);
     else if (v->erno == UN_SC)
-        ft_putstr_fd("minishell: syntax error near unexpected token `;'\n", 2);
+        ft_putendl_fd("minishell: syntax error near unexpected token `;'", 2);
     else if (v->erno == UN_DSC)
-        ft_putstr_fd("minishell: syntax error near unexpected token `;;'\n", 2);
+        ft_putendl_fd("minishell: syntax error near unexpected token `;;'", 2);
     else if (v->erno == UN_DPIPE)
-        ft_putstr_fd("minishell: syntax error near unexpected token `||'\n", 2);
+        ft_putendl_fd("minishell: syntax error near unexpected token `||'", 2);
     else if (v->erno == AMB)
     {
-        ft_putstr_fd("minishell: $", 2);
+        ft_putchar_fd('$', 2);
         ft_putstr_fd(v->ambiguous, 2);
         ft_putendl_fd(": ambiguous redirect", 2);
         free(v->ambiguous);
+        v->input = ft_strdup(" ");
         v->ambiguous = NULL;
     }
     return (v->erno);

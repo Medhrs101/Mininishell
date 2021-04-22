@@ -4,10 +4,13 @@ int check_line()
 {
 	int i;
 	t_var *var;
-
+	char *tmp;
 	var = get_struct_var(NULL);
 	i = 0;
-	var->input = ft_strtrim(var->input, " ");
+	tmp = ft_strtrim(var->input, " ");
+	free(var->input);
+	var->input = tmp;
+	// printf("%p\n", var->input);
 	while (var->input[i] && !var->erno)
 	{
 		off_bs(i);
@@ -120,22 +123,26 @@ int main(int ac, char **av, char **env)
 	get_struct_var(var);
 	env_copy(var->m_gl, env);
     init_term();
-	var->status = 0;
-	var->shlvl = ft_atoi(get_v_dolar("SHLVL")) + 1;
-	change_value("SHLVL", ft_itoa(var->shlvl));
+	var->ambiguous = get_v_dolar("SHLVL");
+	var->shlvl = ft_atoi(var->ambiguous) + 1;
+	free(var->ambiguous);
+	// change_value("SHLVL", ft_itoa(var->shlvl));
  	while(1)
     {
-        tputs(tparm(tgetstr("AF", NULL), COLOR_GREEN), 0, &ft_put);
-        ft_putstr_fd ("minishell > ", 1);
-        tputs(tparm(tgetstr("me", NULL), COLOR_GREEN), 0, &ft_put);
-        tputs(tgetstr("cd", NULL), 0, &ft_put);
+		var->input = NULL;
+        // tputs(tparm(tgetstr("AF", NULL), COLOR_GREEN), 0, &ft_put);
+        // ft_putstr_fd ("minishell > ", 1);
+        // tputs(tparm(tgetstr("me", NULL), COLOR_GREEN), 0, &ft_put);
+        // tputs(tgetstr("cd", NULL), 0, &ft_put);
+		ft_putstr_fd("\033[0;32mminishell > \e[39m", 0);
 		ft_initial();
         ft_readline(&rdl);
-		// if (!check_line())
-		// {
-		// 	ft_putstr_fd("------------------------------\n", 1);
-		// 	ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);
-		// }
+		if (var->input && !check_line())
+		{
+			ft_putstr_fd("------------------------------\n", 1);
+			// printf("%p\n", &var);
+			ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);
+		}
     }
     return(0);
 	// let_start();
