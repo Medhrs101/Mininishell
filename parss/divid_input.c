@@ -242,8 +242,8 @@ int     dolar_hundle(int j, int *i, int *r)
     if (v->sc_sp[j][*i + 1] == '?')
     {
         v_dolar = ft_itoa(con.exit_stat);
-        if (con.exit_stat == 258)
-            con.exit_stat = 0;
+        // if (con.exit_stat == 258)
+        //     con.exit_stat = 0;
     }
     else
     {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:04:40 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/12 11:39:26 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/22 11:04:36 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,5 @@ void echo_main(t_global *m_gl, char **tab)
 	}
 	if (opt == 0)
 		ft_putstr_fd("\n", 1);
+	con.exit_stat = 0;
 }

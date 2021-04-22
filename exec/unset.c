@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 10:07:09 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 14:57:58 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/22 10:56:20 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void print_err(char *str, char *arg, int errnb)
 {
 	int	fd;
 
+	con.exit_stat = errnb;
 	fd = dup(1);
 	dup2(2, 1);
 	if (arg)
@@ -58,5 +59,4 @@ void print_err(char *str, char *arg, int errnb)
 		printf("%s\n", str);
 	dup2(fd, 1);
 	close(fd);
-	con.exit_stat = errnb;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:22:30 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/21 15:33:09 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/22 11:00:03 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ void 	execute(t_global *m_gl, t_node *node)
 	if (node->args[0] && !(i = check_built(m_gl, tmp)))
 	{
 		exec_main(m_gl, tmp);
+		printf("%d\n", con.exit_stat);
 	}
 }
 

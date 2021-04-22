@@ -27,7 +27,7 @@ void    off_flags()
 {
     t_var *v;
 
-    con.exit_stat = 0;
+    // con.exit_stat = 0;
     v = get_struct_var(NULL);
     v->flg_d_r = 0;
     v->flg_r_r = 0;
