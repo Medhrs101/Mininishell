@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:32:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/22 10:57:20 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/22 11:09:24 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ void store_var_env(t_global *m_gl, char *str)
 		new = ft_lstnew_m(ft_substr(str, 0, i), NULL, 0);
 	ft_lstadd_back_m(&(m_gl->envar), new);
 	free_tab(arg);
+	con.exit_stat = 0;
 }
 
 int search_vr(t_global *m_gl, char *str)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 10:07:09 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/22 10:56:20 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/22 11:10:22 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int unset(t_global *m_gl, char **tab)
 	if (!ident_val(tab[1]))
 	{
 		print_err("bash: unset: `%s': not a valid identifier\n", tab[1], 1);
-		m_gl->exit_stat = 1;
 	}
 	while (env_l)
 	{

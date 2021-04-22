@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 16:10:26 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/19 17:03:19 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/22 11:08:39 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ void cd_main(t_global *m_gl, char **tab)
 		{
 			chdir(path);
 			set_env_pwd(m_gl);
+			con.exit_stat = 0;
 		}
 	}
 	free(path);
