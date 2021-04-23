@@ -6,7 +6,7 @@
 /*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/23 14:23:56 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/23 14:36:31 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@
 #define UN_SC -106
 #define UN_DSC -107
 #define UN_DPIPE -108
-#define AMB -109
-#define NO_FILE -110
 
 typedef struct s_hst
 {
@@ -158,7 +156,7 @@ typedef struct s_var
     int flagi;
     char **sc_sp;
     char **p_sp;
-    char *ambiguous;
+    char *val;
     t_node *node;
 } t_var;
 

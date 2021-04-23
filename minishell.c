@@ -123,9 +123,9 @@ int main(int ac, char **av, char **env)
 	get_struct_var(var);
 	env_copy(var->m_gl, env);
     init_term();
-	var->ambiguous = get_v_dolar("SHLVL");
-	var->shlvl = ft_atoi(var->ambiguous) + 1;
-	free(var->ambiguous);
+	var->val = get_v_dolar("SHLVL");
+	var->shlvl = ft_atoi(var->val) + 1;
+	free(var->val);
 	change_value("SHLVL", ft_itoa(var->shlvl));
  	while(1)
     {

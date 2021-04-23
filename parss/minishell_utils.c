@@ -26,7 +26,6 @@ int print_error(int erno)
     v->erno = erno;
     con.exit_stat = 258;
     free(v->input);
-    // free(v);
     ft_putstr_fd("minishell: ", 2);
     if (v->erno == NEWLINE)
         ft_putendl_fd("syntax error near unexpected token `newline'", 2);
@@ -44,20 +43,6 @@ int print_error(int erno)
         ft_putendl_fd("syntax error near unexpected token `;;'", 2);
     else if (v->erno == UN_DPIPE)
         ft_putendl_fd("syntax error near unexpected token `||'", 2);
-    else if (v->erno == NO_FILE)
-    {
-        ft_putendl_fd(": No such file or directory", 2);
-        v->input = ft_strdup(" ");
-    }
-    else if (v->erno == AMB)
-    {
-        ft_putchar_fd('$', 2);
-        ft_putstr_fd(v->ambiguous, 2);
-        ft_putendl_fd(": ambiguous redirect", 2);
-        free(v->ambiguous);
-        v->input = ft_strdup(" ");
-        v->ambiguous = NULL;
-    }
     return (v->erno);
 }
 

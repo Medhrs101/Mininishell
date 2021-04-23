@@ -394,7 +394,7 @@ void    clear_lst_files(t_node *node)
     {
         while(current)
         {
-            printf ("{tp = |%c| = |%s|}\n", current->type, current->name_file);
+            // printf ("{tp = |%c| = |%s|}\n", current->type, current->name_file);
             free(current->name_file);
             current = current->next;
         }
@@ -484,7 +484,7 @@ void    divid_input()
         //     print_error(NO_FILE);
         //     break;
         // }
-        printf("%s\n", v->sc_sp[i]);
+        // printf("%s\n", v->sc_sp[i]);
         v->node = NULL;
         stock_cmd(v->sc_sp[i]);
         // free(v->sc_sp[i]);
