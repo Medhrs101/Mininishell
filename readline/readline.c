@@ -143,41 +143,57 @@ void    delete_char(t_hst *tmp)
     tmp->old_buff = temp;
 }
 
+char    *c_in_char(int c)
+{
+    char *str;
+
+    if (!(str = (char *)malloc(2 * sizeof(char))))
+	    return (NULL);
+    str[0] = c;
+    str[1] = '\0';
+    return(str);
+}
+
 void    add_char(t_hst *tmp, int c)
 {
     char *swap;
-    int i = 0;
-    tmp->k = 0;
+    // int i = 0;
+    // tmp->k = 0;
     tmp->curpos++;
-    if (tmp->size_bf - tmp->curpos - 1 >= 0)
-    {
-        tmp->k = tmp->size_bf;
-        tmp->old_buff[tmp->curpos - 1] = c;
-        return;
-    }
-    else
-    {
-        tmp->size_bf *= 2;
-        tmp->k = tmp->size_bf;
-        swap = (char *)malloc((sizeof(char) * tmp->size_bf));
-        while (tmp->old_buff[i] && i < tmp->curpos - 1)
-        {
-            swap[i] = tmp->old_buff[i];
-            i++;
-        }
-        swap[i] = c;
-        free(tmp->old_buff);
-        tmp->old_buff = ft_strdup(swap);
-        free(swap);
-        swap = NULL;
-    }
+
+    char *c_str = c_in_char(c);
+    swap = ft_strjoin(tmp->old_buff, c_str);
+    free(tmp->old_buff);
+    tmp->old_buff = swap;
+    free(c_str);
+    // if (tmp->size_bf - tmp->curpos - 1 >= 0)
+    // {
+    //     tmp->k = tmp->size_bf;
+    //     tmp->old_buff[tmp->curpos - 1] = c;
+    //     return;
+    // }
+    // else
+    // {
+        // tmp->size_bf = 800;
+        // tmp->k = tmp->size_bf;
+        // swap = (char *)malloc((sizeof(char) * tmp->size_bf));
+        // while (tmp->old_buff[i] && i < tmp->curpos - 1)
+        // {
+        //     swap[i] = tmp->old_buff[i];
+        //     i++;
+        // }
+        // swap[i] = c;
+        // free(tmp->old_buff);
+        // tmp->old_buff = ft_strdup(swap);
+        // free(swap);
+        // swap = NULL;
+    // }
 }
 
 
 void    exchange_nodes(t_hst **tmp)
 {
     int curpos = (*tmp)->curpos;
-    int size_bf = (*tmp)->size_bf;
     char *old_buff = NULL;
     old_buff = ft_strdup((*tmp)->old_buff);
     free((*tmp)->old_buff);
@@ -186,7 +202,6 @@ void    exchange_nodes(t_hst **tmp)
     while((*tmp)->next)
         *tmp = (*tmp)->next;
     (*tmp)->curpos = curpos;
-    (*tmp)->size_bf = size_bf;
     free((*tmp)->old_buff);
     (*tmp)->old_buff = old_buff;
 }
@@ -217,7 +232,6 @@ void    delete_last_node(t_rdl *rdl, t_hst *temp)
 {
     t_hst *tmp = rdl->head;
     tmp->curpos = 0;
-    tmp->size_bf = 0;
     while(tmp->next)
         tmp = tmp->next;
     tmp->prev->next = temp->next;

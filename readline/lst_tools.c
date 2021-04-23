@@ -4,10 +4,9 @@ t_hst *get_new_node()
 {
     t_hst *new_node = (t_hst *)malloc(sizeof(t_hst));
     new_node->next = NULL;
-    new_node->size_bf = 2;
     new_node->curpos = 0;
-    new_node->curr_buff = (char *)malloc(sizeof(char) * new_node->size_bf);
-    new_node->old_buff = (char *)malloc(sizeof(char) * new_node->size_bf);
+    new_node->curr_buff = (char *)malloc(sizeof(char) * 2);
+    new_node->old_buff = (char *)malloc(sizeof(char) * 2);
     new_node->prev = NULL;
     return(new_node);
 }

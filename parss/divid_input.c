@@ -97,16 +97,22 @@ void    stock_cmd(char *str)
     // print_lst();
 }
 
-int     bs_work(char *tb, int s, int d, int i)
+int     bs_work(char *tb, int *r, int s, int d, int i)
 {
     t_var *v;
 
     v = get_struct_var(NULL);
     if (!d && !s)
+    {
+        if (*r == 1)
+         *r = 0;
         return (1);
+    }
     else if (d && (tb[i + 1] == '\\' || tb[i + 1] == -34 || tb[i + 1] == '$' || tb[i + 1] == '`'))
     {
         // printf("\n|%c|\n", tab[i + 1]);
+        if (*r == 1)
+         *r = 0;
         return (1);
 
     }
@@ -165,7 +171,7 @@ int     end_dolar(char *tb, int i)
         return (1);
     while(tb[i])
     {
-        if (tb[i] < 0 || ft_strrchr("\"|\\'. <>/", tb[i]))
+        if (tb[i] < 0 || ft_strrchr("\"|\\'. $<>/", tb[i]))
             break;
         cpt++;
         i++;
@@ -225,7 +231,15 @@ void    bs_hundle(char *tb, int d, int *i, int *bs_erno)
     }   
 }
 
-int     dolar_hundle(int j, int *i, int *r)
+int     is_red(int c)
+{
+    t_var *v = get_struct_var(NULL);
+    if(c == '>' || c == '<' || c == ' ' || !c)
+        return(1);
+    return(0);
+}
+
+void     dolar_hundle(int j, int *i, int *r, int*d)
 {
     t_var *v;
     char *dolar;
@@ -254,32 +268,41 @@ int     dolar_hundle(int j, int *i, int *r)
         tmp1 = ft_substr(v->sc_sp[j], 0, *i);
         tmp2 = ft_strjoin(tmp1, v_dolar);
         tmp3 = ft_strjoin(tmp2, &v->sc_sp[j][*i + 1 + k]);
-        free(tmp2);
-        free(tmp1);
         free(v->sc_sp[j]);
         v->sc_sp[j] = tmp3;
         *i = *i - 1 + ft_strlen(v_dolar);
+        free(tmp2);
+        free(tmp1);
         free(v_dolar);
         free(dolar);
+        if (*r == 1)
+         *r = 0;
+        
     }
     else
     {
-        if (*r == 1 && (v->sc_sp[j][*i + ft_strlen(dolar)+ 1] == ' ' || !v->sc_sp[j][*i + ft_strlen(dolar)+ 1]))
+        if (*r == 1 && is_red(v->sc_sp[j][*i + ft_strlen(dolar)+ 1]))
         {
             // printf(">%c<\n",v->sc_sp[j][*i + ft_strlen(dolar)+ 1]);
-            v->ambiguous = ft_strdup(dolar);
+            // v->ambiguous = ft_strdup(dolar);
             *r = 0;
-            free(dolar);
-            print_error(AMB);
-            return(0);
+            // free(dolar);
+            // print_error(AMB);
+            v->sc_sp[j][*i] -= 37;
+             return ;
+        }
+        if (*d == 1 && v->sc_sp[j][*i + ft_strlen(dolar)+ 1] == '"')
+        {
+            v->sc_sp[j][*i + ft_strlen(dolar)+ 1] -= 36;
+            *d = 0;
         }
         tmp1 = ft_substr(v->sc_sp[j], 0, *i);
         tmp2 = ft_strjoin(tmp1, &v->sc_sp[j][*i + ft_strlen(dolar)+ 1]);
-        free(tmp1);
         free(v->sc_sp[j]);
         v->sc_sp[j] = tmp2;
         *i -= 1;
         free(dolar);
+        free(tmp1);
 
         // free(tmp1);
         // tmp1 = NULL;
@@ -287,14 +310,16 @@ int     dolar_hundle(int j, int *i, int *r)
         // tmp2 = NULL;
         // printf("<---->{%s}\n", v->sc_sp[j]);
     }
-    return(1);
 }
 
 int     is_redirection(int c, int d, int *r)
 {
     if (c == '>' || c == '<' || (c == '>' && d == '>'))
     {
-        *r = 1;
+        // if (*r == 1)
+        //     *r = 0;
+        // else
+            *r = 1;
         return (1);
     }
     return (0);
@@ -320,6 +345,12 @@ int    hundle_input(int j)
         if(v->sc_sp[j][i] == '\'' || v->sc_sp[j][i] == '"')
         {
             hundle_s_d(v->sc_sp[j][i], &s, &d);
+            if (r == 1 && v->sc_sp[j][i + 1] == '"')
+            {
+                v->sc_sp[j][i + 1] -= 36;
+                d = 0;
+                r = 0;
+            }
             override(v->sc_sp[j], i);
             i -= 1;
         }
@@ -330,13 +361,10 @@ int    hundle_input(int j)
             else
                 continue;
         }
-        else if (v->sc_sp[j][i] == '\\' && bs_work(v->sc_sp[j], s, d, i))
+        else if (v->sc_sp[j][i] == '\\' && bs_work(v->sc_sp[j], &r, s, d, i))
             bs_hundle(v->sc_sp[j], d, &i, &bs_erno);
         else if (v->sc_sp[j][i] == '$' && dolar_work(v->sc_sp[j], s, i, &bs_erno))
-        {
-            if(!dolar_hundle(j, &i, &r))
-                return(0);
-        }
+            dolar_hundle(j, &i, &r, &d);
     }
     return (1);
 }
@@ -396,7 +424,7 @@ void    clear_lst_cmd_args()
             printf("{cmd : |%s|}\n", current->cmd);
             print_tab2d(current->args);
             free_tab(current->args);
-            // clear_lst_files(current);
+            clear_lst_files(current);
             puts("------------DATA----------\n");
             // free(current->cmd);
             current = current->link;
@@ -405,33 +433,39 @@ void    clear_lst_cmd_args()
     }
     free(current);
 }
-// void    re_hundle_input(int i)
-// {
-//     t_var *v = get_struct_var(NULL);
-//     int j = 0;
-//     int flag;
-//     while(v->sc_sp[i][j])
-//     {
-//         if (v->sc_sp[i][j] == '>' && v->sc_sp[i][j + 1] == '>')
-//         {
-//             if (flag)
-//                 reuturn (0);
-//             flag = 1;
-//             j++;
-//         }
-//         else if (v->sc_sp[i][j] == '<' || v->sc_sp[i][j] == '>')
-//         {
-//             if (flag)
-//                 reuturn (0);
-//             flag = 1;
-//         }
-//         else if (char_off(v->sc_sp[i][j]))
-//         {
-//             flag = 0;
-//         }
-//         j++;
-//     }
-// }
+
+int    re_hundle_input(int i)
+{
+    t_var *v = get_struct_var(NULL);
+    int j = -1;
+    int flag = 0;
+    while(v->sc_sp[i][++j])
+    {
+
+        if (v->sc_sp[i][j] == '>' && v->sc_sp[i][j + 1] == '>')
+        {
+            if (flag)
+                return (0);
+            flag = 1;
+            j++;
+        }
+        else if (v->sc_sp[i][j] == '<' || v->sc_sp[i][j] == '>')
+        {
+            if (flag)
+                return (0);
+            flag = 1;
+        }
+        else if (char_off(v->sc_sp[i][j]) || v->sc_sp[i][j] < 0)
+        {
+            flag = 0;
+        }
+        // j++;
+    }
+    if (flag)
+        return(0);
+    return(1);
+}
+
 void    divid_input()
 {
     t_var      *v;
@@ -444,10 +478,13 @@ void    divid_input()
     // free(v->input);
     while(v->sc_sp[i])
     {
-        if(!hundle_input(i))
-            break;
+        hundle_input(i);
         // if (!re_hundle_input(i))
+        // {
+        //     print_error(NO_FILE);
         //     break;
+        // }
+        printf("%s\n", v->sc_sp[i]);
         v->node = NULL;
         stock_cmd(v->sc_sp[i]);
         // free(v->sc_sp[i]);

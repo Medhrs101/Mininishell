@@ -13,6 +13,20 @@ void    inverse(char *tab)
     }
 }
 
+
+void    inverse_file(char *tab)
+{
+    int i;
+
+    i = 0;
+    while (tab[i])
+    {
+        if (tab[0] != -1 && tab[0] != -2 && tab[i] < 0)
+            tab[i] *= -1;
+        i++;
+    }
+}
+
 void    get_file(int i, t_file *file)
 {
     t_var   *var;
@@ -27,7 +41,7 @@ void    get_file(int i, t_file *file)
     (var->str[i + 1] == '>') ? i += 2 : i++;
     while(var->str[i])
     {
-        if(char_off(var->str[i]) && !save_i)
+        if((char_off(var->str[i]) || var->str[i] < 0) && !save_i)
             save_i = i;
         else if ((var->str[i] == ' ' || var->str[i] == '<' || var->str[i] == '>' || var->str[i] == '>') && save_i)
             break;
@@ -37,13 +51,14 @@ void    get_file(int i, t_file *file)
     {
         save_end_i = i;
         file->name_file = ft_substr(var->str, save_i, save_end_i - save_i);
-        inverse(file->name_file);
+        inverse_file(file->name_file);
         var->tmp1 = ft_substr(var->str, 0, save);
         var->tmp2 = &var->str[save_end_i];
         var->str = ft_strjoin(var->tmp1, var->tmp2);
         // free(var->tmp1);
         // free(var->tmp2);
     }
+    
 }
 
 void    join_file_list(t_node *node, t_file *file)

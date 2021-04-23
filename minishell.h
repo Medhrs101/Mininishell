@@ -6,7 +6,7 @@
 /*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/21 15:59:21 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/23 14:23:56 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,15 @@
 #define UN_DSC -107
 #define UN_DPIPE -108
 #define AMB -109
+#define NO_FILE -110
 
 typedef struct s_hst
 {
     char *old_buff;
     char *curr_buff;
     int curpos;
-    int size_bf;
-    int k;
+    // int size_bf;
+    // int k;
     struct s_hst   *prev;
     struct s_hst   *next;
 }              t_hst;

@@ -29,21 +29,26 @@ int print_error(int erno)
     // free(v);
     ft_putstr_fd("minishell: ", 2);
     if (v->erno == NEWLINE)
-        ft_putendl_fd("minishell: syntax error near unexpected token `newline'", 2);
+        ft_putendl_fd("syntax error near unexpected token `newline'", 2);
     else if (v->erno == UN_PIPE)
-        ft_putendl_fd("minishell: syntax error near unexpected token `|'", 2);
+        ft_putendl_fd("syntax error near unexpected token `|'", 2);
     else if (v->erno == UN_LR)
-        ft_putendl_fd("minishell: syntax error near unexpected token `<'", 2);
+        ft_putendl_fd("syntax error near unexpected token `<'", 2);
     else if (v->erno == UN_RR)
-        ft_putendl_fd("minishell: syntax error near unexpected token `>'", 2);
+        ft_putendl_fd("syntax error near unexpected token `>'", 2);
     else if (v->erno == UN_DR)
-        ft_putendl_fd("minishell: syntax error near unexpected token `>>'", 2);
+        ft_putendl_fd("syntax error near unexpected token `>>'", 2);
     else if (v->erno == UN_SC)
-        ft_putendl_fd("minishell: syntax error near unexpected token `;'", 2);
+        ft_putendl_fd("syntax error near unexpected token `;'", 2);
     else if (v->erno == UN_DSC)
-        ft_putendl_fd("minishell: syntax error near unexpected token `;;'", 2);
+        ft_putendl_fd("syntax error near unexpected token `;;'", 2);
     else if (v->erno == UN_DPIPE)
-        ft_putendl_fd("minishell: syntax error near unexpected token `||'", 2);
+        ft_putendl_fd("syntax error near unexpected token `||'", 2);
+    else if (v->erno == NO_FILE)
+    {
+        ft_putendl_fd(": No such file or directory", 2);
+        v->input = ft_strdup(" ");
+    }
     else if (v->erno == AMB)
     {
         ft_putchar_fd('$', 2);
