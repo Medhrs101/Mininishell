@@ -58,15 +58,6 @@ void    initial_terminal(struct termios *oldattr)
     tcsetattr(0, TCSANOW, &attr);
 }
 
-// void    get_size_win(t_rdl *rdl)
-// {
-//     rdl->size_win.x = 0;
-//     rdl->size_win.y = 0;
-//     rdl->size_win.x = tgetnum("co");
-//     rdl->size_win.y = tgetnum("li");
-//     // printf ("sw.x  = %d, sw.y = %d\n", rdl->size_win.x, rdl->size_win.y);
-// }
-
 int is_key(int key_pressed)
 {
 	if (key_pressed == KEYCODE_R)
@@ -84,19 +75,21 @@ int is_key(int key_pressed)
     return (1);
 }
 
-int ft_put(int c)
-{
-  return (write(0, &c, 1));
-}
 
 void    puts_c(t_hst *tmp)
 {
-    int i = 0;
+    int i;
+    
+    i = 0;
     while(i < tmp->curpos && tmp->old_buff[i])
     {
         ft_putchar_fd(tmp->old_buff[i], 0);
         i++; 
     }
+}
+int ft_put(int c)
+{
+  return (write(0, &c, 1));
 }
 void    print_line(t_rdl *rdl, t_hst *tmp)
 {
@@ -154,40 +147,17 @@ char    *c_in_char(int c)
     return(str);
 }
 
-void    add_char(t_hst *tmp, int c)
+void    add_char(t_rdl *rdl, t_hst *tmp, int c)
 {
     char *swap;
-    // int i = 0;
-    // tmp->k = 0;
-    tmp->curpos++;
 
+    tmp->curpos++;
     char *c_str = c_in_char(c);
     swap = ft_strjoin(tmp->old_buff, c_str);
     free(tmp->old_buff);
     tmp->old_buff = swap;
     free(c_str);
-    // if (tmp->size_bf - tmp->curpos - 1 >= 0)
-    // {
-    //     tmp->k = tmp->size_bf;
-    //     tmp->old_buff[tmp->curpos - 1] = c;
-    //     return;
-    // }
-    // else
-    // {
-        // tmp->size_bf = 800;
-        // tmp->k = tmp->size_bf;
-        // swap = (char *)malloc((sizeof(char) * tmp->size_bf));
-        // while (tmp->old_buff[i] && i < tmp->curpos - 1)
-        // {
-        //     swap[i] = tmp->old_buff[i];
-        //     i++;
-        // }
-        // swap[i] = c;
-        // free(tmp->old_buff);
-        // tmp->old_buff = ft_strdup(swap);
-        // free(swap);
-        // swap = NULL;
-    // }
+    print_line(rdl, tmp);
 }
 
 
@@ -206,31 +176,27 @@ void    exchange_nodes(t_hst **tmp)
     (*tmp)->old_buff = old_buff;
 }
 
-void deleteNode(t_rdl *rdl, t_hst *tmp)
+void delete_node(t_rdl *rdl, t_hst *tmp)
 {
-    /* base case */
     free(tmp->curr_buff);
     free(tmp->old_buff);
-
     if (rdl->head == NULL || tmp == NULL)
         return;
-
     if (rdl->head == tmp)
         rdl->head = tmp->next;
-
     if (tmp->next != NULL)
         tmp->next->prev = tmp->prev;
-
     if (tmp->prev != NULL)
         tmp->prev->next = tmp->next;
-
     free(tmp);
     return;
 }
 
 void    delete_last_node(t_rdl *rdl, t_hst *temp)
 {
-    t_hst *tmp = rdl->head;
+    t_hst *tmp;
+    
+    tmp = rdl->head;
     tmp->curpos = 0;
     while(tmp->next)
         tmp = tmp->next;
@@ -240,7 +206,9 @@ void    delete_last_node(t_rdl *rdl, t_hst *temp)
 
 void   fill_file(int fd, t_rdl *rdl)
 {
-    t_hst *tmp = rdl->head;
+    t_hst *tmp;
+    
+    tmp = rdl->head;
     while(tmp)
     {
         ft_putendl_fd(tmp->curr_buff, fd);
@@ -264,10 +232,44 @@ void swap_curr_old(t_hst **tmp)
         *tmp = (*tmp)->next;
 }
 
+int   hundle_ctrl_c_d(t_rdl *rdl, t_hst **tmp, int pressed_key)
+{
+    if ((*tmp)->next != NULL)
+        exchange_nodes(tmp);
+    delete_node(rdl, *tmp);
+    ft_putchar_fd('\n', 0);
+    if (pressed_key == CTRL_C)
+        return(0);
+    else
+        exit(0);
+    return(1);
+}
+
+int    hundle_back_n(t_rdl *rdl, t_hst **tmp, t_var *v)
+{
+    (*tmp)->old_buff[(*tmp)->curpos] = 0;
+    if(!(*tmp)->old_buff[0])
+    {
+        exchange_nodes(tmp);
+        delete_node(rdl, *tmp);
+        ft_putchar_fd('\n', 0);
+        return(0);
+    }
+    if ((*tmp)->next != NULL)
+        exchange_nodes(tmp);
+    free((*tmp)->curr_buff);
+    (*tmp)->curr_buff = ft_strdup((*tmp)->old_buff);
+    swap_curr_old(tmp);
+    v->input = ft_strdup((*tmp)->curr_buff);
+    ft_putchar_fd('\n', 0);
+    return(0);
+}
+
 void    get_input(t_rdl *rdl, t_hst *tmp)
 {
-    // FILE *fptr;
-    t_var *v = get_struct_var(NULL);
+    t_var *v;
+    
+    v = get_struct_var(NULL);
     int pressed_key = 0;
     insert_at_tail(rdl, tmp);
     while (tmp->next)
@@ -279,95 +281,24 @@ void    get_input(t_rdl *rdl, t_hst *tmp)
         if (up_or_down(rdl, pressed_key, &tmp))
             continue;
         else if (ft_isprint(pressed_key))
-        {
-            add_char(tmp, pressed_key);
-            print_line(rdl, tmp);
-        }
+            add_char(rdl, tmp, pressed_key);
         else if (pressed_key == CTRL_D && !tmp->curpos)
-        {
-            if (tmp->next != NULL)
-                exchange_nodes(&tmp);
-            deleteNode(rdl, tmp);
-            ft_putchar_fd('\n', 0);
-            exit(0);
-        }
-        else if (pressed_key == CTRL_C)
-        {
-            if (tmp->next != NULL)
-                exchange_nodes(&tmp);
-            deleteNode(rdl, tmp);
-            ft_putchar_fd('\n', 0);
+            hundle_ctrl_c_d(rdl, &tmp, pressed_key);
+        else if (pressed_key == CTRL_C && !hundle_ctrl_c_d(rdl, &tmp, pressed_key))
             break;
-        }
         else if (pressed_key == 127 && tmp->old_buff[0])
             delete_char(tmp);
-        else if (pressed_key == '\n')
-        {
-            tmp->old_buff[tmp->curpos] = 0;
-            if(!tmp->old_buff[0])
-            {
-                exchange_nodes(&tmp);
-                deleteNode(rdl, tmp);
-                ft_putchar_fd('\n', 0);
-                break;
-            }
-            if (tmp->next != NULL)
-                exchange_nodes(&tmp);
-
-            free(tmp->curr_buff);
-            tmp->curr_buff = ft_strdup(tmp->old_buff);
-            swap_curr_old(&tmp);
-            // fptr = fopen("debug.txt", "arw");
-            // fprintf(fptr, "%p\n", &tmp->old_buff);
-            // fclose(fptr);
-            v->input = ft_strdup(tmp->curr_buff);
-            ft_putchar_fd('\n', 0);
-            // Print_doubly_lst(rdl);
+        else if (pressed_key == '\n' && !hundle_back_n(rdl, &tmp, v))
             break;
-        }
     }
-    //     ft_putendl_fd(v->input, 0);
 }
 
 void    ft_readline(t_rdl *rdl)
 {
-    // t_var *v = get_struct_var(NULL);
     t_hst *tmp = get_new_node();
     struct termios oldattr;
     initial_terminal(&oldattr);
     get_coord_cursor(rdl);
     get_input(rdl, tmp);
     tcsetattr(0, TCSANOW, &oldattr);
-
-    // v->input = ft_strdup(tmp->curr_buff);
-    // if (!check_line())
-	// {
-	//     ft_putstr_fd("------------------------------\n", 1);
-	//     ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);
-	// }
 }
-
-void    print_prompt()
-{
-    tputs(tparm(tgetstr("AF", NULL), COLOR_GREEN), 0, &ft_put);
-    ft_putstr_fd ("minishell > ", 0);
-    tputs(tparm(tgetstr("me", NULL), COLOR_GREEN), 0, &ft_put);
-    tputs(tgetstr("cd", NULL), 0, &ft_put);
-}
-// int     main()
-// {
-//     t_rdl rdl;
-//     rdl = (t_rdl){0};
-//     rdl.head = (t_hst *){0};
-//     init_term();
-//     while(1)
-//     {
-//         print_prompt();
-//         // tputs(tparm(tgetstr("AF", NULL), COLOR_GREEN), 0, &ft_put);
-//         // ft_putstr_fd ("minishell > ", 0);
-//         // tputs(tparm(tgetstr("me", NULL), COLOR_GREEN), 0, &ft_put);
-//         // tputs(tgetstr("cd", NULL), 0, &ft_put);
-//         ft_readline(&rdl);
-//     }
-//     return(0);
-// }

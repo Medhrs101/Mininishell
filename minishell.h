@@ -6,7 +6,7 @@
 /*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/23 14:36:31 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/24 12:30:33 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,27 @@
 #define UN_DSC -107
 #define UN_DPIPE -108
 
+
+typedef struct s_hundle_input
+{
+    int     i;
+    int     s;
+    int     d;
+    int     r;
+    int     bs_erno;
+    int     end;
+    char    *dolar;
+    char    *v_dolar; 
+    char    *tmp1;
+    char    *tmp2;
+    char    *tmp3;  
+}              t_hp;
+
 typedef struct s_hst
 {
     char *old_buff;
     char *curr_buff;
     int curpos;
-    // int size_bf;
-    // int k;
     struct s_hst   *prev;
     struct s_hst   *next;
 }              t_hst;
