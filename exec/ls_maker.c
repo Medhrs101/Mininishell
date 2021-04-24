@@ -6,13 +6,13 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:25:56 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/22 11:11:30 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/24 11:18:09 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_env *ft_lstlast_m(t_env *lst)
+t_env	*ft_lstlast_m(t_env *lst)
 {
 	t_env *tmp;
 
@@ -24,7 +24,7 @@ t_env *ft_lstlast_m(t_env *lst)
 	return (tmp);
 }
 
-void ft_lstadd_back_m(t_env **alst, t_env *new)
+void	ft_lstadd_back_m(t_env **alst, t_env *new)
 {
 	t_env *p;
 
@@ -38,7 +38,7 @@ void ft_lstadd_back_m(t_env **alst, t_env *new)
 	new->prev = p;
 }
 
-int ft_lstsize_m(t_env *lst)
+int		ft_lstsize_m(t_env *lst)
 {
 	int cp;
 
@@ -51,7 +51,7 @@ int ft_lstsize_m(t_env *lst)
 	return (cp);
 }
 
-t_env *ft_lstnew_m(void *ident, void *value, char equal)
+t_env	*ft_lstnew_m(void *ident, void *value, char equal)
 {
 	t_env *new;
 
@@ -66,7 +66,7 @@ t_env *ft_lstnew_m(void *ident, void *value, char equal)
 	return (new);
 }
 
-int ft_strcmp(const char *s1, const char *s2)
+int		ft_strcmp(const char *s1, const char *s2)
 {
 	if (!s1)
 		return (0 - *(const unsigned char *)s2);
@@ -80,7 +80,7 @@ int ft_strcmp(const char *s1, const char *s2)
 	return *(const unsigned char *)s1 - *(const unsigned char *)s2;
 }
 
-void ft_lstdelone_m(t_env *lst)
+void	ft_lstdelone_m(t_env *lst)
 {
 	t_env *tmp_p;
 	t_env *tmp_n;
@@ -95,28 +95,18 @@ void ft_lstdelone_m(t_env *lst)
 	}
 }
 
-void ft_deletenode(t_env **head_ref, t_env *del)
+void	ft_deletenode(t_env **head_ref, t_env *del)
 {
-	/* base case */
 	if (*head_ref == NULL || del == NULL)
 		return;
-
-	/* If node to be deleted is head node */
 	if (*head_ref == del)
 		*head_ref = del->next;
-
-	/* Change next only if node to be deleted is NOT the last node */
 	if (del->next != NULL)
 		del->next->prev = del->prev;
-
-	/* Change prev only if node to be deleted is NOT the first node */
 	if (del->prev != NULL)
 		del->prev->next = del->next;
-
-	/* Finally, free the memory occupied by del*/
 	free(del->ident);
 	free(del->value);
 	free(del);
 	con.exit_stat = 0;
-	return;
 }

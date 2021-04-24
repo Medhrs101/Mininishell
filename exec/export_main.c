@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:32:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/22 11:09:24 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/24 11:24:23 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,11 @@ void sort_array(char ***tab)
 	char *swp;
 
 	tmp = *tab;
-	i = 0;
-	j = 0;
+	i = -1;
 	count = 0;
 	while (tmp[count])
 		count++;
-	while (i < count - 1)
+	while (++i < count - 1)
 	{
 		j = 0;
 		while (j < count - i - 1)
@@ -116,7 +115,6 @@ void sort_array(char ***tab)
 			}
 			j++;
 		}
-		i++;
 	}
 }
 int count_tab(char **tab)
@@ -140,7 +138,8 @@ void store_var_env(t_global *m_gl, char *str)
 		i++;
 	arg = ft_split(str, '=');
 	if (ft_strchr(str, '='))
-		new = ft_lstnew_m(ft_substr(str, 0, i), ft_substr(str, i + 1, ft_strlen(str)), '=');
+		new = ft_lstnew_m(ft_substr(str, 0, i),
+		ft_substr(str, i + 1, ft_strlen(str)), '=');
 	if (!ft_strchr(str, '='))
 		new = ft_lstnew_m(ft_substr(str, 0, i), NULL, 0);
 	ft_lstadd_back_m(&(m_gl->envar), new);
@@ -182,7 +181,6 @@ void export_main(t_global *m_gl, char **tab)
 {
 	int opt;
 	t_env *tmp;
-	t_env *new;
 	char **arg;
 	int i;
 
@@ -204,7 +202,8 @@ void export_main(t_global *m_gl, char **tab)
 		arg = ft_split(tab[1], '=');
 		if (!ident_val(arg[0]))
 		{
-			print_err("bash: export: `%s': not a valid identifier\n", tab[1], 1);
+			print_err("bash: export: `%s': not a valid identifier\n",
+			tab[1], 1);
 		}
 		else if (!search_vr(m_gl, tab[1]))
 			store_var_env(m_gl, tab[1]);
