@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/22 11:02:34 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/26 12:30:12 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,25 +105,26 @@ char *get_path(t_global *m_gl, char *cmd)
 
 void exec_main(t_global *m_gl, t_node *node)
 {
-	char *path;
-	char **args;
-	char **envp;
+	char	*path;
+	char	**args;
+	char	**envp;
+	int		statu;
 
 	args = node->args;
 	path = get_path(m_gl, args[0]);
 	envp = env_tab(m_gl);
 	if (path)
 	{
-		m_gl->pid = fork();
-		if (m_gl->pid == 0)
+		con.pid = fork();
+		if (con.pid == 0)
 		{
 			execve(path, args, envp);
 			exit(0);
 		}
 		else
 		{
-			waitpid(m_gl->pid, &(con.pid), 0);
-			con.exit_stat = WEXITSTATUS(con.pid);
+			waitpid(con.pid, &(statu), 0);
+			con.exit_stat = WEXITSTATUS(statu);
 		}
 	}
 	free_tab(envp);
