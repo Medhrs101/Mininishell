@@ -219,9 +219,7 @@ void double_quote(int i)
 
     v = get_struct_var(NULL);
     if (v->flg_d_q)
-    {
         v->flg_d_q = 0;
-    }
     else if (v->flg_s_q)
         v->input[i] *= -1;
     else if (!v->flg_d_q && !v->flg_s_q)
