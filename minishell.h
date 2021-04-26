@@ -6,7 +6,7 @@
 /*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/24 12:33:02 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/26 10:49:24 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,11 +252,11 @@ t_var *get_struct_var(t_var *var);
 char *get_v_dolar(char *v_dolar);
 int print_error(int erno);
 void divid_input();
-void stock_cmd(char *str);
+void stock_cmd(char *str, t_var *v);
 void print_tab2d(char **tab);
 
 // void    search_file();
-void get_file(int i, t_file *file);
+void get_file(t_var *v, int i, t_file *file);
 void search_files(t_node *node);
 void inverse(char *tab);
 void inverse_args(char **tab);

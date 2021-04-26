@@ -10,7 +10,6 @@ int check_line()
 	tmp = ft_strtrim(var->input, " ");
 	free(var->input);
 	var->input = tmp;
-	// printf("%p\n", var->input);
 	while (var->input[i] && !var->erno)
 	{
 		off_bs(i);
@@ -107,7 +106,7 @@ void free_tab(char **tab)
 int main(int ac, char **av, char **env)
 {
 	t_var *var;
-	t_env *tmp;
+	// t_env *tmp;
 	t_rdl rdl;
 
 	(void)ac;
@@ -137,14 +136,12 @@ int main(int ac, char **av, char **env)
 		ft_putstr_fd("\033[0;32mminishell > \e[39m", 0);
 		ft_initial();
         ft_readline(&rdl);
+		// var->input = ft_strdup("echo hello");
 		if (var->input && !check_line())
 		{
 			ft_putstr_fd("------------------------------\n", 1);
-			// printf("%p\n", &var);
 			ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);
 		}
     }
     return(0);
-	// let_start();
-	// return (0);
 }
