@@ -6,7 +6,7 @@
 /*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 17:05:13 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/20 16:12:33 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/27 12:10:52 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		check(char c, char *set)
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*str;
+	char	*tmp;
 	int		j;
 	int		len;
 
@@ -43,7 +44,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	len = ft_strlen(str) - 1;
 	while (len > 0 && check(str[len], (char *)set))
 		len--;
-	char *tmp = ft_substr(str, 0, len + 1);
-	free(str);
+	tmp = ft_substr(str, 0, len + 1);
+	printf("<%p>\n", str);
+	// free(str);
 	return (tmp);
 }

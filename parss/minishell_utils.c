@@ -189,7 +189,9 @@ int behind_s_c(int i)
     t_var *v;
 
     v = get_struct_var(NULL);
-    if ((v->flg_s_q || v->flg_d_q) && (v->input[i] *= -1))
+    if (v->input[0] == ';' && v->input[1] != ';' && print_error(UN_SC))
+        return(0);
+    else if ((v->flg_s_q || v->flg_d_q) && (v->input[i] *= -1))
         return (0);
     else if (v->input[i + 1] == ';' && print_error(UN_DSC))
         return (0);

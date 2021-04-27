@@ -1,39 +1,65 @@
 #include "./minishell.h"
 
-int check_line()
+void hundle_syntax(t_var *var, int *i)
+{
+	off_bs(*i);
+	if (var->input[*i] == '\'')
+		simple_quote(*i);
+	else if (var->input[*i] == '"')
+		double_quote(*i);
+	else if (var->input[*i] == ';')
+	{
+		if (behind_s_c(*i))
+			semi_colone();
+	}
+	else if (var->input[*i] == '|')
+		var->erno = pip(*i);
+	else if (var->input[*i] == '>' && var->input[*i + 1] == '>')
+		var->erno = double_redr(i);
+	else if (var->input[*i] == '>')
+		var->erno = right_red(i);
+	else if (var->input[*i] == '<')
+		var->erno = left_red(*i);
+	else if (var->input[*i] == '\\')
+		b_slash(*i);
+	else
+		caracter(var->input[*i], i);
+}
+
+int check_line(t_var *var)
 {
 	int i;
-	t_var *var;
 	char *tmp;
-	var = get_struct_var(NULL);
+
 	i = 0;
 	tmp = ft_strtrim(var->input, " ");
 	free(var->input);
 	var->input = tmp;
 	while (var->input[i] && !var->erno)
 	{
-		off_bs(i);
-		if (var->input[i] == '\'')
-			simple_quote(i);
-		else if (var->input[i] == '"')
-			double_quote(i);
-		else if (var->input[i] == ';')
-		{
-			if (behind_s_c(i))
-				semi_colone();
-		}
-		else if (var->input[i] == '|')
-			var->erno = pip(i);
-		else if (var->input[i] == '>' && var->input[i + 1] == '>')
-			var->erno = double_redr(&i);
-		else if (var->input[i] == '>')
-			var->erno = right_red(i);
-		else if (var->input[i] == '<')
-			var->erno = left_red(i);
-		else if (var->input[i] == '\\')
-			b_slash(i);
-		else
-			caracter(var->input[i], i);
+		hundle_syntax(var, &i);
+		// off_bs(i);
+		// if (var->input[i] == '\'')
+		// 	simple_quote(i);
+		// else if (var->input[i] == '"')
+		// 	double_quote(i);
+		// else if (var->input[i] == ';')
+		// {
+		// 	if (behind_s_c(i))
+		// 		semi_colone();
+		// }
+		// else if (var->input[i] == '|')
+		// 	var->erno = pip(i);
+		// else if (var->input[i] == '>' && var->input[i + 1] == '>')
+		// 	var->erno = double_redr(&i);
+		// else if (var->input[i] == '>')
+		// 	var->erno = right_red(i);
+		// else if (var->input[i] == '<')
+		// 	var->erno = left_red(i);
+		// else if (var->input[i] == '\\')
+		// 	b_slash(i);
+		// else
+		// 	caracter(var->input[i], i);
 		i++;
 	}
 	if (var->erno && !(var->erno = 0))
@@ -137,7 +163,7 @@ int main(int ac, char **av, char **env)
 		ft_initial();
         ft_readline(&rdl);
 		// var->input = ft_strdup("echo hello");
-		if (var->input && !check_line())
+		if (var->input && !check_line(var))
 		{
 			ft_putstr_fd("------------------------------\n", 1);
 			ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);

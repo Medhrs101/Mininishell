@@ -12,6 +12,9 @@ SRC =./exec/echo_main.c \
 	./exec/pwd_main.c \
 	./exec/cd_main.c \
 	./readline/lst_tools.c \
+	./readline/readline_tools.c \
+	./readline/delete_print.c \
+	./readline/hundle_pressed_key.c \
 	./readline/readline.c \
 	./parss/divid_input.c \
 	./parss/minishell_utils.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/26 12:37:16 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/26 15:47:10 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,12 +180,25 @@ void    init_term();
 void    initial_terminal(struct termios *oldattr);
 void    print_prompt();
 void    ft_readline(t_rdl * rdl);
+char    *c_in_char(int c);
+void    add_char(t_rdl *rdl, t_hst *tmp, int c);
+int     hundle_back_n(t_rdl *rdl, t_hst **tmp, t_var *v);
+int     hundle_ctrl_c_d(t_rdl *rdl, t_hst **tmp, int pressed_key);
+int     up_or_down(t_rdl *rdl, int pressed_key, t_hst **tmp);
+void    puts_c(t_hst *tmp);
 int     ft_put(int c);
+void    print_line(t_rdl *rdl, t_hst *tmp);
+void    delete_char(t_hst *tmp);
+void    init_term();
+void    exchange_nodes(t_hst **tmp);
+void    delete_node(t_rdl *rdl, t_hst *tmp);
+void    swap_curr_old(t_hst **tmp);
 t_hst   *get_new_node();
 void    insert_at_head(t_rdl *rdl, t_hst *new_node);
 void    insert_at_tail(t_rdl *rdl, t_hst *new_node);
-void    Print_doubly_lst(t_rdl *rdl);
-void    Reverse_printf_doubly_lst(t_rdl *rdl);
+// void    Print_doubly_lst(t_rdl *rdl);
+// void    Reverse_printf_doubly_lst(t_rdl *rdl);
+
 //////
 
 // void execute(t_global *m_gl, char *line);
