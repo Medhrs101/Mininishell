@@ -6,7 +6,7 @@
 /*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 17:05:13 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/27 12:10:52 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/27 12:14:44 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (len > 0 && check(str[len], (char *)set))
 		len--;
 	tmp = ft_substr(str, 0, len + 1);
-	printf("<%p>\n", str);
-	// free(str);
+	// printf("<%p>\n", str);
+	free(str);
 	return (tmp);
 }

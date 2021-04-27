@@ -460,16 +460,16 @@ void    divid_input()
         stock_cmd(v->sc_sp[i], v);
         // printf("%p\n", v->node);
         //---------------------
-        // v->stdo = dup(STDOUT);
-        // v->stdi = dup(STDIN);
-        // // piping(v);
-        // pip_or_not(v);
-        // // if (out_red(v))
-        //     // execute(v->m_gl,v->node);
-        // dup2(v->stdo, STDOUT);
-        // dup2(v->stdi, STDIN);
-        // close(v->stdo);
-        // close(v->stdi);
+        v->stdo = dup(STDOUT);
+        v->stdi = dup(STDIN);
+        // piping(v);
+        pip_or_not(v);
+        // if (out_red(v))
+            // execute(v->m_gl,v->node);
+        dup2(v->stdo, STDOUT);
+        dup2(v->stdi, STDIN);
+        close(v->stdo);
+        close(v->stdi);
         //---------------------
         clear_lst_cmd_args();
         i++;

@@ -69,5 +69,6 @@ void    ft_readline(t_rdl *rdl)
 	initial_terminal(&oldattr);
 	get_coord_cursor(rdl);
 	get_input(rdl, tmp);
+	oldattr.c_lflag |= ISIG;
 	tcsetattr(0, TCSANOW, &oldattr);
 }
