@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/26 12:37:16 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/27 10:29:03 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,8 @@ int c_split(char const *str, char c);
 void	piping(t_var *var);
 
 void	pip_or_not(t_var *var);
+
+void	sigin_handl(int sig);
 // ---------------------------------- PARSE PART ------------------------------------------
 
 void ft_initial();

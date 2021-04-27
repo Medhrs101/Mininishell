@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/26 12:30:12 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/27 11:39:34 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void exec_main(t_global *m_gl, t_node *node)
 	args = node->args;
 	path = get_path(m_gl, args[0]);
 	envp = env_tab(m_gl);
+	signal(SIGINT, &sigin_handl);
 	if (path)
 	{
 		con.pid = fork();
@@ -124,7 +125,8 @@ void exec_main(t_global *m_gl, t_node *node)
 		else
 		{
 			waitpid(con.pid, &(statu), 0);
-			con.exit_stat = WEXITSTATUS(statu);
+			if (WEXITSTATUS(statu))
+				con.exit_stat = WEXITSTATUS(statu);
 		}
 	}
 	free_tab(envp);
