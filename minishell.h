@@ -6,7 +6,7 @@
 /*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/26 15:47:10 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/27 12:12:43 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,8 @@ int c_split(char const *str, char c);
 void	piping(t_var *var);
 
 void	pip_or_not(t_var *var);
+
+void	sigin_handl(int sig);
 // ---------------------------------- PARSE PART ------------------------------------------
 
 void ft_initial();
