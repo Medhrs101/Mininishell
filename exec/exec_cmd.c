@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/27 11:39:34 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/28 10:25:17 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,9 @@ void exec_main(t_global *m_gl, t_node *node)
 	args = node->args;
 	path = get_path(m_gl, args[0]);
 	envp = env_tab(m_gl);
-	signal(SIGINT, &sigin_handl);
+	con.exit_stat = 0;
+	signal(SIGINT, handle_sigint);
+	signal(SIGSTOP, handle_sigquit);
 	if (path)
 	{
 		con.pid = fork();
