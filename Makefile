@@ -20,8 +20,16 @@ SRC =./exec/echo_main.c \
 	./parss/divid_input.c \
 	./parss/minishell_utils.c \
 	./parss/mns_utils_1.c \
-	./parss/search_files.c
-
+	./parss/search_files.c \
+	./parss/redirections.c \
+	./parss/pip_sc.c \
+	./parss/parss_lst_utils.c \
+	./parss/mns_utils4.c \
+	./parss/mns_utils3.c \
+	./parss/mns_utils_2.c \
+	./parss/hundle_input.c \
+	./parss/hundle_dolar.c
+	
 # MAIN = test.c
 # SRC = minishell_utils.c
 
