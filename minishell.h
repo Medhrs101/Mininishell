@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/28 10:22:36 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/28 12:46:09 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,7 @@ int count_tab(char **tab);
 void ft_deletenode(t_env **head_ref, t_env *del);
 int unset(t_global *m_gl, char **tab);
 
-void free_tab(char **tb);
+
 int ident_val(char *str);
 
 void print_err(char *str, char *arg, int errnb);
@@ -247,36 +247,76 @@ void	handle_sigquit(int sig);
 
 // ---------------------------------- PARSE PART ------------------------------------------
 
-void ft_initial();
+void free_tab(char **tb);
+void hundle_syntax(t_var *var, int *i);
 int check_line();
+
+
+int print_error(int erno);
+void print_tab2d(char **tab);
+void hundle_end();
+void double_quote(int i);
+void simple_quote(int i);
+
+
+void ft_initial();
+int sum_all_flag();
+int sum_flag();
+int char_off(int c);
+void off_flags();
+
+t_var *get_struct_var(t_var *var);
+void off_bs(int i);
 void caracter(char c, int i);
+void    hp_initial(t_hp *t);
+int     is_red(int c);
+
 int right_red(int i);
 int left_red(int i);
 int double_redr(int *i);
-int pip(int i);
-void semi_colone();
+
 int behind_s_c(int i);
-void double_quote(int i);
-void simple_quote(int i);
+void semi_colone();
+int pip(int i);
 void b_slash(int i);
-void off_flags();
-int char_off(int c);
-int sum_flag();
-void hundle_end();
-int sum_all_flag();
-void off_bs(int i);
-t_var *get_struct_var(t_var *var);
+
+void v_dolar_not_null(t_var *v, int j, t_hp *t);
+void v_dolar_null(t_var *v, int j, t_hp *t);
+int     end_dolar(char *tb, int i);
+void     dolar_hundle(int j, t_hp *t);
+int    dolar_work(char *tb, t_hp *t);
+
+void    bs_hundle(char *tb, t_hp *t);
+int     bs_work(char *tb, t_hp *t);
+void    hundle_s_d(t_var *v, int j, t_hp *t);
+int    hundle_input(int j, t_var *v);
+
+int     is_redirection(int c, int d, t_hp *t);
+void    inverse_input(int i);
+void    override(char *tb, int i);
+int		isdigit(int c);
+int     ft_argchr(char *str);
+
+void    inverse_args(char **tb);
+char    *get_v_dolar(char *v_dolar);
+void    inverse_file(char *tab);
+char   *inverse_dolar(char *dolar);
+
+
 char *get_v_dolar(char *v_dolar);
-int print_error(int erno);
 void divid_input();
 void stock_cmd(char *str, t_var *v);
-void print_tab2d(char **tab);
+
+void    join_cmd_list(t_node *node);
+void    print_lst();
+t_node    *create_node(t_node *node);
+void    clear_lst_files(t_node *node);
+void    clear_lst_cmd_args();
 
 // void    search_file();
 void get_file(t_var *v, int i, t_file *file);
 void search_files(t_node *node);
 void inverse(char *tab);
-void inverse_args(char **tab);
 void print_lst_files(t_node *node);
 // void    get_file(int i);
 

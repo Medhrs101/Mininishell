@@ -13,20 +13,6 @@ void    inverse(char *tab)
     }
 }
 
-
-void    inverse_file(char *tab)
-{
-    int i;
-
-    i = 0;
-    while (tab[i])
-    {
-        if (tab[0] != -1 && tab[0] != -2 && tab[i] < 0)
-            tab[i] *= -1;
-        i++;
-    }
-}
-
 void    stock_name_file(int i, int save_i, int save, t_file *file)
 {
     int save_end_i;
@@ -80,28 +66,6 @@ void    join_file_list(t_node *node, t_file *file)
         current->next = file;
     }
 }
-
-// void    print_lst_files(t_node *node)
-// {
-//     t_file *current;
-//     current = node->file;
-//     if (current == NULL)
-//         ft_putstr_fd("There is not file here ", 1);
-//     else
-//     {
-//         while(current)
-//         {
-//             ft_putstr_fd("\n||", 1);
-//             ft_putstr_fd("   tp = ", 1);
-//             ft_putchar_fd(current->type, 1);
-//             ft_putstr_fd("   :     ", 1);
-//             ft_putstr_fd(current->name_file, 1);
-//             ft_putstr_fd("||\n", 1);
-//             current = current->next;
-//         }
-//         ft_putstr_fd("\n \033[0;31m          ^__^ ^__^ ^__^\e[39m", 1);
-//     }
-// }
 
 void create_node_file(t_node *node, t_file *file, int *i, int c)
 {
