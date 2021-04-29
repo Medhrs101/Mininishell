@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/28 12:46:09 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/29 14:20:41 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,6 @@ int ft_lstsize_m(t_env *lst);
 // t_env *ft_lstnew_m(void *content, int type);
 t_env *ft_lstnew_m(void *ident, void *value, char equal);
 t_env *ft_lstlast_m(t_env *lst);
-void ft_lstdelone_m(t_env *lst);
 char *get_path(t_global *m_gl, char *cmd);
 void export_main(t_global *m_gl, char **tab);
 char **env_tab(t_global *m_gl);
@@ -247,7 +246,7 @@ void	handle_sigquit(int sig);
 
 // ---------------------------------- PARSE PART ------------------------------------------
 
-void free_tab(char **tb);
+void free_tab(char **tab);
 void hundle_syntax(t_var *var, int *i);
 int check_line();
 
@@ -325,7 +324,6 @@ void print_lst_files(t_node *node);
 // t_env *ft_lstnew_m(void *ident, void *value, char equal);
 // t_env *ft_lstlast_m(t_env *lst);
 // void ft_lstdelone_m(t_env *lst);
-// void	free_tab(char **tab);
 t_const con;
 
 #endif

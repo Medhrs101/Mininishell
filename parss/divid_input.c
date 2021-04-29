@@ -49,7 +49,7 @@ void    divid_input()
 		v->stdo = dup(STDOUT);
 		v->stdi = dup(STDIN);
 		// piping(v);
-			pip_or_not(v);
+		pip_or_not(v);
 		// if (out_red(v))
 			// execute(v->m_gl,v->node);
 		dup2(v->stdo, STDOUT);

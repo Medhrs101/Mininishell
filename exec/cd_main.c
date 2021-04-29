@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 16:10:26 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/22 11:08:39 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/29 10:53:26 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void set_env_pwd(t_global *m_gl)
 		if (!ft_strcmp(env_l->ident, "PWD"))
 		{
 			tmp = env_l->value;
+			env_l->equal = '=';
 			env_l->value = ft_strdup(path);
 			free(tmp);
 			break;
@@ -118,6 +119,7 @@ int oldpath(t_global *m_gl, char **path)
 				c = 2;
 				free(*path);
 				*path = ft_strdup(env_l->value);
+				env_l->equal = '=';
 			}
 			env_l = env_l->next;
 		}

@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: moharras <moharras@student.42.fr>          +#+  +:+       +#+         #
+#    By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/19 10:20:10 by ymarji            #+#    #+#              #
-#    Updated: 2021/04/03 14:31:49 by moharras         ###   ########.fr        #
+#    Updated: 2021/04/29 14:18:54 by ymarji           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME	= libft.a
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 SRC		= ft_atoi.c\
+	ft_strcmp.c\
 	ft_bzero.c\
 	ft_isalnum.c\
 	ft_isalpha.c\

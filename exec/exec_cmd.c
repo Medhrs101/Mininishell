@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/28 10:25:17 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/29 14:32:29 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char *check_pathh(char **path, char *cmd)
 	char *tmp;
 	int i;
 	struct stat buffer;
+	DIR *dir;
 
 	i = 0;
 	if (stat(cmd, &buffer))
@@ -66,13 +67,16 @@ char *check_pathh(char **path, char *cmd)
 	}
 	else
 	{
-		if (opendir(cmd))
+		free_tab(path);
+		if ((dir = opendir(cmd)))
 		{
 			print_err("bash: %s: is a directory\n", cmd, 1);
-			return NULL;
+			free(dir);
+			free(dir->__dd_buf);
+			return (NULL);
 		}
 		else
-			return (cmd);
+			return (ft_strdup(cmd));
 	}
 	if (ft_strchr(cmd, '/'))
 		print_err("bash: %s: No such file or directory\n", cmd, 127);
@@ -95,9 +99,7 @@ char *get_path(t_global *m_gl, char *cmd)
 	while (env_l)
 	{
 		if (!ft_strcmp(env_l->ident, "PATH"))
-		{
 			tab = ft_split(env_l->value, ':');
-		}
 		env_l = env_l->next;
 	}
 	return (check_pathh(tab, cmd));
@@ -111,9 +113,9 @@ void exec_main(t_global *m_gl, t_node *node)
 	int		statu;
 
 	args = node->args;
+	con.exit_stat = 0;
 	path = get_path(m_gl, args[0]);
 	envp = env_tab(m_gl);
-	con.exit_stat = 0;
 	signal(SIGINT, handle_sigint);
 	signal(SIGSTOP, handle_sigquit);
 	if (path)

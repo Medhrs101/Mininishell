@@ -6,13 +6,13 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 10:07:09 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/24 11:16:53 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/29 14:23:04 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ident_val(char *str)
+int	ident_val(char *str)
 {
 	if (!str)
 		return (0);
@@ -27,9 +27,9 @@ int ident_val(char *str)
 	return (1);
 }
 
-int unset(t_global *m_gl, char **tab)
+int	unset(t_global *m_gl, char **tab)
 {
-	t_env *env_l;
+	t_env	*env_l;
 
 	env_l = m_gl->envar;
 	if (!ident_val(tab[1]))
@@ -43,7 +43,7 @@ int unset(t_global *m_gl, char **tab)
 	return (0);
 }
 
-void print_err(char *str, char *arg, int errnb)
+void	print_err(char *str, char *arg, int errnb)
 {
 	int	fd;
 
