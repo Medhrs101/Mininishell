@@ -6,15 +6,15 @@
 /*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 17:05:13 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/27 12:34:02 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/29 14:13:29 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		check(char c, char *set)
+int	check(char c, char *set)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (set[i])

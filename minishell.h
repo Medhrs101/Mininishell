@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/28 12:46:09 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/29 13:52:30 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,7 @@ void    override(char *tb, int i);
 int		isdigit(int c);
 int     ft_argchr(char *str);
 
+void    inverse(char *tab);
 void    inverse_args(char **tb);
 char    *get_v_dolar(char *v_dolar);
 void    inverse_file(char *tab);
@@ -314,10 +315,14 @@ void    clear_lst_files(t_node *node);
 void    clear_lst_cmd_args();
 
 // void    search_file();
-void get_file(t_var *v, int i, t_file *file);
-void search_files(t_node *node);
-void inverse(char *tab);
 void print_lst_files(t_node *node);
+
+void	stock_name_file(int i, int save_i, int save, t_file *file);
+void	get_file(t_var *v, int i, t_file *file);
+void	join_file_list(t_node *node, t_file *file);
+void	create_node_file(t_node *node, t_file *file, int *i, int c);
+void	search_files(t_node *node);
+
 // void    get_file(int i);
 
 // void ft_lstadd_back_m(t_env **alst, t_env *new);

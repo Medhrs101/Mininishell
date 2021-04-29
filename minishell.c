@@ -1,8 +1,8 @@
 #include "./minishell.h"
 
-void free_tab(char **tab)
+void	free_tab(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -13,10 +13,8 @@ void free_tab(char **tab)
 	free(tab);
 }
 
-void hundle_syntax(t_var *var, int *i)
+void	hundle_syntax(t_var *var, int *i)
 {
-	
-	// ft_putchar_fd(var->input[*i], 1);
 	off_bs(*i);
 	if (var->input[*i] == '\'')
 		simple_quote(*i);
@@ -41,10 +39,10 @@ void hundle_syntax(t_var *var, int *i)
 		caracter(var->input[*i], *i);
 }
 
-int check_line(t_var *var)
+int	check_line(t_var *var)
 {
-	int i;
-	char *tmp;
+	char	*tmp;
+	int		i;
 
 	i = -1;
 	tmp = ft_strtrim(var->input, " ");
@@ -52,13 +50,16 @@ int check_line(t_var *var)
 	var->input = tmp;
 	while (var->input[++i] && !var->erno)
 		hundle_syntax(var, &i);
-	if (var->erno && !(var->erno = 0))
+	if (var->erno)
+	{
+		var->erno = 0;
 		return (0);
+	}
 	hundle_end();
 	return (0);
 }
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	t_var *var;
 	t_rdl rdl;
