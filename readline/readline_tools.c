@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   readline_tools.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/29 12:24:29 by moharras          #+#    #+#             */
+/*   Updated: 2021/04/29 12:30:26 by moharras         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void    init_term()
+void	init_term(void)
 {
-	char    *term_type;
-	int     ret;
+	char	*term_type;
+	int		ret;
 
 	term_type = getenv("TERM");
 	if (term_type == NULL)
@@ -19,32 +31,35 @@ void    init_term()
 	}
 	else if (ret == 0)
 	{
-		ft_putstr_fd("Terminal type 'TERM' is not defined in termcap database (or have too few informations).\n", 1);
+		ft_putstr_fd("Terminal type 'TERM' is not defined in database.\n", 1);
 		exit (0);
 	}
 }
 
-void    exchange_nodes(t_hst **tmp)
+void	exchange_nodes(t_hst **tmp)
 {
-	int curpos = (*tmp)->curpos;
-	char *old_buff = NULL;
+	char	*old_buff;
+	int		curpos;
+
+	curpos = (*tmp)->curpos;
+	old_buff = NULL;
 	old_buff = ft_strdup((*tmp)->old_buff);
 	free((*tmp)->old_buff);
 	(*tmp)->old_buff = ft_strdup((*tmp)->curr_buff);
 	(*tmp)->curpos = ft_strlen((*tmp)->old_buff);
-	while((*tmp)->next)
+	while ((*tmp)->next)
 		*tmp = (*tmp)->next;
 	(*tmp)->curpos = curpos;
 	free((*tmp)->old_buff);
 	(*tmp)->old_buff = old_buff;
 }
 
-void delete_node(t_rdl *rdl, t_hst *tmp)
+void	delete_node(t_rdl *rdl, t_hst *tmp)
 {
 	free(tmp->curr_buff);
 	free(tmp->old_buff);
 	if (rdl->head == NULL || tmp == NULL)
-		return;
+		return ;
 	if (rdl->head == tmp)
 		rdl->head = tmp->next;
 	if (tmp->next != NULL)
@@ -52,12 +67,12 @@ void delete_node(t_rdl *rdl, t_hst *tmp)
 	if (tmp->prev != NULL)
 		tmp->prev->next = tmp->next;
 	free(tmp);
-	return;
+	return ;
 }
 
-void swap_curr_old(t_hst **tmp)
+void	swap_curr_old(t_hst **tmp)
 {
-	while((*tmp)->prev)
+	while ((*tmp)->prev)
 	{
 		free((*tmp)->old_buff);
 		(*tmp)->old_buff = ft_strdup((*tmp)->curr_buff);
@@ -67,6 +82,6 @@ void swap_curr_old(t_hst **tmp)
 	free((*tmp)->old_buff);
 	(*tmp)->old_buff = ft_strdup((*tmp)->curr_buff);
 	(*tmp)->curpos = ft_strlen((*tmp)->curr_buff);
-	while((*tmp)->next)
+	while ((*tmp)->next)
 		*tmp = (*tmp)->next;
 }

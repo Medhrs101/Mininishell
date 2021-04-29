@@ -1,23 +1,22 @@
 #include "../minishell.h"
 
-void    stock_cmd(char *str, t_var *v)
+void	stock_cmd(char *str, t_var *v)
 {
-	t_node  *node;
-	char    **tb;
-	int     i;
+	t_node 	*node;
+	char	**tb;
+	int		i;
 
 	i = 0;
 	tb = ft_split(str, '|');
-	while(tb[i])
+	while (tb[i])
 	{
 		node = create_node(node);
 		v->str = ft_strdup(tb[i]);
 		search_files(node);
-		if(!ft_argchr(v->str))
+		if (!ft_argchr(v->str))
 			node->cmd = NULL;
 		else
 		{
-			// printf(">%s<", v->str);
 			node->args = ft_split(v->str, ' ');
 			inverse_args(node->args);
 			node->cmd = node->args[0];
@@ -30,15 +29,15 @@ void    stock_cmd(char *str, t_var *v)
 	free_tab(tb);
 }
 
-void    divid_input()
+void	divid_input()
 {
-	t_var      *v;
-	int         i;
+	t_var	*v;
+	int		i;
 
 	i = 0;
 	v = get_struct_var(NULL);
 	v->sc_sp = ft_split(v->input, ';');
-	while(v->sc_sp[i])
+	while (v->sc_sp[i])
 	{
 		hundle_input(i, v);
 		// printf("%s\n", v->sc_sp[i]);
