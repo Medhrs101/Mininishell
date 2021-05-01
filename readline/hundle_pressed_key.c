@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hundle_pressed_key.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 12:24:03 by moharras          #+#    #+#             */
-/*   Updated: 2021/04/29 12:24:05 by moharras         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:31:33 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,17 @@ int	hundle_ctrl_c_d(t_rdl *rdl, t_hst **tmp, int pressed_key)
 	if ((*tmp)->next != NULL)
 		exchange_nodes(tmp);
 	delete_node(rdl, *tmp);
-	ft_putchar_fd('\n', 0);
 	if (pressed_key == CTRL_C)
 	{
+		ft_putchar_fd('\n', 0);
 		con.exit_stat = 1;
 		return (0);
 	}
 	else
+	{
+		ft_putendl_fd("exit", 0);
 		exit(con.exit_stat);
+	}
 	return (1);
 }
 

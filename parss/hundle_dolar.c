@@ -18,7 +18,9 @@ void	v_dolar_not_null(t_var *v, int j, t_hp *t)
 
 void	v_dolar_null(t_var *v, int j, t_hp *t)
 {
-	if (t->r == 1 && is_red(v->sc_sp[j][t->i + ft_strlen(t->dolar) + 1]))
+	if (!dolar_null_in_start(v, j, t))
+		return ;
+	else if (t->r == 1 && is_red(v->sc_sp[j][t->i + ft_strlen(t->dolar) + 1]))
 	{
 		free(t->dolar);
 		t->r = 0;
@@ -48,7 +50,7 @@ int	end_dolar(char *tb, int i)
 		return (1);
 	while (tb[i])
 	{
-		if (tb[i] < 0 || ft_strrchr("=~\\/%#{}$*+-.:?@[]^ \"'", tb[i]))
+		if (tb[i] < 0 || ft_strrchr("=~\\/%#{}$*+-.|:?@[]^ \"'", tb[i]))
 			break ;
 		cpt++;
 		i++;

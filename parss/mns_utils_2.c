@@ -25,7 +25,7 @@ void	caracter(char c, int i)
 	v = get_struct_var(NULL);
 	if (c == ' ' && (v->flg_d_q || v->flg_s_q))
 		v->input[i] *= -1;
-	if (sum_all_flag() && char_off(c))
+	if (sum_all_flag() && (char_off(c) || c < 0))
 		off_flags();
 }
 

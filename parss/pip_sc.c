@@ -14,7 +14,7 @@ int	behind_s_c(int i)
 	}
 	else if (v->input[i + 1] == ';' && print_error(UN_DSC))
 		return (0);
-	else if (v->flg_s_c && print_error(UN_SC))
+	else if ((sum_flag() || v->flg_p || v->flg_s_c) && print_error(UN_SC))
 		return (0);
 	else
 	{
@@ -43,7 +43,7 @@ int	pip(int i)
 		return (print_error(UN_PIPE));
 	if (!v->flg_s_q && !v->flg_d_q && v->input[i + 1] == '|')
 		return (print_error(UN_DPIPE));
-	else if (sum_flag() || v->flg_s_c)
+	else if (sum_flag() || v->flg_s_c || v->flg_p)
 		return (print_error(UN_PIPE));
 	else if (v->flg_s_q || v->flg_d_q)
 		v->input[i] *= -1;
@@ -73,6 +73,8 @@ void	b_slash(int i)
 		v->input[i + 1] *= -1;
 	}
 	if (v->flg_b_s && !v->flg_d_q
-		&& (v->input[i + 1] == '\'' || v->input[i + 1] == ';'))
+		&& (v->input[i + 1] == '\'' || v->input[i + 1] == '>'
+			|| v->input[i + 1] == '<' || v->input[i + 1] == ';'
+			|| v->input[i + 1] == '|'))
 		v->input[i + 1] *= -1;
 }

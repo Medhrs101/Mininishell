@@ -28,7 +28,9 @@ SRC =./exec/echo_main.c \
 	./parss/mns_utils_3.c \
 	./parss/mns_utils_2.c \
 	./parss/hundle_input.c \
-	./parss/hundle_dolar.c
+	./parss/hundle_dolar.c \
+	./parss/dolar_utils.c \
+	./parss/hundle_sd_q.c
 	
 # MAIN = test.c
 # SRC = minishell_utils.c
