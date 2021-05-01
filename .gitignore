@@ -1,5 +1,7 @@
 *.o
 .DS_*
+error
+.gitignore
 *.a
 minishell
 minishell.dSYM

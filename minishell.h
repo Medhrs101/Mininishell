@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/01 10:49:15 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/01 12:24:38 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,7 +295,6 @@ int    dolar_work(char *tb, t_hp *t);
 
 void    bs_hundle(char *tb, t_hp *t);
 int     bs_work(char *tb, t_hp *t);
-void    hundle_s_d(t_var *v, int j, t_hp *t);
 int    hundle_input(int j, t_var *v);
 
 int     is_redirection(int c, int d, t_hp *t);
@@ -320,6 +319,13 @@ void    print_lst();
 t_node    *create_node(t_node *node);
 void    clear_lst_files(t_node *node);
 void    clear_lst_cmd_args();
+
+
+int		dolar_null_in_start(t_var *v, int j, t_hp *t);
+
+void    hundle_s_d(t_var *v, int j, t_hp *t);
+void	hundle_dq(t_var *v, int j, t_hp *t);
+void	hundle_sq(t_var *v, int j, t_hp *t);
 
 // void    search_file();
 void print_lst_files(t_node *node);

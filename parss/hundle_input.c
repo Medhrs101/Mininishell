@@ -39,41 +39,6 @@ int	bs_work(char *tb, t_hp *t)
 	return (0);
 }
 
-void	hundle_s_d(t_var *v, int j, t_hp *t)
-{
-	if (v->sc_sp[j][t->i] == '"')
-	{
-		if (t->d)
-			t->d = 0;
-		else
-			t->d = 1;
-		if (v->sc_sp[j][t->i + 1] == '"')
-		{
-			v->sc_sp[j][t->i + 1] -= 36;
-			t->d = 0;
-			t->r = 0;
-		}
-	}
-	else
-	{
-		if (v->sc_sp[j][t->i] == '\'')
-		{
-			if (t->s)
-				t->s = 0;
-			else
-				t->s = 1;
-			if (v->sc_sp[j][t->i + 1] == '\'')
-			{
-				v->sc_sp[j][t->i + 1] = -2;
-				t->s = 0;
-				t->r = 0;
-			}
-		}
-	}
-	override(v->sc_sp[j], t->i);
-	t->i -= 1;
-}
-
 void	off_r(int *r)
 {
 	if (*r ==1)

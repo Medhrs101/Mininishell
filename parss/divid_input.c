@@ -2,7 +2,7 @@
 
 void	stock_cmd(char *str, t_var *v)
 {
-	t_node 	*node;
+	t_node	*node;
 	char	**tb;
 	int		i;
 
@@ -29,35 +29,39 @@ void	stock_cmd(char *str, t_var *v)
 	free_tab(tb);
 }
 
-void	divid_input()
+void	divid_input(void)
 {
 	t_var	*v;
 	int		i;
 
-	i = 0;
+	i = -1;
 	v = get_struct_var(NULL);
 	v->sc_sp = ft_split(v->input, ';');
-	while (v->sc_sp[i])
+	while (v->sc_sp[++i])
 	{
 		hundle_input(i, v);
-		// printf("%s\n", v->sc_sp[i]);
-		v->node = NULL;
-		stock_cmd(v->sc_sp[i], v);
-		// printf("%p\n", v->node->args);
+		// printf(">%s<\n", v->sc_sp[i]);
+		// // puts("OK2\n");
+		if (v->sc_sp[i][0])
+		{
+			// break;
+			v->node = NULL;
+			stock_cmd(v->sc_sp[i], v);
+		// // printf("%p\n", v->node->args[0]);
+		// //---------------------
+			v->stdo = dup(STDOUT);
+			v->stdi = dup(STDIN);
+			// piping(v);
+			pip_or_not(v);
+			// if (out_red(v))
+				// execute(v->m_gl,v->node);
+			dup2(v->stdo, STDOUT);
+			dup2(v->stdi, STDIN);
+			close(v->stdo);
+			close(v->stdi);
 		//---------------------
-		v->stdo = dup(STDOUT);
-		v->stdi = dup(STDIN);
-		// piping(v);
-		pip_or_not(v);
-		// if (out_red(v))
-			// execute(v->m_gl,v->node);
-		dup2(v->stdo, STDOUT);
-		dup2(v->stdi, STDIN);
-		close(v->stdo);
-		close(v->stdi);
-		//---------------------
-		clear_lst_cmd_args();
-		i++;
+			clear_lst_cmd_args();
+		}
 	}
 	free_tab(v->sc_sp);
 	free(v->input);
