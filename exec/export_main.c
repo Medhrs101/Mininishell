@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:32:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/24 11:24:23 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/30 16:15:49 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void store_var_env(t_global *m_gl, char *str)
 	arg = ft_split(str, '=');
 	if (ft_strchr(str, '='))
 		new = ft_lstnew_m(ft_substr(str, 0, i),
-		ft_substr(str, i + 1, ft_strlen(str)), '=');
+						  ft_substr(str, i + 1, ft_strlen(str)), '=');
 	if (!ft_strchr(str, '='))
 		new = ft_lstnew_m(ft_substr(str, 0, i), NULL, 0);
 	ft_lstadd_back_m(&(m_gl->envar), new);
@@ -192,7 +192,7 @@ void export_main(t_global *m_gl, char **tab)
 	if (opt == 1)
 		while (arg[i] != NULL)
 		{
-			ft_putstr_fd("declare -x ",1);
+			ft_putstr_fd("declare -x ", 1);
 			ft_putendl_fd(arg[i++], 1);
 		}
 	else
@@ -202,8 +202,8 @@ void export_main(t_global *m_gl, char **tab)
 		arg = ft_split(tab[1], '=');
 		if (!ident_val(arg[0]))
 		{
-			print_err("bash: export: `%s': not a valid identifier\n",
-			tab[1], 1);
+			print_err("Minishell: export: `%s': not a valid identifier\n",
+					  tab[1], 1);
 		}
 		else if (!search_vr(m_gl, tab[1]))
 			store_var_env(m_gl, tab[1]);

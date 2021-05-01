@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/29 15:18:29 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/01 10:49:15 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,117 +62,125 @@
 
 typedef struct s_hundle_input
 {
-    int     i;
-    int     s;
-    int     d;
-    int     r;
-    int     bs_erno;
-    int     end;
-    char    *dolar;
-    char    *v_dolar; 
-    char    *tmp1;
-    char    *tmp2;
-    char    *tmp3;  
+	int     i;
+	int     s;
+	int     d;
+	int     r;
+	int     bs_erno;
+	int     end;
+	char    *dolar;
+	char    *v_dolar; 
+	char    *tmp1;
+	char    *tmp2;
+	char    *tmp3;  
 }              t_hp;
 
 typedef struct s_hst
 {
-    char *old_buff;
-    char *curr_buff;
-    int curpos;
-    struct s_hst   *prev;
-    struct s_hst   *next;
+	char *old_buff;
+	char *curr_buff;
+	int curpos;
+	struct s_hst   *prev;
+	struct s_hst   *next;
 }              t_hst;
 
 typedef struct s_coord
 {
-    int x;
-    int y;
+	int x;
+	int y;
 }              t_coord;
 
 typedef struct  s_rdl
 {
-    t_hst   *head;
-    t_coord start;
-    t_coord size_win;
-    size_t  curpos;
-    
+	t_hst   *head;
+	t_coord start;
+	t_coord size_win;
+	size_t  curpos;
+	
 }               t_rdl;
 
 typedef struct s_const
 {
-    int     exit_stat;
-    pid_t   pid;
+	int     exit_stat;
+	pid_t   pid;
 } t_const;
 
 typedef struct s_env
 {
-    char *ident;
-    char *value;
-    char equal;
+	char *ident;
+	char *value;
+	char equal;
 
-    struct s_env *prev;
-    struct s_env *next;
+	struct s_env *prev;
+	struct s_env *next;
 } t_env;
+
+typedef struct  s_pip
+{
+	int		numofpipe;
+	int		*pid;
+	int		status;
+	int		*pipefd;
+}				t_pip;
 
 typedef struct s_global
 {
-    t_env *envar;
-    char *home;
-    int pid;
-    int exit_stat;
-    int stdi;
-    int stdo;
+	t_env *envar;
+	char *home;
+	int pid;
+	int exit_stat;
+	int stdi;
+	int stdo;
 } t_global;
 
 typedef struct s_file
 {
-    char type;
-    char *name_file;
-    struct s_file *next;
+	char type;
+	char *name_file;
+	struct s_file *next;
 } t_file;
 
 typedef struct s_node
 {
-    char *cmd;
-    char **args;
-    t_file *file;
-    struct s_node *link;
+	char *cmd;
+	char **args;
+	t_file *file;
+	struct s_node *link;
 } t_node;
 
 typedef struct s_var
 {
-    // t_env   *envar;
-    t_global *m_gl;
-    char *home;
-    int shlvl;
-    int stdo;
-    int stdi;
-    int out_fd;
-    int in_fd;
-    int app_fd;
-    int flag;
-    int flg_s_q;
-    int flg_d_q;
-    int flg_s_c;
-    int flg_p;
-    int erno;
-    int flg_d_r;
-    int flg_r_r;
-    int flg_l_r;
-    int flg_e_d;
-    int flg_d;
-    int flg_b_s;
-    char *input;
-    char *str;
-    char *tmp1;
-    char *tmp2;
-    char *tmp3;
-    int flagi;
-    char **sc_sp;
-    char **p_sp;
-    char *val;
-    t_node *node;
+	// t_env   *envar;
+	t_global *m_gl;
+	char *home;
+	int shlvl;
+	int stdo;
+	int stdi;
+	int out_fd;
+	int in_fd;
+	int app_fd;
+	int flag;
+	int flg_s_q;
+	int flg_d_q;
+	int flg_s_c;
+	int flg_p;
+	int erno;
+	int flg_d_r;
+	int flg_r_r;
+	int flg_l_r;
+	int flg_e_d;
+	int flg_d;
+	int flg_b_s;
+	char *input;
+	char *str;
+	char *tmp1;
+	char *tmp2;
+	char *tmp3;
+	int flagi;
+	char **sc_sp;
+	char **p_sp;
+	char *val;
+	t_node *node;
 } t_var;
 
 //readline
