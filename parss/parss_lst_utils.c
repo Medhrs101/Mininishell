@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parss_lst_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/02 14:39:50 by moharras          #+#    #+#             */
+/*   Updated: 2021/05/02 14:52:04 by moharras         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	join_cmd_list(t_node *node)
@@ -14,20 +26,6 @@ void	join_cmd_list(t_node *node)
 		while (current->link)
 			current = current->link;
 		current->link = node;
-	}
-}
-
-void	print_lst(void)
-{
-	t_node	*current;
-	t_var	*var;
-
-	var = get_struct_var(NULL);
-	current = var->node;
-	while (current)
-	{
-		print_tab2d(current->args);
-		current = current->link;
 	}
 }
 
@@ -52,7 +50,6 @@ void	clear_lst_files(t_node *node)
 	{
 		while (current)
 		{
-			printf ("{tp = |%c| = |%s|}\n", current->type, current->name_file);
 			free(current->name_file);
 			tmp = current;
 			current = current->next;
@@ -75,16 +72,10 @@ void	clear_lst_cmd_args(void)
 	{
 		while (current)
 		{
-			puts("------------DATA----------\n");
-			printf("{cmd : |%s|}\n", current->cmd);
 			tmp = current;
 			if (current->cmd)
-			{
-				print_tab2d(current->args);
 				free_tab(current->args);
-			}
 			clear_lst_files(current);
-			puts("------------DATA----------\n");
 			current = current->link;
 			free(tmp);
 		}

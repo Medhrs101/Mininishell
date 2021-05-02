@@ -6,7 +6,7 @@
 /*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 09:55:52 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/03 14:30:01 by moharras         ###   ########.fr       */
+/*   Updated: 2021/05/02 15:17:58 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-# define FD 8192
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
 
 typedef struct	s_list
 {
@@ -68,11 +63,6 @@ void			ft_lstdelone(t_list *lst, void (*del)(void *));
 void			ft_lstadd_back(t_list **alst, t_list *new);
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstadd_front(t_list **alst, t_list *new);
-void			ft_strcpy1(char *dest, char *src);
-void			ft_strcat1(char *dest, char *src);
-char			*ft_strjoin1(char const *s1, char const *s2);
-int				get_next_line(int fd, char **line);
-char			*ft_strdup1(const char *s1);
 size_t			ft_strlen(const char *s);
 size_t			ft_strlcpy(char *dst, const char *src, size_t size);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+         #
+#    By: moharras <moharras@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/19 10:20:10 by ymarji            #+#    #+#              #
-#    Updated: 2021/04/29 14:18:54 by ymarji           ###   ########.fr        #
+#    Updated: 2021/05/02 15:17:40 by moharras         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,6 @@ SRC		= ft_atoi.c\
 	ft_strtrim.c\
 	ft_substr.c\
 	ft_tolower.c\
-	get_next_line.c \
-	get_next_line_utils.c \
 	ft_toupper.c
 SRC_B	= ft_lstadd_back_bonus.c\
 	ft_lstadd_front_bonus.c\

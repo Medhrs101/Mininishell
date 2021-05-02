@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/02 14:35:34 by moharras          #+#    #+#             */
+/*   Updated: 2021/05/02 14:57:05 by moharras         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./minishell.h"
 
 void	free_tab(char **tab)
@@ -6,11 +18,13 @@ void	free_tab(char **tab)
 
 	i = 0;
 	if (tab)
+	{
 		while (tab[i])
 		{
 			free(tab[i]);
 			i++;
 		}
+	}
 	free(tab);
 }
 
@@ -60,33 +74,35 @@ int	check_line(t_var *var)
 	return (0);
 }
 
+void	mns_loop(t_var *var, t_rdl *rdl)
+{
+	while (1)
+	{
+		var->input = NULL;
+		ft_putstr_fd("\033[0;32mminishell > \e[39m", 0);
+		ft_initial();
+		ft_readline(rdl);
+		if (var->input && !check_line(var))
+			continue ;
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
-	t_var *var;
-	t_rdl rdl;
+	t_var	*var;
+	t_rdl	rdl;
 
-    rdl = (t_rdl){0};
-    rdl.head = (t_hst *){0};
+	rdl = (t_rdl){0};
+	rdl.head = (t_hst *){0};
 	var = (t_var *)malloc(sizeof(t_var));
 	var->m_gl = (t_global *)malloc(sizeof(t_global));
 	get_struct_var(var);
 	env_copy(var->m_gl, env);
-    init_term();
+	init_term();
 	var->val = get_v_dolar("SHLVL");
 	var->shlvl = ft_atoi(var->val) + 1;
 	free(var->val);
 	change_value("SHLVL", ft_itoa(var->shlvl));
- 	while(1)
-    {
-		var->input = NULL;
-		ft_putstr_fd("\033[0;32mminishell > \e[39m", 0);
-		ft_initial();
-        ft_readline(&rdl);
-		if (var->input && !check_line(var))
-		{
-			ft_putstr_fd("------------------------------\n", 1);
-			ft_putstr_fd("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:\n", 1);
-		}
-    }
-    return(0);
+	mns_loop(var, &rdl);
+	return (0);
 }

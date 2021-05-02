@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   divid_input.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/02 14:39:04 by moharras          #+#    #+#             */
+/*   Updated: 2021/05/02 14:49:38 by moharras         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	stock_cmd(char *str, t_var *v)
@@ -40,26 +52,17 @@ void	divid_input(void)
 	while (v->sc_sp[++i])
 	{
 		hundle_input(i, v);
-		// printf(">%s<\n", v->sc_sp[i]);
-		// // puts("OK2\n");
 		if (v->sc_sp[i][0])
 		{
-			// break;
 			v->node = NULL;
 			stock_cmd(v->sc_sp[i], v);
-		// // printf("%p\n", v->node->args[0]);
-		// //---------------------
 			v->stdo = dup(STDOUT);
 			v->stdi = dup(STDIN);
-			// piping(v);
 			pip_or_not(v);
-			// if (out_red(v))
-				// execute(v->m_gl,v->node);
 			dup2(v->stdo, STDOUT);
 			dup2(v->stdi, STDIN);
 			close(v->stdo);
 			close(v->stdi);
-		//---------------------
 			clear_lst_cmd_args();
 		}
 	}

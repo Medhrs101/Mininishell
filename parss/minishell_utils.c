@@ -1,22 +1,16 @@
-#include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/02 14:39:25 by moharras          #+#    #+#             */
+/*   Updated: 2021/05/02 14:57:25 by moharras         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void    print_tab2d(char **tab)
-{
-	int i = 0;
-	int j = 0;
-	while (tab[i])
-	{
-		j = 0;
-		ft_putchar_fd('{', 1);
-		while (tab[i][j])
-		{
-			ft_putchar_fd(tab[i][j], 1);
-			j++;
-		}
-		ft_putstr_fd("}\n", 1);
-		i++;
-	}
-}
+#include "../minishell.h"
 
 int	print_error(int erno)
 {
@@ -57,11 +51,7 @@ void	hundle_end(void)
 		return ;
 	}
 	else if (!sum_all_flag(v))
-	{
-		ft_putstr_fd("we are safe and sound !! \n", 1);
-		ft_putstr_fd("------------------------------\n", 1);
 		divid_input();
-	}
 }
 
 void	double_quote(int i)
