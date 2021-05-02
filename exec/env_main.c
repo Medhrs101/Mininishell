@@ -6,28 +6,30 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:07:16 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/29 14:44:03 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/02 15:30:56 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void env_main(t_global *m_gl, char **tab)
+void	env_main(t_global *m_gl, char **tab)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = m_gl->envar;
-	while (tmp)
+	if (tab[1])
+		print_err("env: %s: No such file or directory\n", tab[1], 127);
+	while (tmp && !tab[1])
 	{
 		if (tmp->value)
 		{
-			ft_putstr_fd(tmp->ident,1);
+			ft_putstr_fd(tmp->ident, 1);
 			ft_putchar_fd(tmp->equal, 1);
-			ft_putendl_fd(tmp->value,1);
+			ft_putendl_fd(tmp->value, 1);
 		}
 		tmp = tmp->next;
+		con.exit_stat = 0;
 	}
-	con.exit_stat = 0;
 }
 
 void	change_value(char *ident, char *value)

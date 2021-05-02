@@ -10,7 +10,9 @@ SRC =./exec/echo_main.c \
 	./exec/redirection.c \
 	./exec/env_main.c \
 	./exec/exec_cmd.c \
+	./exec/exec_util.c \
 	./exec/export_main.c \
+	./exec/export_util.c \
 	./exec/ls_maker.c  \
 	./exec/pwd_main.c \
 	./exec/cd_main.c \

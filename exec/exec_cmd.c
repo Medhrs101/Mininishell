@@ -6,18 +6,18 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/02 13:52:45 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/02 15:43:34 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **env_tab(t_global *m_gl)
+char	**env_tab(t_global *m_gl)
 {
-	t_env *env_l;
-	char **tab;
-	char *tmp;
-	int i;
+	t_env	*env_l;
+	char	**tab;
+	char	*tmp;
+	int		i;
 
 	env_l = m_gl->envar;
 	i = 0;
@@ -38,61 +38,11 @@ char **env_tab(t_global *m_gl)
 	return (tab);
 }
 
-char *check_pathh(char **path, char *cmd)
+char	*get_path(t_global *m_gl, char *cmd)
 {
-	char *str;
-	char *tmp;
-	int i;
-	struct stat buffer;
-	DIR *dir;
-
-	i = 0;
-	if (stat(cmd, &buffer))
-	{
-		tmp = ft_strjoin("/", cmd);
-		if (path)
-			while (path[i])
-			{
-				str = ft_strjoin(path[i], tmp);
-				if (!stat(str, &buffer))
-				{
-					free(tmp);
-					free_tab(path);
-					return (str);
-				}
-				else
-					free(str);
-				i++;
-			}
-	}
-	else
-	{
-		free_tab(path);
-		if ((dir = opendir(cmd)))
-		{
-			print_err("Minishell: %s: is a directory\n", cmd, 1);
-			free(dir);
-			free(dir->__dd_buf);
-			return (NULL);
-		}
-		else
-			return (ft_strdup(cmd));
-	}
-	if (ft_strchr(cmd, '/'))
-		print_err("Minishell: %s: No such file or directory\n", cmd, 127);
-	else
-		print_err("Minishell: %s: command not found\n", cmd, 127);
-	free(tmp);
-	free_tab(path);
-	return (NULL);
-}
-
-char *get_path(t_global *m_gl, char *cmd)
-{
-	t_env *env_l;
-	char **tab;
-	struct stat buffer;
-	int i;
+	t_env		*env_l;
+	char		**tab;
+	int			i;
 
 	i = 0;
 	tab = NULL;
@@ -106,12 +56,13 @@ char *get_path(t_global *m_gl, char *cmd)
 	return (check_pathh(tab, cmd));
 }
 
-void exec_main(t_global *m_gl, t_node *node)
+void	exec_main(t_global *m_gl, t_node *node)
 {
-	char *path;
-	char **args;
-	char **envp;
-	int statu;
+	char	*path;
+	char	**args;
+	char	**envp;
+	int		statu;
+	int		pid;
 
 	args = node->args;
 	con.exit_stat = 0;
@@ -121,19 +72,24 @@ void exec_main(t_global *m_gl, t_node *node)
 	signal(SIGQUIT, handle_sigquit);
 	if (path)
 	{
-		con.pid = fork();
-		if (con.pid == 0)
+		pid = fork();
+		if (pid == 0)
 		{
 			execve(path, args, envp);
 			exit(0);
 		}
 		else
-		{
-			waitpid(con.pid, &(statu), 0);
-			if (WEXITSTATUS(statu))
-				con.exit_stat = WEXITSTATUS(statu);
-		}
+			wait_child(pid);
 	}
 	free_tab(envp);
 	free(path);
+}
+
+void	wait_child(int pid)
+{
+	int	statu;
+
+	waitpid(pid, &(statu), 0);
+	if (WEXITSTATUS(statu))
+		con.exit_stat = WEXITSTATUS(statu);
 }

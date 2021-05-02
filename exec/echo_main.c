@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:04:40 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/22 11:04:36 by moharras         ###   ########.fr       */
+/*   Updated: 2021/05/02 15:28:00 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,25 @@ int	check_opt(char	*str)
 	return (1);
 }
 
-int check_opt_echo(char **tab)
+int	check_opt_echo(char **tab)
 {
-	int flag;
+	int	flag;
 
 	flag = 1;
 	while (tab[flag])
+	{
 		if (tab[flag] && check_opt(tab[flag]))
 			flag++;
 		else
-			break;
-	return --flag;
+			break ;
+	}
+	return (--flag);
 }
 
-void echo_main(t_global *m_gl, char **tab)
+void	echo_main(char **tab)
 {
-	int opt;
-	int i;
+	int	opt;
+	int	i;
 
 	opt = check_opt_echo(tab);
 	i = 1 + opt;

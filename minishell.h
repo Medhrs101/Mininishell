@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/02 13:20:19 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/02 15:43:50 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,11 +218,11 @@ void env_copy(t_global *m_gl, char **env_t);
 int check_built(t_global *m_gl, t_node *node);
 int ft_strcmp(const char *s1, const char *s2);
 void exec_main(t_global *m_gl, t_node *node);
-void echo_main(t_global *m_gl, char **tab);
+void echo_main(char **tab);
 void cd_main(t_global *m_gl, char **tab);
 int check_opt_echo(char **tab);
 int ls(void);
-void pwd_main(t_global *m_gl, char **tab);
+void pwd_main(void);
 // int out_red(t_var *var);
 int	 out_red(t_var	*var, t_node *node);
 void ft_lstadd_back_m(t_env **alst, t_env *new);
@@ -254,6 +254,18 @@ void	handle_sigquit(int sig);
 int exit_arg(char **cmd);
 void	free_env(t_env *env_l);
 void exit_stat(int stat, t_env *env_l, char **cmd);
+char	**put_in_tab(t_global *m_gl);
+void	put_qot(t_env *env_l, char **str);
+char	*chartostr(t_env *env_l);
+int	check_ident(char *tab);
+int	check_exp(char **tab);
+void	export_affect(t_global *m_gl, char **tab);
+int	count_tab(char **tab);
+void	check_path(t_global *m_gl, char **path);
+char	*check_pathh(char **path, char *cmd);
+char	*join_path(char **path, char *cmd);
+char	*relative_path(char *cmd);
+void	wait_child(int pid);
 // ---------------------------------- PARSE PART ------------------------------------------
 
 void free_tab(char **tab);

@@ -6,17 +6,17 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 13:03:04 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/02 13:03:41 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/02 14:17:13 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int exit_arg(char **cmd)
+int	exit_arg(char **cmd)
 {
-	int i;
-	int j;
-	int count;
+	int	i;
+	int	j;
+	int	count;
 
 	i = -1;
 	j = 0;
@@ -30,8 +30,8 @@ int exit_arg(char **cmd)
 		if (cmd[1][j] == '-' || cmd[1][j] == '+')
 			j++;
 		while (cmd[1][j])
-				if (!ft_isdigit(cmd[1][j++]))
-					return (-1);
+			if (!ft_isdigit(cmd[1][j++]))
+				return (-1);
 		count = ft_strlen(cmd[1]);
 		if (count > 19 || (count == 19 && cmd[1][count] > '7'))
 			return (-1);
@@ -49,9 +49,10 @@ void	free_env(t_env *env_l)
 		env_l = env_l->next;
 	}
 }
-void exit_stat(int stat, t_env *env_l, char **cmd)
+
+void	exit_stat(int stat, t_env *env_l, char **cmd)
 {
-	int i;
+	int	i;
 
 	ft_putendl_fd("exit", 2);
 	i = exit_arg(cmd);
@@ -72,7 +73,7 @@ void exit_stat(int stat, t_env *env_l, char **cmd)
 			clear_lst_cmd_args();
 			exit(i);
 		}
-			clear_lst_cmd_args();
-			exit(stat);
+		clear_lst_cmd_args();
+		exit(stat);
 	}
 }

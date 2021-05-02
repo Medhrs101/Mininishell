@@ -6,29 +6,17 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 16:10:26 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/30 16:15:49 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/02 14:51:27 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void check_path(t_global *m_gl, char **path)
+char	*ret_path(t_global *m_gl, char *line)
 {
-	char *tmp;
-
-	tmp = *path;
-	if (path[0][0] == '~' && path[0][1] != '~')
-	{
-		*path = ft_strjoin(m_gl->home, &path[0][1]);
-		free(tmp);
-	}
-}
-
-char *ret_path(t_global *m_gl, char *line)
-{
-	t_env *env_l;
-	char *path;
-	char *home;
+	t_env	*env_l;
+	char	*path;
+	char	*home;
 
 	env_l = m_gl->envar;
 	home = NULL;
@@ -52,22 +40,23 @@ char *ret_path(t_global *m_gl, char *line)
 	return (path);
 }
 
-void set_env_oldpwd(t_global *m_gl, char *path)
+void	set_env_oldpwd(t_global *m_gl, char *path)
 {
-	t_env *env_l;
-	char *tmp;
-	int i;
+	t_env	*env_l;
+	char	*tmp;
+	int		i;
 
 	i = -1;
 	env_l = m_gl->envar;
 	while (env_l)
 	{
-		if (!(i = ft_strcmp(env_l->ident, "OLDPWD")))
+		i = ft_strcmp(env_l->ident, "OLDPWD");
+		if (!i)
 		{
 			tmp = env_l->value;
 			env_l->value = ft_strdup(path);
 			free(tmp);
-			break;
+			break ;
 		}
 		env_l = env_l->next;
 	}
@@ -78,11 +67,11 @@ void set_env_oldpwd(t_global *m_gl, char *path)
 	}
 }
 
-void set_env_pwd(t_global *m_gl)
+void	set_env_pwd(t_global *m_gl)
 {
-	t_env *env_l;
-	char path[PATH_MAX];
-	char *tmp;
+	t_env	*env_l;
+	char	path[PATH_MAX];
+	char	*tmp;
 
 	env_l = m_gl->envar;
 	tmp = NULL;
@@ -95,17 +84,17 @@ void set_env_pwd(t_global *m_gl)
 			env_l->equal = '=';
 			env_l->value = ft_strdup(path);
 			free(tmp);
-			break;
+			break ;
 		}
 		env_l = env_l->next;
 	}
 	set_env_oldpwd(m_gl, tmp);
 }
 
-int oldpath(t_global *m_gl, char **path)
+int	oldpath(t_global *m_gl, char **path)
 {
-	t_env *env_l;
-	int c;
+	t_env	*env_l;
+	int		c;
 
 	c = 0;
 	env_l = m_gl->envar;
@@ -129,17 +118,18 @@ int oldpath(t_global *m_gl, char **path)
 	return (c);
 }
 
-void cd_main(t_global *m_gl, char **tab)
+void	cd_main(t_global *m_gl, char **tab)
 {
-	char *path;
-	int c;
+	char	*path;
+	int		c;
 
 	path = ret_path(m_gl, tab[1]);
 	if (path)
 		check_path(m_gl, &path);
 	if (path)
 	{
-		if ((c = oldpath(m_gl, &path)) == 1)
+		c = oldpath(m_gl, &path);
+		if (c == 1)
 			ft_putendl_fd("Minishell: cd: OLDPWD not set", 2);
 		else if (!opendir(path) && c != 2)
 			print_err("cd: %s: no such file or directory: \n", path, 1);

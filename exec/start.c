@@ -6,13 +6,13 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:22:30 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/02 13:03:00 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/02 15:35:19 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void init(t_global *m_gl)
+void	init(t_global *m_gl)
 {
 	m_gl->home = NULL;
 	con.exit_stat = 0;
@@ -21,17 +21,17 @@ void init(t_global *m_gl)
 	m_gl->stdi = 0;
 }
 
-long long ft_atoi_l(const char *str)
+long long	ft_atoi_l(const char *str)
 {
-	int i;
-	long long nb;
-	int signe;
+	int			i;
+	long long	nb;
+	int			signe;
 
 	i = 0;
 	nb = 0;
 	signe = 1;
-	while (str[i] == '\t' || str[i] == ' ' || str[i] == '\n' ||
-			str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
+	while (str[i] == '\t' || str[i] == ' ' || str[i] == '\n'
+		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
 		i++;
 	if (str[i] == '\0')
 		return (0);
@@ -43,19 +43,19 @@ long long ft_atoi_l(const char *str)
 	return (nb * (long long)signe);
 }
 
-int check_built(t_global *m_gl, t_node *node)
+int	check_built(t_global *m_gl, t_node *node)
 {
-	char **cmd;
-	t_env *env_l;
+	char	**cmd;
+	t_env	*env_l;
 
 	cmd = node->args;
 	env_l = m_gl->envar;
 	if (node->cmd && !ft_strcmp(node->cmd, "echo"))
-		echo_main(m_gl, node->args);
+		echo_main(node->args);
 	else if (node->cmd && !ft_strcmp(node->cmd, "cd"))
 		cd_main(m_gl, cmd);
 	else if (node->cmd && !ft_strcmp(node->cmd, "pwd"))
-		pwd_main(m_gl, cmd);
+		pwd_main();
 	else if (node->cmd && !ft_strcmp(node->cmd, "env"))
 		env_main(m_gl, cmd);
 	else if (node->cmd && !ft_strcmp(node->cmd, "export"))
@@ -69,9 +69,9 @@ int check_built(t_global *m_gl, t_node *node)
 	return (1);
 }
 
-void execute(t_global *m_gl, t_node *node)
+void	execute(t_global *m_gl, t_node *node)
 {
-	t_node *tmp;
+	t_node	*tmp;
 
 	tmp = node;
 	if (node->args[0] && !check_built(m_gl, tmp))

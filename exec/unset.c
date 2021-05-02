@@ -6,13 +6,13 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 10:07:09 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/30 16:15:49 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/02 15:41:29 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ident_val(char *str)
+int	ident_val(char *str)
 {
 	if (!str)
 		return (0);
@@ -27,25 +27,32 @@ int ident_val(char *str)
 	return (1);
 }
 
-int unset(t_global *m_gl, char **tab)
+int	unset(t_global *m_gl, char **tab)
 {
-	t_env *env_l;
+	t_env	*env_l;
+	int		i;
 
+	i = -1;
 	env_l = m_gl->envar;
-	if (!ident_val(tab[1]))
-		print_err("Minishell: unset: `%s': not a valid identifier\n", tab[1], 1);
-	while (env_l)
+	while (tab[++i])
 	{
-		if (!ft_strcmp(env_l->ident, tab[1]))
-			ft_deletenode(&(m_gl->envar), env_l);
-		env_l = env_l->next;
+		if (!ident_val(tab[i]))
+			print_err("Minishell: unset: `%s': not a valid identifier\n",
+				tab[i], 1);
+		env_l = m_gl->envar;
+		while (env_l)
+		{
+			if (!ft_strcmp(env_l->ident, tab[i]))
+				ft_deletenode(&(m_gl->envar), env_l);
+			env_l = env_l->next;
+		}
 	}
 	return (0);
 }
 
-void print_err(char *str, char *arg, int errnb)
+void	print_err(char *str, char *arg, int errnb)
 {
-	int fd;
+	int	fd;
 
 	con.exit_stat = errnb;
 	fd = dup(1);
