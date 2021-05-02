@@ -3,8 +3,10 @@ LIB = minishell.a
 MAIN = minishell.c
 SRC =./exec/echo_main.c \
 	./exec/unset.c \
+	./exec/pipe_handle.c \
 	./exec/sig_handel.c \
 	./exec/start.c \
+	./exec/exit_main.c \
 	./exec/redirection.c \
 	./exec/env_main.c \
 	./exec/exec_cmd.c \

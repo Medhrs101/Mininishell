@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 16:10:26 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/29 10:53:26 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/04/30 16:15:49 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char *ret_path(t_global *m_gl, char *line)
 		env_l = env_l->next;
 	}
 	if (!line && !home)
-		printf("bash: cd: HOME not set\n");
+		printf("Minishell: cd: HOME not set\n");
 	else if (!line)
 		path = ft_strdup(home);
 	else if (line[0] == '~' && !home)
@@ -140,7 +140,7 @@ void cd_main(t_global *m_gl, char **tab)
 	if (path)
 	{
 		if ((c = oldpath(m_gl, &path)) == 1)
-			ft_putendl_fd("bash: cd: OLDPWD not set", 2);
+			ft_putendl_fd("Minishell: cd: OLDPWD not set", 2);
 		else if (!opendir(path) && c != 2)
 			print_err("cd: %s: no such file or directory: \n", path, 1);
 		else

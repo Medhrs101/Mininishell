@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:32:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/24 11:24:23 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/02 13:49:45 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,23 +190,29 @@ void export_main(t_global *m_gl, char **tab)
 	arg = put_in_tab(m_gl);
 	sort_array(&arg);
 	if (opt == 1)
+	{
+		arg = put_in_tab(m_gl);
 		while (arg[i] != NULL)
 		{
-			ft_putstr_fd("declare -x ",1);
+			ft_putstr_fd("declare -x ", 1);
 			ft_putendl_fd(arg[i++], 1);
 		}
+	}
 	else
 	{
 		free_tab(arg);
 		tmp = m_gl->envar;
-		arg = ft_split(tab[1], '=');
-		if (!ident_val(arg[0]))
+		while (tab[++i])
 		{
-			print_err("bash: export: `%s': not a valid identifier\n",
-			tab[1], 1);
+			arg = ft_split(tab[i], '=');
+			if (!ident_val(arg[0]))
+			{
+				print_err("Minishell: export: `%s': not a valid identifier\n",
+				tab[i], 1);
+			}
+			else if (!search_vr(m_gl, tab[i]))
+				store_var_env(m_gl, tab[i]);
 		}
-		else if (!search_vr(m_gl, tab[1]))
-			store_var_env(m_gl, tab[1]);
 	}
 	free_tab(arg);
 }
