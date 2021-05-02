@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hundle_dolar.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/02 14:39:14 by moharras          #+#    #+#             */
+/*   Updated: 2021/05/02 14:47:39 by moharras         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	v_dolar_not_null(t_var *v, int j, t_hp *t)
@@ -41,23 +53,6 @@ void	v_dolar_null(t_var *v, int j, t_hp *t)
 	free(t->tmp1);
 }
 
-int	end_dolar(char *tb, int i)
-{
-	int	cpt;
-
-	cpt = 0;
-	if (tb[i] == '?' || isdigit(tb[i]))
-		return (1);
-	while (tb[i])
-	{
-		if (tb[i] < 0 || ft_strrchr("=~\\/%#{}$*+-.|:?@[]^ \"'", tb[i]))
-			break ;
-		cpt++;
-		i++;
-	}
-	return (cpt);
-}
-
 void	dolar_hundle(int j, t_hp *t)
 {
 	t_var	*v;
@@ -77,18 +72,4 @@ void	dolar_hundle(int j, t_hp *t)
 	}
 	else
 		v_dolar_null(v, j, t);
-}
-
-int	dolar_work(char *tb, t_hp *t)
-{
-	if (t->bs_erno)
-	{
-		t->bs_erno = 0;
-		return (0);
-	}
-	if (t->d && tb[t->i + 1] == '"')
-		return(0);
-	if (tb[t->i - 1] == '\\' || t->s || !tb[t->i + 1] || tb[t->i + 1] == '$')
-		return (0);
-	return (1);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hundle_sd_q.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/02 14:39:21 by moharras          #+#    #+#             */
+/*   Updated: 2021/05/02 14:39:22 by moharras         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	hundle_dq(t_var *v, int j, t_hp *t)
@@ -6,7 +18,7 @@ void	hundle_dq(t_var *v, int j, t_hp *t)
 		t->d = 0;
 	else
 		t->d = 1;
-	if (v->sc_sp[j][t->i + 1] == '"')
+	if (t->d && v->sc_sp[j][t->i + 1] == '"')
 	{
 		v->sc_sp[j][t->i + 1] -= 36;
 		t->d = 0;
@@ -20,7 +32,7 @@ void	hundle_sq(t_var *v, int j, t_hp *t)
 		t->s = 0;
 	else
 		t->s = 1;
-	if (v->sc_sp[j][t->i + 1] == '\'')
+	if (t->s && v->sc_sp[j][t->i + 1] == '\'')
 	{
 		v->sc_sp[j][t->i + 1] = -2;
 		t->s = 0;
