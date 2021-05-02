@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/01 12:24:38 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/02 13:20:19 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@ int count_tab(char **tab);
 
 void ft_deletenode(t_env **head_ref, t_env *del);
 int unset(t_global *m_gl, char **tab);
-
+long long ft_atoi_l(const char *str);
 
 int ident_val(char *str);
 
@@ -251,7 +251,9 @@ void	pip_or_not(t_var *var);
 
 void	handle_sigint(int sig);
 void	handle_sigquit(int sig);
-
+int exit_arg(char **cmd);
+void	free_env(t_env *env_l);
+void exit_stat(int stat, t_env *env_l, char **cmd);
 // ---------------------------------- PARSE PART ------------------------------------------
 
 void free_tab(char **tab);

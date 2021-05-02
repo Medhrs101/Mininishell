@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/01 12:14:41 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/02 13:52:45 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ char **env_tab(t_global *m_gl)
 			tmp = tab[i];
 			tab[i] = ft_strjoin(tab[i], env_l->value);
 			free(tmp);
+			i++;
 		}
-		i++;
 		env_l = env_l->next;
 	}
 	tab[i] = NULL;
