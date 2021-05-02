@@ -86,6 +86,8 @@ int	dolar_work(char *tb, t_hp *t)
 		t->bs_erno = 0;
 		return (0);
 	}
+	if (t->d && tb[t->i + 1] == '"')
+		return(0);
 	if (tb[t->i - 1] == '\\' || t->s || !tb[t->i + 1] || tb[t->i + 1] == '$')
 		return (0);
 	return (1);
