@@ -35,15 +35,12 @@ SRC =./exec/echo_main.c \
 	./parss/hundle_dolar.c \
 	./parss/dolar_utils.c \
 	./parss/hundle_sd_q.c
-	
-# MAIN = test.c
-# SRC = minishell_utils.c
 
 LIBFT = ./libft/libft.a
 
 OBJ = $(SRC:.c=.o)
 
-# FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 

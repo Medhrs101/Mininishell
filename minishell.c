@@ -6,7 +6,7 @@
 /*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:35:34 by moharras          #+#    #+#             */
-/*   Updated: 2021/05/02 14:57:05 by moharras         ###   ########.fr       */
+/*   Updated: 2021/05/02 15:55:01 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int	main(int ac, char **av, char **env)
 	t_var	*var;
 	t_rdl	rdl;
 
+	(void)ac;
+	(void)av;
 	rdl = (t_rdl){0};
 	rdl.head = (t_hst *){0};
 	var = (t_var *)malloc(sizeof(t_var));

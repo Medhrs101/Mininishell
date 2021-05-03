@@ -6,7 +6,7 @@
 /*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:40:02 by moharras          #+#    #+#             */
-/*   Updated: 2021/05/02 14:40:07 by moharras         ###   ########.fr       */
+/*   Updated: 2021/05/02 15:57:07 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	search_files(t_node *node)
 	t_file	*file;
 	int		i;
 
+	file = NULL;
 	var = get_struct_var(NULL);
 	i = 0;
 	while (var->str[i])
