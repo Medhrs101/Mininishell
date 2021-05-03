@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 12:23:46 by moharras          #+#    #+#             */
-/*   Updated: 2021/04/29 12:23:53 by moharras         ###   ########.fr       */
+/*   Updated: 2021/05/03 15:08:07 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ int	ft_put(int c)
 
 void	print_line(t_rdl *rdl, t_hst *tmp)
 {
+	if (!rdl->k)
+		get_coord_cursor(rdl);
+	rdl->k = 1;
 	tputs(tgoto(tgetstr("cm", NULL),
 			rdl->start.x - 1, rdl->start.y - 1), 0, &ft_put);
 	tputs(tgetstr("cd", NULL), 0, &ft_put);

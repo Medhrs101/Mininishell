@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/03 11:22:40 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/03 15:07:01 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct  s_rdl
 	t_coord start;
 	t_coord size_win;
 	size_t  curpos;
-	
+	int		k;
 }               t_rdl;
 
 typedef struct s_const
@@ -309,5 +309,7 @@ char		*get_path(t_global *m_gl, char *cmd);
 char		**env_tab(t_global *m_gl);
 t_env		*ft_lstnew_m(void *ident, void *value, char equal);
 t_env		*ft_lstlast_m(t_env *lst);
+void		get_coord_cursor(t_rdl *rdl);
+
 t_const con;
 #endif

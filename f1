@@ -1,0 +1,3 @@
+void	free_tab(char **tab)
+void	hundle_syntax(t_var *var, int *i)
+void	mns_loop(t_var *var, t_rdl *rdl)

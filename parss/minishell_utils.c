@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:39:25 by moharras          #+#    #+#             */
-/*   Updated: 2021/05/02 14:57:25 by moharras         ###   ########.fr       */
+/*   Updated: 2021/05/03 14:24:56 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	print_error(int erno)
 	v = get_struct_var(NULL);
 	v->erno = erno;
 	con.exit_stat = 258;
-	free(v->input);
 	ft_putstr_fd("minishell: ", 2);
 	if (v->erno == NEWLINE)
 		ft_putendl_fd("syntax error near unexpected token `newline'", 2);
@@ -48,6 +47,7 @@ void	hundle_end(void)
 	if (sum_flag() || v->flg_s_q || v->flg_d_q || v->flg_b_s || v->flg_p)
 	{
 		print_error(NEWLINE);
+		free(v->input);
 		return ;
 	}
 	else if (!sum_all_flag(v))

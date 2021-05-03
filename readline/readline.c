@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 12:24:22 by moharras          #+#    #+#             */
-/*   Updated: 2021/05/01 11:50:43 by moharras         ###   ########.fr       */
+/*   Updated: 2021/05/03 15:07:56 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,12 @@ void	ft_readline(t_rdl *rdl)
 	t_hst			*tmp;
 	struct termios	oldattr;
 
-	v = get_struct_var(NULL);
+	rdl->k = 0;
 	tmp = get_new_node();
+	v = get_struct_var(NULL);
 	initial_terminal(&oldattr);
-	get_coord_cursor(rdl);
 	get_input(v, rdl, tmp);
+	rdl->k = 0;
 	oldattr.c_lflag |= ISIG;
 	tcsetattr(0, TCSANOW, &oldattr);
 }

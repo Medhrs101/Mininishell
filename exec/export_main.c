@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:32:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/02 14:54:54 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/03 13:36:33 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,19 +98,20 @@ void	export_main(t_global *m_gl, char **tab)
 
 	i = 0;
 	opt = check_exp(tab);
+	arg = put_in_tab(m_gl);
 	sort_array(&arg);
 	if (opt == 1)
 	{
-		arg = put_in_tab(m_gl);
+		// arg = put_in_tab(m_gl);
 		while (arg[i] != NULL)
 		{
 			ft_putstr_fd("declare -x ", 1);
 			ft_putendl_fd(arg[i++], 1);
 		}
-		free_tab(arg);
 	}
 	else
 		export_affect(m_gl, tab);
+	free_tab(arg);
 }
 
 void	export_affect(t_global *m_gl, char **tab)
@@ -129,6 +130,6 @@ void	export_affect(t_global *m_gl, char **tab)
 		}
 		else if (!search_vr(m_gl, tab[i]))
 			store_var_env(m_gl, tab[i]);
-	}
 	free_tab(arg);
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_utils_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:39:30 by moharras          #+#    #+#             */
-/*   Updated: 2021/05/02 14:39:31 by moharras         ###   ########.fr       */
+/*   Updated: 2021/05/03 14:08:33 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_initial(void)
 	v->flg_d_r = 0;
 	v->flg_b_s = 0;
 	v->flg_p = 0;
+	v->flg_s_c = 0;
 }
 
 int	sum_all_flag(void)

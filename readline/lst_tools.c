@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 12:24:11 by moharras          #+#    #+#             */
-/*   Updated: 2021/04/29 12:33:09 by moharras         ###   ########.fr       */
+/*   Updated: 2021/05/03 14:31:25 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_hst	*get_new_node(void)
 	new_node->curpos = 0;
 	new_node->curr_buff = (char *)malloc(sizeof(char) * 2);
 	new_node->old_buff = (char *)malloc(sizeof(char) * 2);
+	ft_bzero(new_node->curr_buff, sizeof(char) * 2);
+	ft_bzero(new_node->old_buff, sizeof(char) * 2);
 	new_node->prev = NULL;
 	return (new_node);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hundle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:39:18 by moharras          #+#    #+#             */
-/*   Updated: 2021/05/02 14:39:19 by moharras         ###   ########.fr       */
+/*   Updated: 2021/05/03 14:01:39 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,11 @@ int	hundle_input(int j, t_var *v)
 			dolar_hundle(j, t);
 		else if (char_off(v->sc_sp[j][t->i]))
 			off_r(&t->r);
+		if (t->i >= 0 && !v->sc_sp[j][t->i])
+			break ;
 	}
 	free(t);
 	return (1);
 }
+
+// $s;echo hello

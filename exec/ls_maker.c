@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:25:56 by ymarji            #+#    #+#             */
-/*   Updated: 2021/04/29 14:20:31 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/03 13:08:19 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_lstadd_back_m(t_env **alst, t_env *new)
 		return ;
 	}
 	p = ft_lstlast_m(*alst);
+	// printf("%s \n", p->ident);
+	// printf("%s \n", new->ident);
 	p->next = new;
 	new->prev = p;
 }

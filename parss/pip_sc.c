@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pip_sc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:39:53 by moharras          #+#    #+#             */
-/*   Updated: 2021/05/02 14:39:54 by moharras         ###   ########.fr       */
+/*   Updated: 2021/05/03 14:18:12 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	behind_s_c(int i)
 	t_var	*v;
 
 	v = get_struct_var(NULL);
+	
 	if (v->input[0] == ';' && v->input[1] != ';' && print_error(UN_SC))
 		return (0);
 	else if ((v->flg_s_q || v->flg_d_q))

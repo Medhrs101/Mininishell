@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:23:23 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/02 15:32:54 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/03 15:15:04 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ char	*relative_path(char *cmd)
 	if (dir)
 	{
 		print_err("Minishell: %s: is a directory\n", cmd, 1);
-		free(dir);
 		free(dir->__dd_buf);
+		free(dir);
 		return (NULL);
 	}
 	else

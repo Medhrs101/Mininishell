@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 10:07:09 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/02 15:41:29 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/03 13:11:38 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ int	unset(t_global *m_gl, char **tab)
 		while (env_l)
 		{
 			if (!ft_strcmp(env_l->ident, tab[i]))
+			{
 				ft_deletenode(&(m_gl->envar), env_l);
+				break ;
+			}
 			env_l = env_l->next;
 		}
 	}

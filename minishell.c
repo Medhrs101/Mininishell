@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:35:34 by moharras          #+#    #+#             */
-/*   Updated: 2021/05/02 15:55:01 by moharras         ###   ########.fr       */
+/*   Updated: 2021/05/03 15:01:09 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	hundle_syntax(t_var *var, int *i)
 	{
 		if (behind_s_c(*i))
 			semi_colone();
+		
 	}
 	else if (var->input[*i] == '|')
 		var->erno = pip(*i);
@@ -68,6 +69,7 @@ int	check_line(t_var *var)
 	if (var->erno)
 	{
 		var->erno = 0;
+		free(var->input);
 		return (0);
 	}
 	hundle_end();
@@ -79,7 +81,7 @@ void	mns_loop(t_var *var, t_rdl *rdl)
 	while (1)
 	{
 		var->input = NULL;
-		ft_putstr_fd("\033[0;32mminishell > \e[39m", 0);
+		ft_putstr_fd("\033[0;32mminishell > \e[39m", 2);
 		ft_initial();
 		ft_readline(rdl);
 		if (var->input && !check_line(var))
@@ -99,6 +101,7 @@ int	main(int ac, char **av, char **env)
 	var = (t_var *)malloc(sizeof(t_var));
 	var->m_gl = (t_global *)malloc(sizeof(t_global));
 	get_struct_var(var);
+	ft_initial();
 	env_copy(var->m_gl, env);
 	init_term();
 	var->val = get_v_dolar("SHLVL");
