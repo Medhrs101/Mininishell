@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/03 11:18:21 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/03 11:22:40 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,14 @@ typedef struct s_const
 	pid_t   pid;
 } t_const;
 
-typedef struct s_env
+typedef struct	s_env
 {
-	char *ident;
-	char *value;
-	char equal;
-
-	struct s_env *prev;
-	struct s_env *next;
-} t_env;
+	char			*ident;
+	char			*value;
+	char			equal;
+	struct s_env	*prev;
+	struct s_env	*next;
+}				t_env;
 
 typedef struct  s_pip
 {
@@ -123,60 +122,60 @@ typedef struct  s_pip
 	int		*pipefd;
 }				t_pip;
 
-typedef struct s_global
+typedef struct	s_global
 {
-	t_env *envar;
-	char *home;
-	int pid;
-	int exit_stat;
-	int stdi;
-	int stdo;
-} t_global;
+	t_env	*envar;
+	char	*home;
+	int		pid;
+	int		exit_stat;
+	int		stdi;
+	int		stdo;
+}			t_global;
 
-typedef struct s_file
+typedef struct	s_file
 {
-	char type;
-	char *name_file;
-	struct s_file *next;
-} t_file;
+	char			type;
+	char			*name_file;
+	struct s_file	*next;
+}				t_file;
 
-typedef struct s_node
+typedef struct	s_node
 {
-	char *cmd;
-	char **args;
-	t_file *file;
-	struct s_node *link;
-} t_node;
+	char			*cmd;
+	char			**args;
+	t_file			*file;
+	struct s_node	*link;
+}				t_node;
 
-typedef struct s_var
+typedef struct	s_var
 {
-	t_global *m_gl;
-	char *home;
-	int shlvl;
-	int stdo;
-	int stdi;
-	int out_fd;
-	int in_fd;
-	int app_fd;
-	int flg_s_q;
-	int flg_d_q;
-	int flg_s_c;
-	int flg_p;
-	int erno;
-	int flg_d_r;
-	int flg_r_r;
-	int flg_l_r;
-	int flg_b_s;
-	char *input;
-	char *str;
-	char *tmp1;
-	char *tmp2;
-	char *tmp3;
-	char **sc_sp;
-	char **p_sp;
-	char *val;
-	t_node *node;
-} t_var;
+	t_global	*m_gl;
+	char		*home;
+	int			shlvl;
+	int			stdo;
+	int			stdi;
+	int			out_fd;
+	int			in_fd;
+	int			app_fd;
+	int			flg_s_q;
+	int			flg_d_q;
+	int			flg_s_c;
+	int			flg_p;
+	int			erno;
+	int			flg_d_r;
+	int			flg_r_r;
+	int			flg_l_r;
+	int			flg_b_s;
+	char		*input;
+	char		*str;
+	char		*tmp1;
+	char		*tmp2;
+	char		*tmp3;
+	char		**sc_sp;
+	char		**p_sp;
+	char		*val;
+	t_node		*node;
+}				t_var;
 
 void		init_term();
 void		initial_terminal(struct termios *oldattr);
