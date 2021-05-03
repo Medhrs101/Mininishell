@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:09:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/02 15:43:34 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/02 15:51:50 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	exec_main(t_global *m_gl, t_node *node)
 	char	*path;
 	char	**args;
 	char	**envp;
-	int		statu;
 	int		pid;
 
 	args = node->args;

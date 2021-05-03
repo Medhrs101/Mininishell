@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:22:30 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/02 15:35:19 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/03 11:02:28 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,11 @@ void	execute(t_global *m_gl, t_node *node)
 	{
 		exec_main(m_gl, tmp);
 	}
+}
+
+void	free_pip(t_pip *t_p)
+{
+	free(t_p->pid);
+	free(t_p->pipefd);
+	free(t_p);
 }

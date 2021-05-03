@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 11:28:12 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/02 14:24:41 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/03 11:02:06 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,5 @@ void	piping(t_var *var)
 		waitpid(t_p->pid[i], &status, 0);
 		con.exit_stat = WEXITSTATUS(status);
 	}
+	free_pip(t_p);
 }
