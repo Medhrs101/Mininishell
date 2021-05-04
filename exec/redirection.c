@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 10:37:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/02 14:30:07 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/04 16:22:37 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	out_red(t_var *var, t_node *node)
 				tmp->name_file + 1, 1);
 			return (0);
 		}
-		if (tmp->name_file[0] == -2)
+		if (tmp->name_file[0] == -2 || tmp->name_file[0] == -3)
 		{
 			free(tmp->name_file);
 			tmp->name_file = ft_strdup("");
