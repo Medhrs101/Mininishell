@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:23:23 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/03 15:15:04 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/04 16:02:55 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ char	*join_path(char **path, char *cmd)
 
 	i = -1;
 	tmp = ft_strjoin("/", cmd);
-	if (path)
+	if (path && cmd[0])
 	{
 		while (path[++i])
 		{
 			str = ft_strjoin(path[i], tmp);
 			if (!stat(str, &buffer))
 			{
+				// puts("here");
 				free(tmp);
 				free_tab(path);
 				return (str);

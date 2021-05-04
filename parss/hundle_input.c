@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hundle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:39:18 by moharras          #+#    #+#             */
-/*   Updated: 2021/05/03 14:01:39 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/04 14:31:47 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,8 @@ void	off_r(int *r)
 		*r = 0;
 }
 
-int	hundle_input(int j, t_var *v)
+void	fct_hundle_input(t_hp *t, int j, t_var *v)
 {
-	t_hp	*t;
-
-	t = (t_hp *)malloc(sizeof(t_hp));
-	hp_initial(t);
 	while (v->sc_sp[j][++t->i])
 	{
 		if (v->sc_sp[j][t->i] == '\'' || v->sc_sp[j][t->i] == '"')
@@ -85,7 +81,13 @@ int	hundle_input(int j, t_var *v)
 			break ;
 	}
 	free(t);
-	return (1);
 }
 
-// $s;echo hello
+void	hundle_input(int j, t_var *v)
+{
+	t_hp	*t;
+
+	t = (t_hp *)malloc(sizeof(t_hp));
+	hp_initial(t);
+	fct_hundle_input(t, j, v);
+}
