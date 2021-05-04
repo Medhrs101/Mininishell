@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:21:07 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/02 15:33:33 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/04 13:06:38 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,33 @@ char	**put_in_tab(t_global *m_gl)
 	}
 	tab[i] = NULL;
 	return (tab);
+}
+
+char	*add_back(char *str)
+{
+	int	i;
+	int	count;
+	char	*tmp;
+
+	i = -1;
+	count = 0;
+	while (str[++i])
+	{
+		if (str[i] == '\\')
+			count++;
+	}
+	tmp = (char	*)malloc(i + count + 1);
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		tmp[count] = str[i];
+		if (str[i] == '\\')
+			tmp[++count] = '\\';
+		i++;
+		count++;
+	}
+	tmp[count] = '\0';
+	free(str);
+	return (tmp);
 }

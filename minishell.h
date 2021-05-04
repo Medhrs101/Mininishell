@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:26:47 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/03 15:07:01 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/04 12:30:31 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,6 +310,7 @@ char		**env_tab(t_global *m_gl);
 t_env		*ft_lstnew_m(void *ident, void *value, char equal);
 t_env		*ft_lstlast_m(t_env *lst);
 void		get_coord_cursor(t_rdl *rdl);
+char		*add_back(char *str);
 
 t_const con;
 #endif

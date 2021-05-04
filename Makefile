@@ -1,6 +1,5 @@
 NAME = minishell
 LIB = minishell.a
-MAIN = minishell.c
 SRC =./exec/echo_main.c \
 	./exec/unset.c \
 	./exec/pipe_handle.c \
@@ -34,7 +33,8 @@ SRC =./exec/echo_main.c \
 	./parss/hundle_input.c \
 	./parss/hundle_dolar.c \
 	./parss/dolar_utils.c \
-	./parss/hundle_sd_q.c
+	./parss/hundle_sd_q.c \
+	./minishell.c
 
 LIBFT = ./libft/libft.a
 
@@ -47,8 +47,7 @@ all: $(NAME)
 $(NAME) : $(OBJ) 
 	ar rcs $(LIB) $(OBJ)
 	cd ./libft && make
-	gcc -lncurses $(FLAGS) $(MAIN) $(LIB) $(LIBFT) -o $(NAME)
-	# ./minishell
+	gcc -lncurses $(FLAGS) $(LIB) $(LIBFT) -o $(NAME)
 
 %.o: %.c
 	gcc $(FLAGS) -o $@ -c $<

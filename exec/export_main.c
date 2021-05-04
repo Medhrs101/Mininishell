@@ -6,7 +6,7 @@
 /*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:32:39 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/03 16:01:13 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/04 12:46:33 by ymarji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,12 @@ int	search_vr(t_global *m_gl, char *str)
 	{
 		if (!ft_strcmp(env_l->ident, tmp))
 		{
-			env_l->equal = 0;
 			if (ft_strchr(str, '='))
+			{
 				env_l->equal = '=';
-			free(env_l->value);
-			env_l->value = ft_substr(str, i + 1, ft_strlen(str));
+				free(env_l->value);
+				env_l->value = ft_substr(str, i + 1, ft_strlen(str));
+			}
 			free(tmp);
 			return (1);
 		}
@@ -104,6 +105,7 @@ void	export_main(t_global *m_gl, char **tab)
 	{
 		while (arg[i] != NULL)
 		{
+			arg[i] = add_back(arg[i]);
 			ft_putstr_fd("declare -x ", 1);
 			ft_putendl_fd(arg[i++], 1);
 		}
@@ -122,7 +124,7 @@ void	export_affect(t_global *m_gl, char **tab)
 	while (tab[++i])
 	{
 		arg = ft_split(tab[i], '=');
-		if (!ident_val(arg[0]))
+		if (!ident_val(arg[0]) || (!ft_isalpha(*tab[i]) && *tab[i] != '_'))
 		{
 			print_err("Minishell: export: `%s': not a valid identifier\n",
 				tab[i], 1);
