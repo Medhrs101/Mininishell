@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hundle_pressed_key.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 12:24:03 by moharras          #+#    #+#             */
-/*   Updated: 2021/05/03 13:28:59 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/04 14:23:26 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	add_char(t_rdl *rdl, t_hst *tmp, int c)
 {
 	char	*swap;
 	char	*c_str;
-
 
 	tmp->curpos++;
 	c_str = c_in_char(c);

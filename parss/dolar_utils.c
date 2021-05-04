@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dolar_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:35:44 by moharras          #+#    #+#             */
-/*   Updated: 2021/05/03 13:59:27 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/04 14:32:42 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	dolar_work(char *tb, t_hp *t)
 	}
 	if (t->d && tb[t->i + 1] == '"')
 		return (0);
-	if ((t->i && tb[t->i - 1] == '\\') || t->s || !tb[t->i + 1] || tb[t->i + 1] == '$')
+	if ((t->i && tb[t->i - 1] == '\\') || t->s
+		|| !tb[t->i + 1] || tb[t->i + 1] == '$')
 		return (0);
 	return (1);
 }

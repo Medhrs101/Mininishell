@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymarji <ymarji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moharras <moharras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:04:40 by ymarji            #+#    #+#             */
-/*   Updated: 2021/05/02 15:28:00 by ymarji           ###   ########.fr       */
+/*   Updated: 2021/05/04 16:14:04 by moharras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	check_opt(char	*str)
 		}
 		i++;
 	}
+	if (!ft_strcmp(str, ""))
+		return (0);
 	return (1);
 }
 
